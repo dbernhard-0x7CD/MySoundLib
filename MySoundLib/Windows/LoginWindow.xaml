@@ -1,0 +1,34 @@
+﻿<Window x:Class="MySoundLib.Windows.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MySoundLib.Windows"
+        mc:Ignorable="d"
+        Title="LoginWindow" Height="104.667" Width="281.333" MinWidth="320" MinHeight="200" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" x:Name="LabelServer" Content="Server" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,2,0,0" FontSize="13.333" Padding="0,3,5,5" />
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="TextBoxServer" HorizontalAlignment="Stretch" Height="20" Margin="5,0" />
+
+        <Label Grid.Row="1" Grid.Column="0" x:Name="LabelUser" Content="User" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,2,0,0" FontSize="13.333" Padding="0,3,5,5"/>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="TextBoxUser" HorizontalAlignment="Stretch" Height="20" Margin="5,0" />
+
+        <Label Grid.Row="2" Grid.Column="0" x:Name="LabelPassword" Content="Password" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,2,0,0" FontSize="13.333" Padding="0,3,5,5" />
+        <PasswordBox Grid.Row="2" Grid.Column="1" x:Name="TextBoxPassword" HorizontalAlignment="Stretch" Height="20" Margin="5,0" />
+
+        <Button x:Name="ButtonConnect" Grid.Row="3" Grid.Column="1" Width="90" Height="25" Content="Connect" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" Click="ButtonConnect_Click" IsDefault="True"></Button>
+        <CheckBox x:Name="CheckBoxAutoConnect" Content="AutoConnect" Grid.Column="1" HorizontalAlignment="Left" Margin="10,30,0,0" Grid.Row="3" VerticalAlignment="Top" IsChecked="True"/>
+        <CheckBox x:Name="CheckBoxSavePassword" Content="Save Password" Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="3" VerticalAlignment="Top" IsChecked="True"/>
+    </Grid>
+</Window>

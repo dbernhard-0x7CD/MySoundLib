@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MySoundLib.Windows;
 
 namespace MySoundLib
 {
@@ -20,9 +22,33 @@ namespace MySoundLib
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		private ServerConnectionManager _connectionManager;
+
 		public MainWindow()
 		{
 			InitializeComponent();
+			ShowLoginWindow();
+		}
+
+		void ShowLoginWindow()
+		{
+			LoginWindow loginWindow = new LoginWindow();
+
+			loginWindow.ShowDialog();
+
+			if (loginWindow.ResultConnectionManager != null)
+			{
+				_connectionManager = loginWindow.ResultConnectionManager;
+			}
+			else
+			{
+				Debug.WriteLine("Unable to connect to database");
+			}
+		}
+
+		private void ButtonTest_Click(object sender, RoutedEventArgs e)
+		{
+			_connectionManager.test();
 		}
 	}
 }

@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using MySql.Data.MySqlClient;
 
 namespace MySoundLib
@@ -25,7 +26,13 @@ namespace MySoundLib
 				}
 				catch (MySqlException ex)
 				{
-					Debug.WriteLine(ex.Message);
+					MessageBox.Show(ex.Message);
+					return false;
+				}
+				catch (Exception e)
+				{
+					MessageBox.Show("Unknown exception:" + e.Message);
+					return false;
 				}
 			}
 			else

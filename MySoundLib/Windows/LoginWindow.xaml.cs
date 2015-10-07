@@ -87,7 +87,10 @@ namespace MySoundLib.Windows
 
 			Settings.SaveConfig();
 
-			Close();
+			if (connectionSuccess)
+			{
+				Close();
+			}
 		}
 
 		public static string ByteArrayToString(byte[] ba)

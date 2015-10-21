@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using MySql.Data.MySqlClient;
 
@@ -13,9 +9,20 @@ namespace MySoundLib
 {
 	public class ServerConnectionManager
 	{
+		/// <summary>
+		/// Gets or sets the current connection
+		/// </summary>
 		private MySqlConnection CurrentConnection { get; set; }
 
-		public bool Connect(string server, string userName, string password, string database)
+		/// <summary>
+		/// Connect to the server
+		/// </summary>
+		/// <param name="server">IP or domain</param>
+		/// <param name="userName">Username</param>
+		/// <param name="password">Password</param>
+		/// <param name="database">Optional initial database</param>
+		/// <returns></returns>
+		public bool Connect(string server, string userName, string password, string database = "")
 		{
 			if (CurrentConnection == null)
 			{
@@ -43,56 +50,96 @@ namespace MySoundLib
 			return CurrentConnection != null && CurrentConnection.State == ConnectionState.Open;
 		}
 
-		public bool Connect(string server, string userName, string password)
-		{
-			return Connect(server, userName, password, "master");
-		}
-
+		/// <summary>
+		/// Closes the connection to the server
+		/// </summary>
 		public void Disconnect()
 		{
 			CurrentConnection.Close();
 		}
 
-		public void test()
+		/// <summary>
+		/// Check if the connection is open
+		/// </summary>
+		/// <returns>True if the state is open, else false</returns>
+		public bool IsConnected()
+		{
+			return CurrentConnection.State == ConnectionState.Open;
+		}
+		
+		/// <summary>
+		/// Execute the command and get the amount of affected lines
+		/// </summary>
+		/// <param name="command">SQL-Command as string</param>
+		/// <returns>Amoun of affected lines (data rows)</returns>
+		public int ExecuteCommand(string command)
+		{
+			var mySqlCommand = new MySqlCommand(command) {Connection =  CurrentConnection};
+
+			try
+			{
+				return mySqlCommand.ExecuteNonQuery();
+			}
+			catch (MySqlException e)
+			{
+				Debug.WriteLine(e.Message);
+			}
+			return -1;
+		}
+
+		/// <summary>
+		/// Execute the command as scalar
+		/// </summary>
+		/// <param name="command">SQL-Command as string</param>
+		/// <returns>Object</returns>
+		public object ExecuteScalar(string command)
+		{
+			var mySqlCommand = new MySqlCommand(command) {Connection = CurrentConnection};
+
+			try
+			{
+				return mySqlCommand.ExecuteScalar();
+			}
+			catch (MySqlException e)
+			{
+				Debug.WriteLine(e.Message);
+			}
+
+			return -1;
+		}
+
+		/// <summary>
+		/// Get the datatable from a command
+		/// </summary>
+		/// <param name="command">SQL-Command</param>
+		/// <returns>DataTable</returns>
+		public DataTable GetDataTable(string command)
 		{
 			if (CurrentConnection == null)
-				return;
+				throw new Exception("Not connected");
 
-			var command = new MySqlCommand("show databases") {Connection = CurrentConnection};
+			var mySqlCommand = new MySqlCommand(command) {Connection = CurrentConnection};
 
-			var reader = command.ExecuteReader();
+			var reader = mySqlCommand.ExecuteReader();
 
-			var rows = new List<string[]>();
+			var dataTable = new DataTable();
 
-			// get column-head
-			var columnHead = new string[reader.FieldCount];
-			for (var i = 0; i < reader.FieldCount; i++)
+			var schemaTable = reader.GetSchemaTable();
+
+			if (schemaTable != null)
 			{
-				columnHead[i] = reader.GetName(i);
-			}
-			rows.Add(columnHead);
-
-			while (reader.Read())
-			{
-				var row = new string[reader.FieldCount];
-
-				for (var i = 0; i < reader.FieldCount; i++)
+				foreach (DataRowView x in schemaTable.DefaultView)
 				{
-					row[i] = reader.GetValue(i).ToString();
+					var columnName = (string) x["ColumnName"];
+					var type = (Type) x["DataType"];
+
+					dataTable.Columns.Add(columnName, type);
 				}
 
-				rows.Add(row);
+				dataTable.Load(reader);
 			}
 
-			foreach (var row in rows)
-			{
-				Debug.Write("Row: ");
-				foreach (var s in row)
-				{
-					Debug.Write(s + "\t\t");
-				}
-				Debug.Write("\n");
-			}
+			return dataTable;
 		}
 	}
 }

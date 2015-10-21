@@ -12,10 +12,12 @@ namespace MySoundLib.Windows
 	public partial class LoginWindow
 	{
 		private static readonly byte[] Entropy = { 1, 7, 6, 9, 4 };
+		private readonly bool _tryAutoConnect;
 
-		public LoginWindow()
+		public LoginWindow(bool tryAutoconnect = true)
 		{
 			InitializeComponent();
+			_tryAutoConnect = tryAutoconnect;
 
 			Settings.LoadSettings();
 			if (Settings.Contains(Property.LastServer))
@@ -57,9 +59,9 @@ namespace MySoundLib.Windows
 
 		private void ButtonConnect_Click(object sender, RoutedEventArgs e)
 		{
-			ServerConnectionManager connectionManager = new ServerConnectionManager();
+			var connectionManager = new ServerConnectionManager();
 			
-			var connectionSuccess = connectionManager.Connect(TextBoxServer.Text, TextBoxUser.Text, TextBoxPassword.Password, "mysql");
+			var connectionSuccess = connectionManager.Connect(TextBoxServer.Text, TextBoxUser.Text, TextBoxPassword.Password, "");
 
 			ResultConnectionManager = connectionManager;
 			Settings.SetProperty(Property.LastServer, TextBoxServer.Text);
@@ -110,7 +112,7 @@ namespace MySoundLib.Windows
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-			if (Settings.Contains(Property.AutoConnect))
+			if (Settings.Contains(Property.AutoConnect) && _tryAutoConnect)
 			{
 				ButtonConnect_Click(null, null);
 			}

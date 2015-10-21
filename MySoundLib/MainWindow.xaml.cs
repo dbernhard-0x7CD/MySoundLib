@@ -27,12 +27,12 @@ namespace MySoundLib
 		public MainWindow()
 		{
 			InitializeComponent();
-			ShowLoginWindow();
+			ShowLoginWindow(true);
 		}
 
-		void ShowLoginWindow()
+		void ShowLoginWindow(bool tryAutoConnect)
 		{
-			LoginWindow loginWindow = new LoginWindow();
+			var loginWindow = new LoginWindow(tryAutoConnect);
 
 			loginWindow.ShowDialog();
 
@@ -42,7 +42,7 @@ namespace MySoundLib
 			}
 			else
 			{
-				Debug.WriteLine("Unable to connect to database");
+				Debug.WriteLine("MainWindow: Unable to connect to database");
 			}
 		}
 

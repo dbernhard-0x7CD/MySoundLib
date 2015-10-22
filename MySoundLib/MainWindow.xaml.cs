@@ -63,6 +63,10 @@ namespace MySoundLib
 
 		private void MenuItemDisconnect_OnClick(object sender, RoutedEventArgs e)
 		{
+			Hide();
+			_connectionManager.Disconnect();
+			ShowLoginWindow(false);
+			Show();
 		}
 
 		private void MenuItemSettings_OnClick(object sender, RoutedEventArgs e)

@@ -18,6 +18,13 @@ namespace MySoundLib
 		{
 			InitializeComponent();
 			ShowLoginWindow(true);
+
+			var response = _connectionManager.ExecuteScalar("show databases like 'my_sound_lib'");
+			if (response == null)
+			{
+				var r = _connectionManager.ExecuteCommand(Properties.Resources.create_my_sound_lib);
+				Debug.WriteLine("Created database and tables. Result: " + r);
+			}
 		}
 
 		void ShowLoginWindow(bool tryAutoConnect)
@@ -38,7 +45,12 @@ namespace MySoundLib
 
 		private void ButtonTest_Click(object sender, RoutedEventArgs e)
 		{
-			_connectionManager.test();
+			var dT = _connectionManager.GetDataTable("show databases");
+
+			foreach (DataRow dR in dT.Rows)
+			{
+				Debug.WriteLine(dR[0]);
+			}
 		}
 
 		private void ButtonReset_OnClick(object sender, RoutedEventArgs e)

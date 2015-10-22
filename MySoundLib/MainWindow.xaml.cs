@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using MySoundLib.Configuration;
 using MySoundLib.Windows;
 
 namespace MySoundLib
@@ -20,7 +10,7 @@ namespace MySoundLib
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class MainWindow
 	{
 		private ServerConnectionManager _connectionManager;
 
@@ -49,6 +39,26 @@ namespace MySoundLib
 		private void ButtonTest_Click(object sender, RoutedEventArgs e)
 		{
 			_connectionManager.test();
+		}
+
+		private void ButtonReset_OnClick(object sender, RoutedEventArgs e)
+		{
+		}
+
+		private void MenuItemTestingWindow_OnClick(object sender, RoutedEventArgs e)
+		{
+		}
+
+		private void MenuItemDisconnect_OnClick(object sender, RoutedEventArgs e)
+		{
+		}
+
+		private void MenuItemSettings_OnClick(object sender, RoutedEventArgs e)
+		{
+		}
+
+		private void MenuItemAbout_OnClick(object sender, RoutedEventArgs e)
+		{
 		}
 	}
 }

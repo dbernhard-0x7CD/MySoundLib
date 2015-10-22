@@ -5,8 +5,58 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MySoundLib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Icon="Resources/Logo.ico">
-    <Grid>
-        <Button x:Name="ButtonTest" Content="test" HorizontalAlignment="Left" Margin="43,10,0,0" VerticalAlignment="Top" Width="75" Click="ButtonTest_Click"/>
-    </Grid>
+        Title="MainWindow" Height="563" Width="1000" Icon="Resources/Logo.ico" WindowStartupLocation="CenterScreen">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Height="18">
+            <MenuItem x:Name="MenuItemSettings" Header="Settings" Click="MenuItemSettings_OnClick"/>
+            <MenuItem x:Name="MenuItemAbout" Header="About" Click="MenuItemAbout_OnClick" />
+			<MenuItem x:Name="MenuItemTestingWindow" Header="Testing Window" Click="MenuItemTestingWindow_OnClick"></MenuItem>
+            <MenuItem x:Name="MenuItemDisconnect" Header="Disconnect" Click="MenuItemDisconnect_OnClick"/>
+        </Menu>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130" MaxWidth="200"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="40" MaxHeight="60"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Orientation="Vertical" Background="#FFA1C98A">
+                <Label HorizontalAlignment="Stretch" Content="Your Music"></Label>
+                <ListBox x:Name="ListBoxCategory">
+                    <ListBoxItem>Songs</ListBoxItem>
+                    <ListBoxItem>Albums</ListBoxItem>
+                    <ListBoxItem>Artists</ListBoxItem>
+                    <ListBoxItem>Genres</ListBoxItem>
+                </ListBox>
+                <Label>Playlists</Label>
+                <ListBox x:Name="ListBoxPlaylists">
+                    <ListBoxItem>Playlist1</ListBoxItem>
+                    <ListBoxItem>Playlist2</ListBoxItem>
+                    <ListBoxItem>Playlist3</ListBoxItem>
+                    <ListBoxItem>Playlist4</ListBoxItem>
+                    <ListBoxItem>Playlist5</ListBoxItem>
+                    <ListBoxItem>
+                        <Button x:Name="ButtonTest" Content="test" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="ButtonTest_Click"/>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <Button x:Name="ButtonReset" Content="Reset" Click="ButtonReset_OnClick" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75"/>
+                    </ListBoxItem>
+                </ListBox>
+            </StackPanel>
+
+            <GridSplitter Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Width="2.5" VerticalAlignment="Stretch" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext"/>
+
+            <Grid Grid.Row="0" Grid.Column="2" Background="#FF464646">
+                <Label VerticalAlignment="Center" HorizontalAlignment="Center" Content="Content"></Label>
+            </Grid>
+
+            <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" Height="40" Background="#FFD41313">
+                <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Current Song Information"></Label>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
 </Window>

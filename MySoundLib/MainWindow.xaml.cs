@@ -18,13 +18,6 @@ namespace MySoundLib
 		{
 			InitializeComponent();
 			ShowLoginWindow(true);
-
-			var response = _connectionManager.ExecuteScalar("show databases like 'my_sound_lib'");
-			if (response == null)
-			{
-				var r = _connectionManager.ExecuteCommand(Properties.Resources.create_my_sound_lib);
-				Debug.WriteLine("Created database and tables. Result: " + r);
-			}
 		}
 
 		void ShowLoginWindow(bool tryAutoConnect)
@@ -39,7 +32,7 @@ namespace MySoundLib
 			}
 			else
 			{
-				Debug.WriteLine("MainWindow: Unable to connect to database");
+				Close();
 			}
 		}
 
@@ -55,10 +48,15 @@ namespace MySoundLib
 
 		private void ButtonReset_OnClick(object sender, RoutedEventArgs e)
 		{
+			Settings.RemoveProperty(Property.AutoConnect);
+			Settings.SaveConfig();
 		}
 
 		private void MenuItemTestingWindow_OnClick(object sender, RoutedEventArgs e)
 		{
+			var testWindow = new TestWindow(_connectionManager) {Owner =  this};
+
+			testWindow.Show();
 		}
 
 		private void MenuItemDisconnect_OnClick(object sender, RoutedEventArgs e)
@@ -71,6 +69,7 @@ namespace MySoundLib
 
 		private void MenuItemSettings_OnClick(object sender, RoutedEventArgs e)
 		{
+			throw new NotImplementedException();
 		}
 
 		private void MenuItemAbout_OnClick(object sender, RoutedEventArgs e)

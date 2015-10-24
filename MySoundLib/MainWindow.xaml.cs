@@ -75,6 +75,9 @@ namespace MySoundLib
 
 		private void MenuItemAbout_OnClick(object sender, RoutedEventArgs e)
 		{
+			var aboutWindow = new AboutWindow(_connectionManager) {Owner = this};
+
+			aboutWindow.ShowDialog();
 		}
 	}
 }

@@ -37,8 +37,8 @@ CREATE TABLE songs (
 
 CREATE TABLE playlists (
   playlist_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name text COLLATE latin1_german1_ci NOT NULL,
-  description text COLLATE latin1_german1_ci,
+  name text NOT NULL,
+  description text DEFAULT NULL,
   date_created date DEFAULT NULL
 ) ENGINE=InnoDB;
 

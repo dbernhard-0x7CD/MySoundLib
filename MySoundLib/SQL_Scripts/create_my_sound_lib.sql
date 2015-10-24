@@ -31,7 +31,10 @@ CREATE TABLE songs (
   genre int(11) DEFAULT NULL,
   track longblob NOT NULL,
   length int(11) DEFAULT NULL,
-  release_date date DEFAULT NULL
+  release_date date DEFAULT NULL,
+  FOREIGN KEY (artist) REFERENCES artists (artist_id) ON DELETE SET NULL,
+  FOREIGN KEY (album) REFERENCES albums (album_id) ON DELETE SET NULL,
+  FOREIGN KEY (genre) REFERENCES genres (genre_id) ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
 
@@ -45,8 +48,10 @@ CREATE TABLE playlists (
 
 CREATE TABLE song_playlist (
   song_playlist_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  song_id int(11) NOT NULL,
-  playlist_id int(11) NOT NULL
+  song int(11) NOT NULL,
+  playlist int(11) NOT NULL,
+  FOREIGN KEY (song) REFERENCES songs (song_id) ON DELETE CASCADE,
+  FOREIGN KEY (playlist) REFERENCES playlists (playlist_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
  -- testing create users

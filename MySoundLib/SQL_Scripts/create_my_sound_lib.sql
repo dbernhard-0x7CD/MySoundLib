@@ -54,10 +54,9 @@ CREATE TABLE song_playlist (
   FOREIGN KEY (playlist) REFERENCES playlists (playlist_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
- -- testing create users
- /*
- GRANT SELECT, SHOW DATABASES ON *.* TO 'msl_user'@'%';
+CREATE USER 'msl_user'@'%';
 
-GRANT ALL PRIVILEGES ON my_sound_lib.* TO 'msl_user'@'%';
-
-*/
+GRANT SELECT, SHOW DATABASES ON *.* TO 'msl_user'@'%' WITH
+	MAX_QUERIES_PER_HOUR 999
+	MAX_CONNECTIONS_PER_HOUR 999
+	MAX_USER_CONNECTIONS 30;

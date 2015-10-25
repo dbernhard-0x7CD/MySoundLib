@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Data;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using MySoundLib.Configuration;
 using MySoundLib.Windows;
 
@@ -18,6 +18,8 @@ namespace MySoundLib
 		{
 			InitializeComponent();
 			ShowLoginWindow(true);
+
+			HideCurrentSong();
 		}
 
 		bool ShowLoginWindow(bool tryAutoConnect)
@@ -60,6 +62,38 @@ namespace MySoundLib
 			var aboutWindow = new AboutWindow(_connectionManager) {Owner = this};
 
 			aboutWindow.ShowDialog();
+		}
+
+		public void HideCurrentSong()
+		{
+			StackPanelCurrentSongInformation.Visibility = Visibility.Collapsed;
+			Grid.SetRowSpan(GridContent, 2);
+		}
+
+		public void ShowCurrentSong()
+		{
+			StackPanelCurrentSongInformation.Visibility = Visibility.Visible;
+			Grid.SetRowSpan(GridContent, 1);
+		}
+
+		private void ListBoxItemSongs_OnSelected(object sender, RoutedEventArgs e)
+		{
+			throw new NotImplementedException();
+		}
+
+		private void ListBoxItemAlbums_OnSelected(object sender, RoutedEventArgs e)
+		{
+			throw new NotImplementedException();
+		}
+
+		private void ListBoxItemArtists_OnSelected(object sender, RoutedEventArgs e)
+		{
+			throw new NotImplementedException();
+		}
+
+		private void ListBoxItemGenres_OnSelected(object sender, RoutedEventArgs e)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

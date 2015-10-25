@@ -25,15 +25,22 @@ namespace MySoundLib
 		{
 			if (CurrentConnection == null)
 			{
+				MySqlConnection connection;
 				try
 				{
-					CurrentConnection = new MySqlConnection($"server={server};uid={userName};pwd={password};database={database}");
-					CurrentConnection.Open();
+					connection = new MySqlConnection($"server={server};uid={userName}");
+					if (database != "")
+						connection.ConnectionString += $";database={database}";
+					if (password != "")
+					{
+						connection.ConnectionString += $";password={password}";
+					}
+					connection.Open();
 				}
 				catch (MySqlException e)
 				{
 					HandleException(e);
-					return false;
+					return database != "" && Connect(server, userName, password);
 				}
 				catch (Exception e)
 				{
@@ -41,6 +48,7 @@ namespace MySoundLib
 					return false;
 				}
 
+				CurrentConnection = connection;
 				CurrentConnection.StateChange += CurrentConnectionOnStateChange;
 			}
 			else
@@ -64,6 +72,7 @@ namespace MySoundLib
 		/// </summary>
 		public void Disconnect()
 		{
+			CurrentConnection.StateChange -= CurrentConnectionOnStateChange;
 			CurrentConnection.Close();
 		}
 
@@ -143,7 +152,7 @@ namespace MySoundLib
 					message = "MySqlException: " + errorCode + "\tMessage: " + mySqlException.Message;
 					break;
 			}
-			MessageBox.Show(message);
+			Debug.WriteLine(message);
 		}
 
 		/// <summary>

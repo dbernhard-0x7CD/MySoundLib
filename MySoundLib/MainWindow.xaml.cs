@@ -20,7 +20,7 @@ namespace MySoundLib
 			ShowLoginWindow(true);
 		}
 
-		void ShowLoginWindow(bool tryAutoConnect)
+		bool ShowLoginWindow(bool tryAutoConnect)
 		{
 			var loginWindow = new LoginWindow(tryAutoConnect);
 
@@ -29,11 +29,10 @@ namespace MySoundLib
 			if (loginWindow.ResultConnectionManager != null)
 			{
 				_connectionManager = loginWindow.ResultConnectionManager;
+				return true;
 			}
-			else
-			{
-				Close();
-			}
+			Close();
+			return false;
 		}
 
 		private void MenuItemTestingWindow_OnClick(object sender, RoutedEventArgs e)
@@ -47,8 +46,8 @@ namespace MySoundLib
 		{
 			Hide();
 			_connectionManager.Disconnect();
-			ShowLoginWindow(false);
-			Show();
+			if (ShowLoginWindow(false))
+				Show();
 		}
 
 		private void MenuItemSettings_OnClick(object sender, RoutedEventArgs e)

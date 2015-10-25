@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Windows;
@@ -31,9 +30,9 @@ namespace MySoundLib
 					CurrentConnection = new MySqlConnection($"server={server};uid={userName};pwd={password};database={database}");
 					CurrentConnection.Open();
 				}
-				catch (MySqlException ex)
+				catch (MySqlException e)
 				{
-					MessageBox.Show(ex.Message);
+					HandleException(e);
 					return false;
 				}
 				catch (Exception e)
@@ -41,6 +40,8 @@ namespace MySoundLib
 					MessageBox.Show("Unknown exception:" + e.Message);
 					return false;
 				}
+
+				CurrentConnection.StateChange += CurrentConnectionOnStateChange;
 			}
 			else
 			{
@@ -48,6 +49,14 @@ namespace MySoundLib
 			}
 
 			return CurrentConnection != null && CurrentConnection.State == ConnectionState.Open;
+		}
+
+		private static void CurrentConnectionOnStateChange(object sender, StateChangeEventArgs stateChangeEventArgs)
+		{
+			if (stateChangeEventArgs.CurrentState != ConnectionState.Open && stateChangeEventArgs.CurrentState != ConnectionState.Connecting)
+			{
+				Debug.WriteLine("New unallowed state: " + stateChangeEventArgs.CurrentState);
+			}
 		}
 
 		/// <summary>
@@ -71,7 +80,7 @@ namespace MySoundLib
 		/// Execute the command and get the amount of affected lines
 		/// </summary>
 		/// <param name="command">SQL-Command as string</param>
-		/// <returns>Amoun of affected lines (data rows)</returns>
+		/// <returns>Amoun of affected lines (data rows); -1 means an error occurred</returns>
 		public int ExecuteCommand(string command)
 		{
 			var mySqlCommand = new MySqlCommand(command) {Connection =  CurrentConnection};
@@ -82,7 +91,9 @@ namespace MySoundLib
 			}
 			catch (MySqlException e)
 			{
-				Debug.WriteLine(e.Message);
+				HandleException(e);
+
+				Debug.WriteLine("Exception-ExecuteCommand: " + e.Message + "\nCommand:" + command.Substring(0,50) + "...");
 			}
 			return -1;
 		}
@@ -91,7 +102,7 @@ namespace MySoundLib
 		/// Execute the command as scalar
 		/// </summary>
 		/// <param name="command">SQL-Command as string</param>
-		/// <returns>Object</returns>
+		/// <returns>Object, null if an error occurred</returns>
 		public object ExecuteScalar(string command)
 		{
 			var mySqlCommand = new MySqlCommand(command) {Connection = CurrentConnection};
@@ -102,10 +113,37 @@ namespace MySoundLib
 			}
 			catch (MySqlException e)
 			{
-				Debug.WriteLine(e.Message);
+				HandleException(e);
+				
+				Debug.WriteLine("Exception-ExecuteCommand: " + e.Message + "\nCommand:" + command.Substring(0, 50) + "...");
 			}
 
-			return -1;
+			return null;
+		}
+
+		private static void HandleException(MySqlException mySqlException)
+		{
+			MySqlErrorCode errorCode;
+			if (!Enum.TryParse(mySqlException.Number.ToString(), false, out errorCode))
+			{
+				Debug.WriteLine("Unable to parse exception: " + mySqlException.Message);
+			}
+
+			string message;
+
+			switch (errorCode)
+			{
+				case MySqlErrorCode.DatabaseAccessDenied:
+					message = "Access denied (Right user?)";
+					break;
+				case MySqlErrorCode.UnableToConnectToHost:
+					message = "Unable to connect to the specified server";
+					break;
+				default:
+					message = "MySqlException: " + errorCode + "\tMessage: " + mySqlException.Message;
+					break;
+			}
+			MessageBox.Show(message);
 		}
 
 		/// <summary>
@@ -118,27 +156,36 @@ namespace MySoundLib
 			if (CurrentConnection == null)
 				throw new Exception("Not connected");
 
+			var dataTable = new DataTable();
 			var mySqlCommand = new MySqlCommand(command) {Connection = CurrentConnection};
 
-			var reader = mySqlCommand.ExecuteReader();
-
-			var dataTable = new DataTable();
-
-			var schemaTable = reader.GetSchemaTable();
-
-			if (schemaTable != null)
+			try
 			{
-				foreach (DataRowView x in schemaTable.DefaultView)
+				var reader = mySqlCommand.ExecuteReader();
+				var schemaTable = reader.GetSchemaTable();
+
+				if (schemaTable != null)
 				{
-					var columnName = (string) x["ColumnName"];
-					var type = (Type) x["DataType"];
+					foreach (DataRowView x in schemaTable.DefaultView)
+					{
+						var columnName = (string) x["ColumnName"];
+						var type = (Type) x["DataType"];
 
-					dataTable.Columns.Add(columnName, type);
+						dataTable.Columns.Add(columnName, type);
+					}
+
+					dataTable.Load(reader);
 				}
-
-				dataTable.Load(reader);
 			}
-
+			catch (MySqlException e)
+			{
+				HandleException(e);
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine("ServerConnectionManager.GetDataTable-Exception: " + e.Message);
+			}
+			
 			return dataTable;
 		}
 	}

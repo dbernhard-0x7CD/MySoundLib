@@ -31,11 +31,17 @@ namespace MySoundLib.Windows
 			}
 			if (Settings.Contains(Property.LastPassword))
 			{
-				byte[] ciphertext = StringToByteArray(Settings.GetValue(Property.LastPassword));
+				var ciphertext = StringToByteArray(Settings.GetValue(Property.LastPassword));
 
 				var data = ProtectedData.Unprotect(ciphertext, Entropy, DataProtectionScope.CurrentUser);
 
 				TextBoxPassword.Password = Encoding.UTF8.GetString(data);
+
+				CheckBoxSavePassword.IsChecked = true;
+			}
+			if (Settings.Contains(Property.AutoConnect))
+			{
+				CheckBoxAutoConnect.IsChecked = true;
 			}
 
 			if (TextBoxServer.Text != "" && TextBoxUser.Text != "" && TextBoxPassword.Password.Length == 0)
@@ -50,10 +56,6 @@ namespace MySoundLib.Windows
 			{
 				TextBoxUser.Select(0,0);
 			}
-			else
-			{
-				ButtonConnect.Focus();
-			}
 		}
 
 		public ServerConnectionManager ResultConnectionManager { get; private set; }
@@ -62,48 +64,51 @@ namespace MySoundLib.Windows
 		{
 			var connectionManager = new ServerConnectionManager();
 			
-			var connectionSuccess = connectionManager.Connect(TextBoxServer.Text, TextBoxUser.Text, TextBoxPassword.Password);
+			var connectionSuccess = connectionManager.Connect(TextBoxServer.Text, TextBoxUser.Text, TextBoxPassword.Password, "my_sound_lib");
 
-			if (connectionSuccess)
+			if (!connectionSuccess) return;
+
+			ResultConnectionManager = connectionManager;
+			Settings.SetProperty(Property.LastServer, TextBoxServer.Text);
+			Settings.SetProperty(Property.LastUser, TextBoxUser.Text);
+
+			if (CheckBoxSavePassword.IsChecked != null && (bool) CheckBoxSavePassword.IsChecked)
 			{
-				ResultConnectionManager = connectionManager;
-				Settings.SetProperty(Property.LastServer, TextBoxServer.Text);
-				Settings.SetProperty(Property.LastUser, TextBoxUser.Text);
+				var passwordPlain = Encoding.UTF8.GetBytes(TextBoxPassword.Password);
 
-				if (CheckBoxSavePassword.IsChecked != null && (bool) CheckBoxSavePassword.IsChecked)
-				{
-					var passwordPlain = Encoding.UTF8.GetBytes(TextBoxPassword.Password);
+				var ciphertext = ProtectedData.Protect(passwordPlain, Entropy, DataProtectionScope.CurrentUser);
 
-					var ciphertext = ProtectedData.Protect(passwordPlain, Entropy, DataProtectionScope.CurrentUser);
-
-					Settings.SetProperty(Property.LastPassword, ByteArrayToString(ciphertext));
-				}
-				if (CheckBoxAutoConnect.IsChecked != null && CheckBoxAutoConnect.IsChecked.Value)
-				{
-					Settings.SetProperty(Property.AutoConnect, "true");
-				}
-				else
-				{
-					if (Settings.Contains(Property.AutoConnect))
-					{
-						Settings.RemoveProperty(Property.AutoConnect);
-					}
-				}
-
-				var response = (string)connectionManager.ExecuteScalar("show databases like 'my_sound_lib'");
-				if (string.IsNullOrEmpty(response))
-				{
-					var r = connectionManager.ExecuteCommand(Properties.Resources.create_my_sound_lib);
-					Debug.WriteLine("Created database and tables. Result: " + r);
-				}
-
-				Settings.SaveConfig();
-				Close();
+				Settings.SetProperty(Property.LastPassword, ByteArrayToString(ciphertext));
+			}
+			if (CheckBoxAutoConnect.IsChecked != null && CheckBoxAutoConnect.IsChecked.Value)
+			{
+				Settings.SetProperty(Property.AutoConnect, "true");
 			}
 			else
 			{
-				Debug.WriteLine("unable to connect.");
+				if (Settings.Contains(Property.AutoConnect))
+				{
+					Settings.RemoveProperty(Property.AutoConnect);
+				}
 			}
+
+			var response = (string)connectionManager.ExecuteScalar("show databases like 'my_sound_lib'");
+			if (string.IsNullOrEmpty(response)) // database doesn't exist
+			{
+				var r = connectionManager.ExecuteCommand(Properties.Resources.create_my_sound_lib);
+				if (r == -1)
+				{
+					MessageBox.Show("Unable to create database (missing permissions?)");
+					return;
+				}
+				else
+				{
+					Debug.WriteLine("Successfully created database");
+				}
+			}
+
+			Settings.SaveConfig();
+			Close();
 		}
 
 		public static string ByteArrayToString(byte[] ba)

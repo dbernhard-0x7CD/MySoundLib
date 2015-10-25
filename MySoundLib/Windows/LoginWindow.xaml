@@ -28,7 +28,7 @@
         <PasswordBox Grid.Row="2" Grid.Column="1" x:Name="TextBoxPassword" HorizontalAlignment="Stretch" Height="20" Margin="5,0" />
 
         <Button x:Name="ButtonConnect" Grid.Row="3" Grid.Column="1" Width="90" Height="25" Content="Connect" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" Click="ButtonConnect_Click" IsDefault="True"></Button>
-        <CheckBox x:Name="CheckBoxAutoConnect" Content="AutoConnect" Grid.Column="1" HorizontalAlignment="Left" Margin="10,30,0,0" Grid.Row="3" VerticalAlignment="Top" IsChecked="True"/>
-        <CheckBox x:Name="CheckBoxSavePassword" Content="Save Password" Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="3" VerticalAlignment="Top" IsChecked="True"/>
+        <CheckBox x:Name="CheckBoxAutoConnect" Content="AutoConnect" Grid.Column="1" HorizontalAlignment="Left" Margin="10,30,0,0" Grid.Row="3" VerticalAlignment="Top"/>
+        <CheckBox x:Name="CheckBoxSavePassword" Content="Save Password" Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="3" VerticalAlignment="Top"/>
     </Grid>
 </Window>

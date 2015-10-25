@@ -36,22 +36,6 @@ namespace MySoundLib
 			}
 		}
 
-		private void ButtonTest_Click(object sender, RoutedEventArgs e)
-		{
-			var dT = _connectionManager.GetDataTable("show databases");
-
-			foreach (DataRow dR in dT.Rows)
-			{
-				Debug.WriteLine(dR[0]);
-			}
-		}
-
-		private void ButtonReset_OnClick(object sender, RoutedEventArgs e)
-		{
-			Settings.RemoveProperty(Property.AutoConnect);
-			Settings.SaveConfig();
-		}
-
 		private void MenuItemTestingWindow_OnClick(object sender, RoutedEventArgs e)
 		{
 			var testWindow = new TestWindow(_connectionManager) {Owner =  this};

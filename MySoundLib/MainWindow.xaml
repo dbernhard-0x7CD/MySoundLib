@@ -39,12 +39,6 @@
                     <ListBoxItem>Playlist3</ListBoxItem>
                     <ListBoxItem>Playlist4</ListBoxItem>
                     <ListBoxItem>Playlist5</ListBoxItem>
-                    <ListBoxItem>
-                        <Button x:Name="ButtonTest" Content="test" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="ButtonTest_Click"/>
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        <Button x:Name="ButtonReset" Content="Reset" Click="ButtonReset_OnClick" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75"/>
-                    </ListBoxItem>
                 </ListBox>
             </StackPanel>
 

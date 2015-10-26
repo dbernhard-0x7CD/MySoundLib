@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -78,22 +79,40 @@ namespace MySoundLib
 
 		private void ListBoxItemSongs_OnSelected(object sender, RoutedEventArgs e)
 		{
-			throw new NotImplementedException();
+			GridContent.Children.Clear();
 		}
 
 		private void ListBoxItemAlbums_OnSelected(object sender, RoutedEventArgs e)
 		{
-			throw new NotImplementedException();
+			GridContent.Children.Clear();
 		}
 
 		private void ListBoxItemArtists_OnSelected(object sender, RoutedEventArgs e)
 		{
-			throw new NotImplementedException();
+			GridContent.Children.Clear();
+			var userControlArtists = new UserControlArtists();
+			GridContent.Children.Add(userControlArtists);
+
+			var artists = _connectionManager.GetDataTable("select artist_name from artists");
+
+			foreach (DataRow row in artists.Rows)
+			{
+				userControlArtists.ListBoxArtists.Items.Add(row[0]);
+			}
 		}
 
 		private void ListBoxItemGenres_OnSelected(object sender, RoutedEventArgs e)
 		{
-			throw new NotImplementedException();
+			GridContent.Children.Clear();
+			var userControlGenres = new UserControlGenres();
+			GridContent.Children.Add(userControlGenres);
+
+			var genres = _connectionManager.GetDataTable("select genre_name from genres");
+
+			foreach (DataRow row in genres.Rows)
+			{
+				userControlGenres.ListBoxGenres.Items.Add(row[0]);
+			}
 		}
 	}
 }

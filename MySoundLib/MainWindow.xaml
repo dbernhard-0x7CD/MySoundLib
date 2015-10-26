@@ -51,9 +51,7 @@
 
             <GridSplitter Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Width="2.5" VerticalAlignment="Stretch" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext"/>
 
-            <Grid x:Name="GridContent" Grid.Row="1" Grid.Column="2" Background="#FF464646">
-                <Label VerticalAlignment="Center" HorizontalAlignment="Center" Content="Content"></Label>
-            </Grid>
+            <Grid x:Name="GridContent" Grid.Row="1" Grid.Column="2" />
 
             <StackPanel x:Name="StackPanelCurrentSongInformation" Grid.Row="2" Grid.Column="2" Orientation="Horizontal" Height="40" Background="#FFD41313">
                 <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Current Song Information"></Label>

@@ -12,7 +12,7 @@ CREATE TABLE albums
 CREATE TABLE artists
 (
   artist_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  artist_name int(11) NOT NULL
+  artist_name text NOT NULL
 ) ENGINE=InnoDB;
 
 

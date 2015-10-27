@@ -25,7 +25,7 @@ CREATE TABLE genres
 
 CREATE TABLE songs (
   song_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  song_name text NOT NULL,
+  song_title text NOT NULL,
   artist int(11) DEFAULT NULL,
   album int(11) DEFAULT NULL,
   genre int(11) DEFAULT NULL,

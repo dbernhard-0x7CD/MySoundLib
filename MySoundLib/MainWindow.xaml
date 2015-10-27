@@ -22,16 +22,17 @@
         <Grid x:Name="GridMain">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="130" MaxWidth="200"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="4"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-				<RowDefinition Height="0" MaxHeight="120"></RowDefinition>
+                <RowDefinition Height="0" MaxHeight="120"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="40" MaxHeight="60"></RowDefinition>
+                <RowDefinition Height="4"></RowDefinition>
+                <RowDefinition Height="50" MaxHeight="120"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <StackPanel x:Name="StackPanelNavigation" Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Orientation="Vertical" Background="#FFA1C98A" >
+            <StackPanel x:Name="StackPanelNavigation" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Orientation="Vertical" Background="#FFA1C98A" >
                 <Label HorizontalAlignment="Stretch" Content="My Music"></Label>
                 <ListBox x:Name="ListBoxCategory">
                     <ListBoxItem x:Name="ListBoxItemSongs" Selected="ListBoxItemSongs_OnSelected">Songs</ListBoxItem>
@@ -49,11 +50,13 @@
                 </ListBox>
             </StackPanel>
 
-            <GridSplitter Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Width="2.5" VerticalAlignment="Stretch" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext"/>
+            <GridSplitter Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Width="3" VerticalAlignment="Stretch" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext"/>
 
             <Grid x:Name="GridContent" Grid.Row="1" Grid.Column="2" />
 
-            <StackPanel x:Name="StackPanelCurrentSongInformation" Grid.Row="2" Grid.Column="2" Orientation="Horizontal" Height="40" Background="#FFD41313">
+            <GridSplitter x:Name="GridSplitterHor" Grid.Column="2" Grid.Row="2" Height="4" HorizontalAlignment="Stretch" ResizeDirection="Rows" ResizeBehavior="PreviousAndNext"/>
+
+            <StackPanel x:Name="StackPanelCurrentSongInformation" Grid.Row="3" Grid.Column="2" Orientation="Horizontal" Background="#FFD41313">
                 <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Current Song Information"></Label>
             </StackPanel>
         </Grid>

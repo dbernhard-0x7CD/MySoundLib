@@ -68,12 +68,14 @@ namespace MySoundLib
 		public void HideCurrentSong()
 		{
 			StackPanelCurrentSongInformation.Visibility = Visibility.Collapsed;
-			Grid.SetRowSpan(GridContent, 2);
+			GridSplitterHor.Visibility = Visibility.Collapsed;
+			Grid.SetRowSpan(GridContent, 3);
 		}
 
 		public void ShowCurrentSong()
 		{
 			StackPanelCurrentSongInformation.Visibility = Visibility.Visible;
+			GridSplitterHor.Visibility = Visibility.Visible;
 			Grid.SetRowSpan(GridContent, 1);
 		}
 

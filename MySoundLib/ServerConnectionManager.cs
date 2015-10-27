@@ -92,17 +92,26 @@ namespace MySoundLib
 		/// <returns>Amoun of affected lines (data rows); -1 means an error occurred</returns>
 		public int ExecuteCommand(string command)
 		{
-			var mySqlCommand = new MySqlCommand(command) {Connection =  CurrentConnection};
+			return ExecuteCommand(new MySqlCommand(command));
+		}
 
+		/// <summary>
+		/// Execute the command and get the amount of affected lines
+		/// </summary>
+		/// <param name="command">SQL-Command as MySqlCommand</param>
+		/// <returns>Amoun of affected lines (data rows); -1 means an error occurred</returns>
+		public int ExecuteCommand(MySqlCommand command)
+		{
+			command.Connection = CurrentConnection;
 			try
 			{
-				return mySqlCommand.ExecuteNonQuery();
+				return command.ExecuteNonQuery();
 			}
 			catch (MySqlException e)
 			{
 				HandleException(e);
 
-				Debug.WriteLine("Exception-ExecuteCommand: " + e.Message + "\nCommand:" + command.Substring(0,50) + "...");
+				Debug.WriteLine("Exception-ExecuteCommand: " + e.Message + "\nCommand:" + command.CommandText);
 			}
 			return -1;
 		}

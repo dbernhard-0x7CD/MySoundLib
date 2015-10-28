@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="MySoundLib.UserControlUploadSong"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MySoundLib"
+             mc:Ignorable="d" Loaded="UserControl_Loaded" d:DesignWidth="435.316" d:DesignHeight="273.092">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Content="Add new song" Style="{StaticResource StyleInfoHeader}" />
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"></ColumnDefinition>
+                <ColumnDefinition Width="11*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="File" />
+            <Button x:Name="ButtonSelectFile" Grid.Row="0" Grid.Column="1" Width="180" Height="20" Content="Select File" HorizontalAlignment="Left" Click="ButtonSelectFile_Click" TabIndex="1" />
+
+            <Label Grid.Row="1" Grid.Column="0" Content="Title" />
+            <TextBox x:Name="TextBoxSongTitle" Grid.Row="1" Grid.Column="1" Height="20" Width="180" HorizontalAlignment="Left" TabIndex="2" />
+
+            <Label Grid.Row="2" Grid.Column="0" Content="Artist" />
+            <ComboBox x:Name="ComboBoxArtist" Grid.Row="2" Grid.Column="1" Height="22" Width="120" HorizontalAlignment="Left" IsReadOnly="True" IsSynchronizedWithCurrentItem="True" Text="Choose artist" TabIndex="3"/>
+
+            <Label Grid.Row="3" Grid.Column="0" Content="Album" />
+            <ComboBox x:Name="ComboBoxAlbum" Grid.Row="3" Grid.Column="1" Height="22" Width="120" HorizontalAlignment="Left" IsReadOnly="True" IsSynchronizedWithCurrentItem="True" TabIndex="4"/>
+
+            <Label Grid.Row="4" Grid.Column="0" Content="Genre" />
+            <ComboBox x:Name="ComboBoxGenre" Grid.Row="4" Grid.Column="1" Height="22" Width="120" HorizontalAlignment="Left" IsReadOnly="True" IsSynchronizedWithCurrentItem="True" TabIndex="5"/>
+
+            <Label Grid.Row="5" Grid.Column="0" Content="Release Date" />
+            <DatePicker x:Name="DatePickerReleased" Grid.Row="5" Grid.Column="1" Width="120" HorizontalAlignment="Left" TabIndex="6"></DatePicker>
+        </Grid>
+
+        <Button x:Name="ButtonAddSong" Grid.Row="2" Height="20" Width="120" HorizontalAlignment="Right" Content="Add" Margin="5" Click="ButtonAddSong_Click" IsDefault="True" />
+    </Grid>
+</UserControl>

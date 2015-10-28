@@ -56,6 +56,7 @@
     <Reference Include="MySql.Data, Version=6.9.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -79,11 +80,20 @@
     <Compile Include="ServerConnectionManager.cs" />
     <Compile Include="Configuration\Property.cs" />
     <Compile Include="Configuration\Settings.cs" />
+    <Compile Include="UserControlAlbums.xaml.cs">
+      <DependentUpon>UserControlAlbums.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControlArtists.xaml.cs">
       <DependentUpon>UserControlArtists.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControlGenres.xaml.cs">
       <DependentUpon>UserControlGenres.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControlSongs.xaml.cs">
+      <DependentUpon>UserControlSongs.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControlUploadSong.xaml.cs">
+      <DependentUpon>UserControlUploadSong.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
@@ -106,11 +116,23 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControlAlbums.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControlArtists.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControlGenres.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlSongs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlUploadSong.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

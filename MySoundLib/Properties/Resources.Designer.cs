@@ -61,23 +61,28 @@ namespace MySoundLib.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SET SQL_MODE = &quot;NO_AUTO_VALUE_ON_ZERO&quot;;
+        ///   Looks up a localized string similar to CREATE DATABASE my_sound_lib DEFAULT COLLATE utf8_general_ci;
+        ///USE my_sound_lib;
         ///
-        ///CREATE DATABASE IF NOT EXISTS `my_sound_lib` DEFAULT CHARACTER SET latin1 COLLATE utf8_general_ci;
-        ///USE `my_sound_lib`;
+        ///CREATE TABLE albums
+        ///(
+        ///  album_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        ///  album_name text NOT NULL,
+        ///  title_song int(11) DEFAULT NULL,
+        ///  album_thumbnail mediumblob
+        ///) ENGINE=InnoDB;
+        ///
+        ///CREATE TABLE artists
+        ///(
+        ///  artist_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        ///  artist_name text NOT NULL
+        ///) ENGINE=InnoDB;
         ///
         ///
-        ///CREATE TABLE `albums` (
-        ///  `album_id` int(11) NOT NULL,
-        ///  `album_name` text NOT NULL,
-        ///  `title_song` int(11) DEFAULT NULL,
-        ///  `album_thumbnail` mediumblob,
-        ///  PRIMARY KEY (album_id)
-        ///) ENGINE=InnoDB DEFAULT COLLATE=utf8_general_ci;
-        ///-- ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci;
-        ///
-        ///CREATE TABLE `artists` (
-        ///  `artist_id` int(11) NOT NUL [rest of string was truncated]&quot;;.
+        ///CREATE TABLE genres
+        ///(
+        ///  genre_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        ///  genre_name text NOT [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string create_my_sound_lib {
             get {

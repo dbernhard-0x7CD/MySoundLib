@@ -92,21 +92,6 @@ namespace MySoundLib.Windows
 				}
 			}
 
-			var response = (string)connectionManager.ExecuteScalar("show databases like 'my_sound_lib'");
-			if (string.IsNullOrEmpty(response)) // database doesn't exist
-			{
-				var r = connectionManager.ExecuteCommand(Properties.Resources.create_my_sound_lib);
-				if (r == -1)
-				{
-					MessageBox.Show("Unable to create database (missing permissions?)");
-					return;
-				}
-				else
-				{
-					Debug.WriteLine("Successfully created database");
-				}
-			}
-
 			Settings.SaveConfig();
 			Close();
 		}

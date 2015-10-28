@@ -18,7 +18,11 @@ namespace MySoundLib
 		public MainWindow()
 		{
 			InitializeComponent();
-			ShowLoginWindow(true);
+			if (!ShowLoginWindow(true))
+			{
+				Close();
+				return;
+			}
 
 			HideCurrentSong();
 		}
@@ -29,13 +33,9 @@ namespace MySoundLib
 
 			loginWindow.ShowDialog();
 
-			if (loginWindow.ResultConnectionManager != null)
-			{
-				_connectionManager = loginWindow.ResultConnectionManager;
-				return true;
-			}
-			Close();
-			return false;
+			if (loginWindow.ResultConnectionManager == null) return false;
+			_connectionManager = loginWindow.ResultConnectionManager;
+			return true;
 		}
 
 		private void MenuItemTestingWindow_OnClick(object sender, RoutedEventArgs e)

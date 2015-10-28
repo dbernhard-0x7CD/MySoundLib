@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MySoundLib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="563" Width="1000" WindowStartupLocation="CenterScreen" Icon="pack://siteoforigin:,,,/Resources/Icon.ico" Closing="Window_Closing">
+        Title="MySoundLib" Height="563" Width="1000" WindowStartupLocation="CenterScreen" Icon="pack://siteoforigin:,,,/Resources/Icon.ico" Closing="Window_Closing">
     <DockPanel>
         <Menu DockPanel.Dock="Top" Height="18">
             <Menu.ItemsPanel>
@@ -32,7 +32,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel x:Name="StackPanelNavigation" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Orientation="Vertical" Background="#FFA1C98A" >
-                <Label HorizontalAlignment="Stretch" Content="My Music"></Label>
+                <Label HorizontalAlignment="Stretch" Content="My Music" FontFamily="Segoe UI Semibold" FontSize="18.667" />
                 <ListBox x:Name="ListBoxCategory">
                     <ListBoxItem x:Name="ListBoxItemSongs" Selected="ListBoxItemSongs_OnSelected">Songs</ListBoxItem>
                     <ListBoxItem x:Name="ListBoxItemAlbums" Selected="ListBoxItemAlbums_OnSelected">Albums</ListBoxItem>

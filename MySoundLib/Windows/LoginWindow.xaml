@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MySoundLib.Windows"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="104.667" Width="281.333" MinWidth="320" MinHeight="200" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Icon="/MySoundLib;component/Resources/Logo.ico">
+        Title="LoginWindow" Height="200" Width="200" MinWidth="320" MinHeight="200" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Icon="/MySoundLib;component/Resources/Logo.ico" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>

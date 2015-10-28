@@ -4,6 +4,14 @@
              xmlns:local="clr-namespace:MySoundLib"
              StartupUri="Windows/MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}"></Style>
+        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}"></Style>
+        <Style x:Key="StyleInfoHeader" TargetType="{x:Type Label}">
+            <Setter Property="FontSize" Value="17" />
+            <Setter Property="FontWeight" Value="DemiBold"></Setter>
+        </Style>
     </Application.Resources>
 </Application>

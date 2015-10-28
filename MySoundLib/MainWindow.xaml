@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MySoundLib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="563" Width="1000" Icon="Resources/Logo.ico" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="563" Width="1000" WindowStartupLocation="CenterScreen" Icon="pack://siteoforigin:,,,/Resources/Icon.ico" Closing="Window_Closing">
     <DockPanel>
         <Menu DockPanel.Dock="Top" Height="18">
             <Menu.ItemsPanel>

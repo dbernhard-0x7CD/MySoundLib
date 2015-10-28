@@ -1,12 +1,8 @@
-﻿using System;
-using System.Data;
-using System.Diagnostics;
+﻿using System.Data;
 using System.Windows;
 using System.Windows.Controls;
-using MySoundLib.Configuration;
-using MySoundLib.Windows;
 
-namespace MySoundLib
+namespace MySoundLib.Windows
 {
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
@@ -24,13 +20,23 @@ namespace MySoundLib
 				return;
 			}
 
+			var songs = _connectionManager.GetDataTable("select * from songs");
+
+			if (songs.Rows.Count == 0)
+			{
+				GridContent.Children.Add(new UserControlUploadSong(_connectionManager));
+			}
+			else
+			{
+				GridContent.Children.Add(new UserControlSongs(_connectionManager));
+			}
+
 			HideCurrentSong();
 		}
 
 		bool ShowLoginWindow(bool tryAutoConnect)
 		{
 			var loginWindow = new LoginWindow(tryAutoConnect);
-
 			loginWindow.ShowDialog();
 
 			if (loginWindow.ResultConnectionManager == null) return false;
@@ -55,7 +61,7 @@ namespace MySoundLib
 
 		private void MenuItemSettings_OnClick(object sender, RoutedEventArgs e)
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		private void MenuItemAbout_OnClick(object sender, RoutedEventArgs e)
@@ -82,6 +88,7 @@ namespace MySoundLib
 		private void ListBoxItemSongs_OnSelected(object sender, RoutedEventArgs e)
 		{
 			GridContent.Children.Clear();
+			GridContent.Children.Add(new UserControlSongs(_connectionManager));
 		}
 
 		private void ListBoxItemAlbums_OnSelected(object sender, RoutedEventArgs e)
@@ -115,6 +122,11 @@ namespace MySoundLib
 			{
 				userControlGenres.ListBoxGenres.Items.Add(row[0]);
 			}
+		}
+
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			_connectionManager.Disconnect();
 		}
 	}
 }

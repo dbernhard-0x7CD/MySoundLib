@@ -1,4 +1,4 @@
-﻿<Window x:Class="MySoundLib.MainWindow"
+﻿<Window x:Class="MySoundLib.Windows.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -16,7 +16,6 @@
             <MenuItem x:Name="MenuItemSettings" Header="Settings" Click="MenuItemSettings_OnClick"/>
             <MenuItem x:Name="MenuItemAbout" Header="About" Click="MenuItemAbout_OnClick" />
             <MenuItem x:Name="MenuItemTestingWindow" Header="Testing Window" Click="MenuItemTestingWindow_OnClick"></MenuItem>
-            <MenuItem x:Name="MenuItemPing" HorizontalAlignment="Right" />
             <MenuItem x:Name="MenuItemDisconnect" Header="Disconnect" Click="MenuItemDisconnect_OnClick" HorizontalAlignment="Right"/>
         </Menu>
         <Grid x:Name="GridMain">
@@ -40,8 +39,8 @@
                     <ListBoxItem x:Name="ListBoxItemArtists" Selected="ListBoxItemArtists_OnSelected">Artists</ListBoxItem>
                     <ListBoxItem x:Name="ListBoxItemGenres" Selected="ListBoxItemGenres_OnSelected">Genres</ListBoxItem>
                 </ListBox>
-                <Label>Playlists</Label>
-                <ListBox x:Name="ListBoxPlaylists">
+                <Label Visibility="Collapsed">Playlists</Label>
+                <ListBox Visibility="Collapsed" x:Name="ListBoxPlaylists">
                     <ListBoxItem>Playlist1</ListBoxItem>
                     <ListBoxItem>Playlist2</ListBoxItem>
                     <ListBoxItem>Playlist3</ListBoxItem>

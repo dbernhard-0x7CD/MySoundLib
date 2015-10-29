@@ -32,10 +32,10 @@ namespace MySoundLib.Windows
 			}
 
 			InitializeComponent();
-			
-			var songs = _connectionManager.GetDataTable("select * from songs");
 
-			if (songs.Rows.Count == 0)
+			var songExists = (long) _connectionManager.ExecuteScalar("select count(*) from songs");
+
+			if (songExists == 0)
 			{
 				GridContent.Children.Add(new UserControlUploadSong(_connectionManager));
 			}

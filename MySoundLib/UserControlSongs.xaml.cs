@@ -1,5 +1,4 @@
-﻿using System.Data;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace MySoundLib
@@ -7,7 +6,7 @@ namespace MySoundLib
 	/// <summary>
 	/// Interaction logic for UserControlSongs.xaml
 	/// </summary>
-	public partial class UserControlSongs : UserControl
+	public partial class UserControlSongs
 	{
 		private readonly ServerConnectionManager _serverConnectionManager;
 
@@ -16,7 +15,7 @@ namespace MySoundLib
 			InitializeComponent();
 			_serverConnectionManager = connectionManager;
 
-			var songs = _serverConnectionManager.GetDataTable("select * from songs s left join artists a on (a.artist_id = s.artist)");
+			var songs = _serverConnectionManager.GetDataTable("select song_title, artist_name from songs s left join artists a on (a.artist_id = s.artist)");
 
 			ListViewSongs.ItemsSource = songs.DefaultView;
 		}

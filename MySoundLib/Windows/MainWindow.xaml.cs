@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Windows;
 using System.Windows.Controls;
+using MySoundLib.Configuration;
 
 namespace MySoundLib.Windows
 {
@@ -13,13 +14,25 @@ namespace MySoundLib.Windows
 
 		public MainWindow()
 		{
-			InitializeComponent();
-			if (!ShowLoginWindow(true))
+			Settings.LoadSettings();
+			if (Settings.Contains(Property.AutoConnect) && Settings.Contains(Property.LastServer) &&
+			    Settings.Contains(Property.LastUser))
 			{
-				Close();
-				return;
+				_connectionManager = new ServerConnectionManager();
+				_connectionManager.Connect(Settings.GetValue(Property.LastServer), Settings.GetValue(Property.LastUser),
+					LoginWindow.GetDecryptedPassword(), "my_sound_lib");
+			}
+			else
+			{
+				if (!ShowLoginWindow())
+				{
+					Close();
+					return;
+				}
 			}
 
+			InitializeComponent();
+			
 			var songs = _connectionManager.GetDataTable("select * from songs");
 
 			if (songs.Rows.Count == 0)
@@ -34,9 +47,9 @@ namespace MySoundLib.Windows
 			HideCurrentSong();
 		}
 
-		bool ShowLoginWindow(bool tryAutoConnect)
+		bool ShowLoginWindow()
 		{
-			var loginWindow = new LoginWindow(tryAutoConnect);
+			var loginWindow = new LoginWindow();
 			loginWindow.ShowDialog();
 
 			if (loginWindow.ResultConnectionManager == null) return false;
@@ -55,7 +68,7 @@ namespace MySoundLib.Windows
 		{
 			Hide();
 			_connectionManager.Disconnect();
-			if (ShowLoginWindow(false))
+			if (ShowLoginWindow())
 				Show();
 		}
 

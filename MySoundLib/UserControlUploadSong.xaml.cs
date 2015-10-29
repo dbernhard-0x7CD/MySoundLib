@@ -1,9 +1,7 @@
 ﻿using System.Data;
+using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 
 namespace MySoundLib
@@ -11,10 +9,12 @@ namespace MySoundLib
 	/// <summary>
 	/// Interaction logic for UserControlUploadSong.xaml
 	/// </summary>
-	public partial class UserControlUploadSong : UserControl
+	public partial class UserControlUploadSong
 	{
 		private readonly ServerConnectionManager _connectionManager;
 		private string _filePath;
+		private DataTable _dataTableArtists;
+		private DataTable _dataTableGenres;
 		
 		public UserControlUploadSong(ServerConnectionManager connectionManager)
 		{
@@ -24,19 +24,13 @@ namespace MySoundLib
 
 		private void UserControl_Loaded(object sender, RoutedEventArgs e)
 		{
-			var artists = _connectionManager.GetDataTable("select artist_name from artists");
+			_dataTableArtists = _connectionManager.GetDataTable("select * from artists");
 
-			foreach (DataRow row in artists.Rows)
-			{
-				ComboBoxArtist.Items.Add(row[0]);
-			}
+			ComboBoxArtist.ItemsSource = _dataTableArtists.DefaultView;
 
-			var genres = _connectionManager.GetDataTable("select genre_name from genres");
+			_dataTableGenres = _connectionManager.GetDataTable("select * from genres");
 
-			foreach (DataRow row in genres.Rows)
-			{
-				ComboBoxGenre.Items.Add(row[0]);
-			}
+			ComboBoxGenre.ItemsSource = _dataTableGenres.DefaultView;
 		}
 
 		private void ButtonSelectFile_Click(object sender, RoutedEventArgs e)
@@ -53,7 +47,7 @@ namespace MySoundLib
 			{
 				_filePath = dlg.FileName;
 
-				ButtonSelectFile.Content = System.IO.Path.GetFileName(_filePath);
+				ButtonSelectFile.Content = Path.GetFileName(_filePath);
 			}
 			else
 			{
@@ -63,18 +57,46 @@ namespace MySoundLib
 
 		private void ButtonAddSong_Click(object sender, RoutedEventArgs e)
 		{
+			if (TextBoxSongTitle.Text == "" || _filePath == "")
+			{
+				MessageBox.Show("Missing data");
+				return;
+			}
+			
 			var fs = new FileStream(_filePath, FileMode.Open, FileAccess.Read);
 			var br = new BinaryReader(fs);
 			var imageData = br.ReadBytes((int)fs.Length);
 			br.Close();
 			fs.Close();
 
-			var command = new MySqlCommand("INSERT INTO Songs(song_title, track) VALUES(@title, @track)");
+			var command = new MySqlCommand("INSERT INTO Songs(song_title, track, artist) VALUES(@title, @track, @artist)");
 
 			command.Parameters.AddWithValue("@title", TextBoxSongTitle.Text);
 			command.Parameters.AddWithValue("@track", imageData);
 
+			if (ComboBoxArtist.SelectedValue == null)
+			{
+				Debug.WriteLine("not implemented to add an artist on the fly");
+				command.Parameters.AddWithValue("@artist", null);
+			}
+			else
+			{
+				command.Parameters.AddWithValue("@artist", ComboBoxArtist.SelectedValue);
+			}
+
 			_connectionManager.ExecuteCommand(command);
+		}
+
+		private void ButtonAddArtist_OnClick(object sender, RoutedEventArgs e)
+		{
+			ComboBoxArtist.IsEditable = true;
+			ComboBoxArtist.IsReadOnly = false;
+			ComboBoxArtist.Text = "";
+		}
+
+		private void ButtonAddGenre_OnClick(object sender, RoutedEventArgs e)
+		{
+			throw new System.NotImplementedException();
 		}
 	}
 }

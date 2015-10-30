@@ -47,7 +47,7 @@ namespace MySoundLib.Windows
 			HideCurrentSong();
 		}
 
-		bool ShowLoginWindow()
+		private bool ShowLoginWindow()
 		{
 			var loginWindow = new LoginWindow();
 			loginWindow.ShowDialog();
@@ -101,7 +101,7 @@ namespace MySoundLib.Windows
 		private void ListBoxItemSongs_OnSelected(object sender, RoutedEventArgs e)
 		{
 			GridContent.Children.Clear();
-			GridContent.Children.Add(new UserControlSongs(_connectionManager));
+			GridContent.Children.Add(new UserControlSongs(_connectionManager, this));
 		}
 
 		private void ListBoxItemAlbums_OnSelected(object sender, RoutedEventArgs e)

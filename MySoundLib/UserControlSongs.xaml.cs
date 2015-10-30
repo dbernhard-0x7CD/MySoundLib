@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
+using MySoundLib.Windows;
 
 namespace MySoundLib
 {
@@ -9,15 +11,18 @@ namespace MySoundLib
 	public partial class UserControlSongs
 	{
 		private readonly ServerConnectionManager _serverConnectionManager;
+		private readonly MainWindow _mainWindow;
 
-		public UserControlSongs(ServerConnectionManager connectionManager)
+		public UserControlSongs(ServerConnectionManager connectionManager, MainWindow mainWindow)
 		{
 			InitializeComponent();
 			_serverConnectionManager = connectionManager;
+			_mainWindow = mainWindow;
 
 			var songs = _serverConnectionManager.GetDataTable("select song_id, song_title, artist_name, album_name, genre_name, length from songs s left join artists a on (a.artist_id = s.artist) left join genres g on (s.genre = g.genre_id) left join albums al on (al.album_id = s.album)");
 
-			ListViewSongs.ItemsSource = songs.DefaultView;
+
+			DataGridSongs.ItemsSource = songs.DefaultView;
 		}
 
 		private void ButtonAddNewSong_Click(object sender, RoutedEventArgs e)

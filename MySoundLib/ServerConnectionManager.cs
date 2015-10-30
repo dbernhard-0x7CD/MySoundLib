@@ -144,15 +144,15 @@ namespace MySoundLib
 		/// </summary>
 		/// <param name="command">SQL-Command as string</param>
 		/// <returns>Object, null if an error occurred</returns>
-		public object ExecuteScalar(string command)
+		public object ExecuteScalar(MySqlCommand command)
 		{
 			if (!IsConnected())
 				return null;
-			var mySqlCommand = new MySqlCommand(command) {Connection = CurrentConnection};
+			command.Connection = CurrentConnection;
 
 			try
 			{
-				return mySqlCommand.ExecuteScalar();
+				return command.ExecuteScalar();
 			}
 			catch (MySqlException e)
 			{
@@ -160,6 +160,11 @@ namespace MySoundLib
 			}
 
 			return null;
+		}
+
+		public object ExecuteScalar(string command)
+		{
+			return ExecuteCommand(new MySqlCommand(command));
 		}
 
 		/// <summary>

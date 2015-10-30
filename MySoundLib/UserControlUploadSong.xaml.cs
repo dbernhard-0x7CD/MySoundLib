@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -65,26 +66,36 @@ namespace MySoundLib
 			
 			var fs = new FileStream(_filePath, FileMode.Open, FileAccess.Read);
 			var br = new BinaryReader(fs);
-			var imageData = br.ReadBytes((int)fs.Length);
+			var data = br.ReadBytes((int)fs.Length);
 			br.Close();
 			fs.Close();
 
-			var command = new MySqlCommand("INSERT INTO Songs(song_title, track, artist) VALUES(@title, @track, @artist)");
-
-			command.Parameters.AddWithValue("@title", TextBoxSongTitle.Text);
-			command.Parameters.AddWithValue("@track", imageData);
-
+			int? artistId = null;
+			int? albumId = null;
+			int? genreId = null;
+			
 			if (ComboBoxArtist.SelectedValue == null)
 			{
-				Debug.WriteLine("not implemented to add an artist on the fly");
-				command.Parameters.AddWithValue("@artist", null);
+				if (ComboBoxArtist.Text != "")
+				{
+					var result = _connectionManager.ExecuteCommand(CommandFactory.InsertNewArtist(ComboBoxArtist.Text));
+
+					if (result != 1)
+					{
+						Debug.WriteLine("Unable to create artist");
+						return;
+					}
+					artistId = ToNullableInt32(_connectionManager.ExecuteScalar(CommandFactory.GetLastInsertedId()).ToString());
+				}
 			}
 			else
 			{
-				command.Parameters.AddWithValue("@artist", ComboBoxArtist.SelectedValue);
+				artistId = (int) ComboBoxArtist.SelectedValue;
 			}
 
-			_connectionManager.ExecuteCommand(command);
+			//TODO: genreId and albumId
+			
+			_connectionManager.ExecuteCommand(CommandFactory.InsertNewSong(TextBoxSongTitle.Text, data, artistId, albumId, genreId, null));
 		}
 
 		private void ButtonAddArtist_OnClick(object sender, RoutedEventArgs e)
@@ -96,7 +107,16 @@ namespace MySoundLib
 
 		private void ButtonAddGenre_OnClick(object sender, RoutedEventArgs e)
 		{
-			throw new System.NotImplementedException();
+			ComboBoxGenre.IsEditable = true;
+			ComboBoxGenre.IsReadOnly = false;
+			ComboBoxGenre.Text = "";
+		}
+
+		public static int? ToNullableInt32(string s)
+		{
+			int i;
+			if (int.TryParse(s, out i)) return i;
+			return null;
 		}
 	}
 }

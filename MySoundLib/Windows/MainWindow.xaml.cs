@@ -41,7 +41,7 @@ namespace MySoundLib.Windows
 			}
 			else
 			{
-				GridContent.Children.Add(new UserControlSongs(_connectionManager));
+				ListBoxCategory.SelectedIndex = 0;
 			}
 
 			HideCurrentSong();

@@ -76,7 +76,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DatabaseAccessDeniedExcpetion.cs" />
+    <Compile Include="CommandFactory.cs" />
+    <Compile Include="Exceptions\DatabaseAccessDeniedExcpetion.cs" />
     <Compile Include="ServerConnectionManager.cs" />
     <Compile Include="Configuration\Property.cs" />
     <Compile Include="Configuration\Settings.cs" />

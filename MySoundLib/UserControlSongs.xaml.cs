@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Data;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using MySoundLib.Windows;
@@ -21,7 +22,6 @@ namespace MySoundLib
 
 			var songs = _serverConnectionManager.GetDataTable("select song_id, song_title, artist_name, album_name, genre_name, length from songs s left join artists a on (a.artist_id = s.artist) left join genres g on (s.genre = g.genre_id) left join albums al on (al.album_id = s.album)");
 
-
 			DataGridSongs.ItemsSource = songs.DefaultView;
 		}
 
@@ -33,6 +33,16 @@ namespace MySoundLib
 
 			uiElementCollection.Clear();
 			uiElementCollection.Add(new UserControlUploadSong(_serverConnectionManager));
+		}
+
+		private void DataGridSongs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			var dataRowView = DataGridSongs.SelectedItems[0] as DataRowView;
+			if (dataRowView != null)
+			{
+				Debug.WriteLine(dataRowView[0]);
+				_mainWindow.PlaySong(int.Parse(dataRowView[0].ToString()));
+			}
 		}
 	}
 }

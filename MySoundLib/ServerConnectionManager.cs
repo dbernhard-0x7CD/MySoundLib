@@ -224,7 +224,7 @@ namespace MySoundLib
 				return;
 			}
 
-			Debug.WriteLine("MySqlException: " + errorCode + "\tMessage: " + mySqlException.Message + "\tInner-Exception " + mySqlException.InnerException.Message);
+			Debug.WriteLine("MySqlException: " + errorCode + "\tMessage: " + mySqlException.Message + "\tInner-Exception " + mySqlException.InnerException?.Message);
 		}
 	}
 }

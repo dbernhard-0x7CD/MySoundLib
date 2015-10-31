@@ -29,6 +29,8 @@ namespace MySoundLib
 		{
 			var uiElementCollection = ((Grid) Parent).Children;
 
+			_mainWindow.ListBoxCategory.UnselectAll();
+
 			uiElementCollection.Clear();
 			uiElementCollection.Add(new UserControlUploadSong(_serverConnectionManager));
 		}

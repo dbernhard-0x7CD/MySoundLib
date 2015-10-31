@@ -22,7 +22,7 @@ namespace MySoundLib.Configuration
 		/// <summary>
 		/// Dictionary of values accessed by properties
 		/// </summary>
-		static Dictionary<Property, string> Config = new Dictionary<Property, string>();
+		static readonly Dictionary<Property, string> Config = new Dictionary<Property, string>();
 		
 		/// <summary>
 		/// Create paths if they don't exist and load the dictionary

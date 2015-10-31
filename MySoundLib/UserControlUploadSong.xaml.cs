@@ -38,8 +38,8 @@ namespace MySoundLib
 		{
 			var dlg = new Microsoft.Win32.OpenFileDialog
 			{
-				DefaultExt = ".mp3",
-				Filter = "MP3 Files (*.mp3)|*.mp3|MPEG 4 Audio (*.m4a)|*.m4a"
+				FilterIndex = 3,
+				Filter = "MP3 Files (*.mp3)|*.mp3|MPEG 4 Audio (*.m4a)|*.m4a|Audio Files|*.mp3;*.m4a"
 			};
 
 			var result = dlg.ShowDialog();
@@ -49,10 +49,6 @@ namespace MySoundLib
 				_filePath = dlg.FileName;
 
 				ButtonSelectFile.Content = Path.GetFileName(_filePath);
-			}
-			else
-			{
-				MessageBox.Show("No path choosen");
 			}
 		}
 

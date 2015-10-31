@@ -13,7 +13,7 @@ namespace MySoundLib.Configuration
 		/// <summary>
 		/// Path which contains the config file
 		/// </summary>
-		static readonly string PathProgramFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MySoundLib");
+		public static readonly string PathProgramFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MySoundLib");
 		/// <summary>
 		/// Configuration file path
 		/// </summary>
@@ -22,7 +22,7 @@ namespace MySoundLib.Configuration
 		/// <summary>
 		/// Dictionary of values accessed by properties
 		/// </summary>
-		public static Dictionary<Property, string> Config = new Dictionary<Property, string>();
+		static Dictionary<Property, string> Config = new Dictionary<Property, string>();
 		
 		/// <summary>
 		/// Create paths if they don't exist and load the dictionary

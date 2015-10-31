@@ -29,5 +29,10 @@ namespace MySoundLib
 		{
 			return new MySqlCommand("SELECT LAST_INSERT_ID();");
 		}
+
+		public static MySqlCommand GetSongAmount()
+		{
+			return new MySqlCommand("select count(*) from songs");
+		}
 	}
 }

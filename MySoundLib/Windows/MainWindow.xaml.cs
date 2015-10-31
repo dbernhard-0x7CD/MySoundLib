@@ -33,7 +33,7 @@ namespace MySoundLib.Windows
 
 			InitializeComponent();
 
-			var songExists = (int)_connectionManager.ExecuteScalar("select count(*) from songs");
+			var songExists = (int)_connectionManager.ExecuteScalar(CommandFactory.GetSongAmount());
 
 			if (songExists == 0)
 			{

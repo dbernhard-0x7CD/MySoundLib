@@ -5,10 +5,20 @@ namespace MySoundLib
 {
 	public static class CommandFactory
 	{
-		public static MySqlCommand InsertNewArtist(string name)
+		public static MySqlCommand InsertNewArtist(string artistName)
 		{
-			return new MySqlCommand($"INSERT INTO artists(artist_name) VALUES('{name}')");
+			return new MySqlCommand($"INSERT INTO artists(artist_name) VALUES('{artistName}')");
         }
+
+		public static MySqlCommand InsertNewGenre(string genreName)
+		{
+			return new MySqlCommand($"INSERT INTO genres(genre_name) VALUES('{genreName}')");
+		}
+
+		public static MySqlCommand InsertNewAlbum(string albumName)
+		{
+			return new MySqlCommand($"INSERT INTO albums(album_name) VALUES('{albumName}')");
+		}
 
 		public static MySqlCommand InsertNewSong(string title, byte[] track, int? artistId, int? albumId, int? genreId, DateTime? dateTimeReleased)
 		{
@@ -34,5 +44,5 @@ namespace MySoundLib
 		{
 			return new MySqlCommand("select count(*) from songs");
 		}
-	}
+    }
 }

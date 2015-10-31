@@ -1,9 +1,8 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
-using MySql.Data.MySqlClient;
+using System.Windows.Controls;
 
 namespace MySoundLib
 {
@@ -15,8 +14,9 @@ namespace MySoundLib
 		private readonly ServerConnectionManager _connectionManager;
 		private string _filePath;
 		private DataTable _dataTableArtists;
+		private DataTable _dataTableAlbums;
 		private DataTable _dataTableGenres;
-		
+
 		public UserControlUploadSong(ServerConnectionManager connectionManager)
 		{
 			InitializeComponent();
@@ -32,6 +32,10 @@ namespace MySoundLib
 			_dataTableGenres = _connectionManager.GetDataTable("select * from genres");
 
 			ComboBoxGenre.ItemsSource = _dataTableGenres.DefaultView;
+
+			_dataTableAlbums = _connectionManager.GetDataTable("select * from albums");
+
+			ComboBoxAlbum.ItemsSource = _dataTableAlbums.DefaultView;
 		}
 
 		private void ButtonSelectFile_Click(object sender, RoutedEventArgs e)
@@ -59,7 +63,7 @@ namespace MySoundLib
 				MessageBox.Show("Missing data");
 				return;
 			}
-			
+
 			var fs = new FileStream(_filePath, FileMode.Open, FileAccess.Read);
 			var br = new BinaryReader(fs);
 			var data = br.ReadBytes((int)fs.Length);
@@ -69,7 +73,8 @@ namespace MySoundLib
 			int? artistId = null;
 			int? albumId = null;
 			int? genreId = null;
-			
+
+			// ensure artist exist
 			if (ComboBoxArtist.SelectedValue == null)
 			{
 				if (ComboBoxArtist.Text != "")
@@ -86,26 +91,76 @@ namespace MySoundLib
 			}
 			else
 			{
-				artistId = (int) ComboBoxArtist.SelectedValue;
+				artistId = (int)ComboBoxArtist.SelectedValue;
 			}
 
-			//TODO: genreId and albumId
-			
-			_connectionManager.ExecuteCommand(CommandFactory.InsertNewSong(TextBoxSongTitle.Text, data, artistId, albumId, genreId, null));
+			// ensure album exists
+			if (ComboBoxAlbum.SelectedValue == null)
+			{
+				if (ComboBoxAlbum.Text != "")
+				{
+					var result = _connectionManager.ExecuteCommand(CommandFactory.InsertNewAlbum(ComboBoxAlbum.Text));
+
+					if (result != 1)
+					{
+						Debug.WriteLine("Unable to create album");
+						return;
+					}
+					albumId = ToNullableInt32(_connectionManager.ExecuteScalar(CommandFactory.GetLastInsertedId()).ToString());
+				}
+			}
+			else
+			{
+				albumId = (int)ComboBoxAlbum.SelectedValue;
+			}
+
+			// ensure genre exists
+			if (ComboBoxGenre.SelectedValue == null)
+			{
+				if (ComboBoxGenre.Text != "")
+				{
+					var result = _connectionManager.ExecuteCommand(CommandFactory.InsertNewGenre(ComboBoxGenre.Text));
+
+					if (result != 1)
+					{
+						Debug.WriteLine("Unable to create genre");
+						return;
+					}
+					genreId = ToNullableInt32(_connectionManager.ExecuteScalar(CommandFactory.GetLastInsertedId()).ToString());
+				}
+			}
+			else
+			{
+				genreId = (int)ComboBoxGenre.SelectedValue;
+			}
+
+			var affectedLines = _connectionManager.ExecuteCommand(CommandFactory.InsertNewSong(TextBoxSongTitle.Text, data, artistId, albumId, genreId, null));
+			if (affectedLines >= 1)
+			{
+				Debug.WriteLine("More lines affected");
+			}
 		}
 
 		private void ButtonAddArtist_OnClick(object sender, RoutedEventArgs e)
 		{
-			ComboBoxArtist.IsEditable = true;
-			ComboBoxArtist.IsReadOnly = false;
-			ComboBoxArtist.Text = "";
+			EnableEditing(ComboBoxArtist);
 		}
 
 		private void ButtonAddGenre_OnClick(object sender, RoutedEventArgs e)
 		{
-			ComboBoxGenre.IsEditable = true;
-			ComboBoxGenre.IsReadOnly = false;
-			ComboBoxGenre.Text = "";
+			EnableEditing(ComboBoxGenre);
+		}
+
+		private void ButtonAddAlbum_OnClick(object sender, RoutedEventArgs e)
+		{
+			EnableEditing(ComboBoxAlbum);
+		}
+
+		private static void EnableEditing(ComboBox comboBox)
+		{
+			comboBox.IsEditable = true;
+			comboBox.IsReadOnly = false;
+			comboBox.Text = "";
 		}
 
 		public static int? ToNullableInt32(string s)

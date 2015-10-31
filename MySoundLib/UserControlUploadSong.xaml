@@ -40,9 +40,12 @@
                 <Button x:Name="ButtonAddArtist" Content="+" Background="{x:Null}" BorderBrush="{x:Null}" Margin="7,0,0,0" Click="ButtonAddArtist_OnClick" />
             </StackPanel>
             
-
             <Label Grid.Row="3" Grid.Column="0" Content="Album" />
-            <ComboBox x:Name="ComboBoxAlbum" Grid.Row="3" Grid.Column="1" Height="22" Width="120" HorizontalAlignment="Left" IsReadOnly="True" TabIndex="4"/>
+
+            <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                <ComboBox x:Name="ComboBoxAlbum" Height="22" Width="120" HorizontalAlignment="Left" IsReadOnly="True" TabIndex="4" DisplayMemberPath="album_name" SelectedValuePath="album_id"/>
+                <Button x:Name="ButtonAddAlbum" Content="+" Background="{x:Null}" BorderBrush="{x:Null}" Margin="7,0,0,0" Click="ButtonAddAlbum_OnClick" />
+            </StackPanel>
 
             <Label Grid.Row="4" Grid.Column="0" Content="Genre" />
             <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">

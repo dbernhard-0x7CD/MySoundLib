@@ -2,6 +2,7 @@
 using System.Data;
 using System.Diagnostics;
 using System.Windows;
+using MySoundLib.Exceptions;
 using MySql.Data.MySqlClient;
 
 namespace MySoundLib

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MySoundLib
+namespace MySoundLib.Exceptions
 {
 	public class DatabaseAccessDeniedExcpetion : Exception
 	{

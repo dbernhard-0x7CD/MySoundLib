@@ -162,22 +162,23 @@ namespace MySoundLib.Windows
 			LabelSongTitle.Content = "Title: " + title;
 
 			Debug.WriteLine($"Playing song: {title}");
+			ButtonPlay.Content = "Start";
 		}
 
 		private void ButtonPlay_OnClick(object sender, RoutedEventArgs e)
 		{
-			if (ButtonPlay.Content.ToString() == "Pause")
+			switch (ButtonPlay.Content.ToString())
 			{
-				mediaPlayer.controls.pause();
-				ButtonPlay.Content = "Continue";
-				return;
+				case "Pause":
+					mediaPlayer.controls.pause();
+					ButtonPlay.Content = "Continue";
+					return;
+				case "Continue":
+					mediaPlayer.controls.play();
+					ButtonPlay.Content = "Pause";
+					return;
 			}
-			if (ButtonPlay.Content.ToString() == "Continue")
-			{
-				mediaPlayer.controls.play();
-				ButtonPlay.Content = "Pause";
-				return;
-			}
+			mediaPlayer?.controls.stop();
 			var track = _connectionManager.GetDataTable("SELECT track FROM songs WHERE song_id = " + currentSongId);
 
 			var byteTrack = (byte[])track.Rows[0]["track"];

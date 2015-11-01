@@ -160,8 +160,6 @@ namespace MySoundLib.Windows
 			var title = song.Rows[0]["song_title"];
 
 			LabelSongTitle.Content = "Title: " + title;
-
-			Debug.WriteLine($"Playing song: {title}");
 			ButtonPlay.Content = "Start";
 		}
 
@@ -179,6 +177,8 @@ namespace MySoundLib.Windows
 					return;
 			}
 			mediaPlayer?.controls.stop();
+
+			Debug.WriteLine("Loading track");
 			var track = _connectionManager.GetDataTable("SELECT track FROM songs WHERE song_id = " + currentSongId);
 
 			var byteTrack = (byte[])track.Rows[0]["track"];
@@ -201,8 +201,19 @@ namespace MySoundLib.Windows
 			ButtonPlay.Content = "Pause";
 
 			mediaPlayer = new WindowsMediaPlayer {URL = pathFile};
+			
+			mediaPlayer.PlayStateChange += MediaPlayerOnPlayStateChange;
 
 			mediaPlayer.controls.play();
+			Debug.WriteLine("Playing song");
+		}
+
+		private void MediaPlayerOnPlayStateChange(int newState)
+		{
+			if (newState == (int)WMPPlayState.wmppsStopped)
+			{
+				ButtonPlay.Content = "Play";
+			}
 		}
 	}
 }

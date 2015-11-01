@@ -29,7 +29,7 @@
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Content="File" />
-            <Button x:Name="ButtonSelectFile" Grid.Row="0" Grid.Column="1" Width="180" Height="22" Content="Select File" HorizontalAlignment="Left" Click="ButtonSelectFile_Click" TabIndex="1" />
+            <Button x:Name="ButtonSelectFile" Grid.Row="0" Grid.Column="1" Padding="6,0" Width="Auto" MinWidth="180" Height="22" Content="Select File" HorizontalAlignment="Left" Click="ButtonSelectFile_Click" TabIndex="1" />
 
             <Label Grid.Row="1" Grid.Column="0" Content="Title" />
             <TextBox x:Name="TextBoxSongTitle" Grid.Row="1" Grid.Column="1" Height="20" Width="180" HorizontalAlignment="Left" TabIndex="2" />

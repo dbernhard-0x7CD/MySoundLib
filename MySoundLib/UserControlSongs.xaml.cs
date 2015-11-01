@@ -1,5 +1,4 @@
 ﻿using System.Data;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using MySoundLib.Windows;
@@ -40,7 +39,6 @@ namespace MySoundLib
 			var dataRowView = DataGridSongs.SelectedItems[0] as DataRowView;
 			if (dataRowView != null)
 			{
-				Debug.WriteLine(dataRowView[0]);
 				_mainWindow.PlaySong(int.Parse(dataRowView[0].ToString()));
 			}
 		}

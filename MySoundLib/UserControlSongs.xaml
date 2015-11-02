@@ -6,12 +6,12 @@
              xmlns:local="clr-namespace:MySoundLib"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-	<UserControl.Resources>
+    <UserControl.Resources>
         <Style x:Key="CellStyle" TargetType="{x:Type DataGridCell}">
             <Setter Property="Foreground" Value="Black" />
             <Style.Triggers>
                 <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="#CC9BF3" />
+                    <Setter Property="Background" Value="{x:Null}" />
                     <Setter Property="BorderBrush" Value="{x:Null}" />
                 </Trigger>
             </Style.Triggers>
@@ -39,6 +39,11 @@
                 <DataGridTextColumn Binding="{Binding genre_name}" Header="Genre" ElementStyle="{StaticResource AnyColumnStyle}" />
                 <DataGridTextColumn Binding="{Binding length}" Header="Length" ElementStyle="{StaticResource AnyColumnStyle}" />
             </DataGrid.Columns>
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_DoubleClick"></EventSetter>
+                </Style>
+            </DataGrid.Resources>
         </DataGrid>
     </Grid>
 </UserControl>

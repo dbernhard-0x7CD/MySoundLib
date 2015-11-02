@@ -156,6 +156,8 @@ namespace MySoundLib.Windows
 
 		public void PlaySong(int id)
 		{
+			_mediaPlayer?.close();
+
 			ShowCurrentSong();
 			_currentSongId = id;
 			var song = _connectionManager.GetDataTable("select song_title, artist_name, album_name, genre_name, length, release_date from songs s left join artists a on (s.artist = a.artist_id) left join genres g on (s.genre = g.genre_id) left join albums al on (s.album = al.album_id) where song_id = " + id);
@@ -164,6 +166,9 @@ namespace MySoundLib.Windows
 
 			LabelSongTitle.Content = "Title: " + title;
 			ButtonPlay.Content = "Start";
+			ButtonMute.Content = "Mute";
+
+			ButtonPlay_OnClick(null, null);
 		}
 
 		private void ButtonPlay_OnClick(object sender, RoutedEventArgs e)
@@ -179,9 +184,8 @@ namespace MySoundLib.Windows
 					ButtonPlay.Content = "Pause";
 					return;
 			}
-			_mediaPlayer?.controls.stop();
 
-			Debug.WriteLine("Loading track");
+			Debug.WriteLine("Loading track from song_id " + _currentSongId);
 			var track = _connectionManager.GetDataTable("SELECT track FROM songs WHERE song_id = " + _currentSongId);
 
 			var byteTrack = (byte[])track.Rows[0]["track"];
@@ -219,8 +223,13 @@ namespace MySoundLib.Windows
 
 		private void UpdateProgressTimerOnTick(object sender, EventArgs eventArgs)
 		{
-			ProgressBarTrack.Maximum = _mediaPlayer.currentMedia.duration;
-			ProgressBarTrack.Value = _mediaPlayer.controls.currentPosition;
+			var duration = _mediaPlayer.currentMedia.duration;
+
+			if ((int)duration != 0)
+			{
+				ProgressBarTrack.Maximum = duration;
+				ProgressBarTrack.Value = _mediaPlayer.controls.currentPosition;
+			}
 		}
 
 		private void MediaPlayerOnPlayStateChange(int newState)
@@ -228,6 +237,9 @@ namespace MySoundLib.Windows
 			if (newState == (int)WMPPlayState.wmppsStopped)
 			{
 				ButtonPlay.Content = "Play";
+				_currentSongId = 0;
+				_mediaPlayer = null;
+				HideCurrentSong();
 			}
 		}
 

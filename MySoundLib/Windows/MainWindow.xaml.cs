@@ -118,7 +118,7 @@ namespace MySoundLib.Windows
 		private void ListBoxItemAlbums_OnSelected(object sender, RoutedEventArgs e)
 		{
 			GridContent.Children.Clear();
-			GridContent.Children.Add(new UserControlAlbums(_connectionManager));
+			GridContent.Children.Add(new UserControlAlbums(_connectionManager, this));
 		}
 
 		private void ListBoxItemArtists_OnSelected(object sender, RoutedEventArgs e)

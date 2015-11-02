@@ -5,14 +5,38 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MySoundLib"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="358.065" d:DesignWidth="395.015">
+    <UserControl.Resources>
+        <Style x:Key="CellStyle" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Foreground" Value="Black" />
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{x:Null}" />
+                    <Setter Property="BorderBrush" Value="{x:Null}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}" x:Key="FirstColumnStyle">
+            <Setter Property="Margin" Value="5,2,17,2" />
+        </Style>
+        <Style TargetType="{x:Type TextBlock}" x:Key="AnyColumnStyle">
+            <Setter Property="Margin" Value="7,2" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="12*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0">Albums</Label>
-        <ListBox x:Name="ListBoxGenres" Grid.Row="1"></ListBox>
+        <Label Grid.Row="0" Content="Albums" Style="{StaticResource StyleInfoHeader}" />
+        <Button x:Name="ButtonAddNewSong" Grid.Row="0" HorizontalAlignment="Right" Content="add new" Height="20" Width="Auto" Margin="0,0,5,0" />
+        <DataGrid Grid.Row="1" x:Name="DataGridAlbums" HeadersVisibility="Column" MaxColumnWidth="250" AlternatingRowBackground="#FFEAFDC2" CanUserResizeRows="False" IsReadOnly="True" CellStyle="{StaticResource CellStyle}" FontSize="16" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding album_name}" Header="Album" ElementStyle="{StaticResource FirstColumnStyle}" />
+                <DataGridTextColumn Header="Artist" ElementStyle="{StaticResource FirstColumnStyle}" />
+                <DataGridTextColumn Header="Length" ElementStyle="{StaticResource AnyColumnStyle}" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

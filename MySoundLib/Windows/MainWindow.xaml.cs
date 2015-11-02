@@ -2,8 +2,10 @@
 using System.Data;
 using System.Diagnostics;
 using System.IO;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using MySoundLib.Configuration;
 using WMPLib;
 
@@ -15,8 +17,9 @@ namespace MySoundLib.Windows
 	public partial class MainWindow
 	{
 		private ServerConnectionManager _connectionManager;
-		private int currentSongId;
-		private WindowsMediaPlayer mediaPlayer;
+		private int _currentSongId;
+		private WindowsMediaPlayer _mediaPlayer;
+		private DispatcherTimer _updateProgressTimer;
 
 		public MainWindow()
 		{
@@ -154,7 +157,7 @@ namespace MySoundLib.Windows
 		public void PlaySong(int id)
 		{
 			ShowCurrentSong();
-			currentSongId = id;
+			_currentSongId = id;
 			var song = _connectionManager.GetDataTable("select song_title, artist_name, album_name, genre_name, length, release_date from songs s left join artists a on (s.artist = a.artist_id) left join genres g on (s.genre = g.genre_id) left join albums al on (s.album = al.album_id) where song_id = " + id);
 
 			var title = song.Rows[0]["song_title"];
@@ -168,18 +171,18 @@ namespace MySoundLib.Windows
 			switch (ButtonPlay.Content.ToString())
 			{
 				case "Pause":
-					mediaPlayer.controls.pause();
+					_mediaPlayer.controls.pause();
 					ButtonPlay.Content = "Continue";
 					return;
 				case "Continue":
-					mediaPlayer.controls.play();
+					_mediaPlayer.controls.play();
 					ButtonPlay.Content = "Pause";
 					return;
 			}
-			mediaPlayer?.controls.stop();
+			_mediaPlayer?.controls.stop();
 
 			Debug.WriteLine("Loading track");
-			var track = _connectionManager.GetDataTable("SELECT track FROM songs WHERE song_id = " + currentSongId);
+			var track = _connectionManager.GetDataTable("SELECT track FROM songs WHERE song_id = " + _currentSongId);
 
 			var byteTrack = (byte[])track.Rows[0]["track"];
 
@@ -200,12 +203,24 @@ namespace MySoundLib.Windows
 			}
 			ButtonPlay.Content = "Pause";
 
-			mediaPlayer = new WindowsMediaPlayer {URL = pathFile};
+			_mediaPlayer = new WindowsMediaPlayer {URL = pathFile};
 			
-			mediaPlayer.PlayStateChange += MediaPlayerOnPlayStateChange;
+			_mediaPlayer.PlayStateChange += MediaPlayerOnPlayStateChange;
 
-			mediaPlayer.controls.play();
+			_mediaPlayer.controls.play();
+
+			_updateProgressTimer = new DispatcherTimer();
+			_updateProgressTimer.Tick += UpdateProgressTimerOnTick;
+			_updateProgressTimer.Interval = new TimeSpan(0,0,0,0,500);
+			_updateProgressTimer.Start();
+			
 			Debug.WriteLine("Playing song");
+		}
+
+		private void UpdateProgressTimerOnTick(object sender, EventArgs eventArgs)
+		{
+			ProgressBarTrack.Maximum = _mediaPlayer.currentMedia.duration;
+			ProgressBarTrack.Value = _mediaPlayer.controls.currentPosition;
 		}
 
 		private void MediaPlayerOnPlayStateChange(int newState)
@@ -220,17 +235,17 @@ namespace MySoundLib.Windows
 		{
 			if (ButtonMute.Content.ToString() == "Unmute")
 			{
-				mediaPlayer.settings.mute = false;
+				_mediaPlayer.settings.mute = false;
 				ButtonMute.Content = "Mute";
 				return;
 			}
-			mediaPlayer.settings.mute = true;
+			_mediaPlayer.settings.mute = true;
 			ButtonMute.Content = "Unmute";
 		}
 
 		private void ButtonRestart_OnClick(object sender, RoutedEventArgs e)
 		{
-			mediaPlayer.controls.currentPosition = 0;
+			_mediaPlayer.controls.currentPosition = 0;
 		}
 	}
 }

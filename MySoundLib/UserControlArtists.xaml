@@ -4,15 +4,39 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MySoundLib"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d" d:DesignHeight="332.024" d:DesignWidth="443.402">
+    <UserControl.Resources>
+        <Style x:Key="CellStyle" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontSize" Value="13"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{x:Null}" />
+                    <Setter Property="BorderBrush" Value="{x:Null}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}" x:Key="FirstColumnStyle">
+            <Setter Property="Margin" Value="5,2,17,2" />
+        </Style>
+        <Style TargetType="{x:Type TextBlock}" x:Key="AnyColumnStyle">
+            <Setter Property="Margin" Value="7,2" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="*"></RowDefinition>
-			<RowDefinition Height="12*"></RowDefinition>
-		</Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
 
-		<Label Grid.Row="0">Artists</Label>
-        <ListBox x:Name="ListBoxArtists" Grid.Row="1"></ListBox>
+        <Label Grid.Row="0" Content="Artists" Style="{StaticResource StyleInfoHeader}" />
+        <Button x:Name="ButtonAddNewArtist" Grid.Row="0" HorizontalAlignment="Right" Content="add new" Height="20" Width="Auto" Margin="0,0,5,0" />
+        <DataGrid Grid.Row="1" x:Name="DataGridArtists" HeadersVisibility="Column" MaxColumnWidth="250" AlternatingRowBackground="#FFEAFDC2" CanUserResizeRows="False" IsReadOnly="True" CellStyle="{StaticResource CellStyle}" FontSize="16" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding artist_name}" Header="Artist" ElementStyle="{StaticResource FirstColumnStyle}" />
+                <DataGridTextColumn Binding="{Binding song_count}" Header="Songs" ElementStyle="{StaticResource AnyColumnStyle}" />
+                <DataGridTextColumn Header="Albums" ElementStyle="{StaticResource AnyColumnStyle}" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

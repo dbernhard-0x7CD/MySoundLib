@@ -124,15 +124,7 @@ namespace MySoundLib.Windows
 		private void ListBoxItemArtists_OnSelected(object sender, RoutedEventArgs e)
 		{
 			GridContent.Children.Clear();
-			var userControlArtists = new UserControlArtists();
-			GridContent.Children.Add(userControlArtists);
-
-			var artists = _connectionManager.GetDataTable("select artist_name from artists");
-
-			foreach (DataRow row in artists.Rows)
-			{
-				userControlArtists.ListBoxArtists.Items.Add(row[0]);
-			}
+			GridContent.Children.Add(new UserControlArtists(_connectionManager, this));
 		}
 
 		private void ListBoxItemGenres_OnSelected(object sender, RoutedEventArgs e)

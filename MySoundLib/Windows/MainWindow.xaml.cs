@@ -215,5 +215,22 @@ namespace MySoundLib.Windows
 				ButtonPlay.Content = "Play";
 			}
 		}
+
+		private void ButtonMute_OnClick(object sender, RoutedEventArgs e)
+		{
+			if (ButtonMute.Content.ToString() == "Unmute")
+			{
+				mediaPlayer.settings.mute = false;
+				ButtonMute.Content = "Mute";
+				return;
+			}
+			mediaPlayer.settings.mute = true;
+			ButtonMute.Content = "Unmute";
+		}
+
+		private void ButtonRestart_OnClick(object sender, RoutedEventArgs e)
+		{
+			mediaPlayer.controls.currentPosition = 0;
+		}
 	}
 }

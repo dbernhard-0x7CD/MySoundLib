@@ -215,11 +215,11 @@ namespace MySoundLib.Windows
 
 		private void UpdateProgressTimerOnTick(object sender, EventArgs eventArgs)
 		{
-			var duration = _mediaPlayer.currentMedia.duration;
+			var duration = _mediaPlayer?.currentMedia?.duration;
 
-			if ((int)duration != 0)
+			if (duration != null && (int)duration != 0)
 			{
-				ProgressBarTrack.Maximum = duration;
+				ProgressBarTrack.Maximum = (double) duration;
 				ProgressBarTrack.Value = _mediaPlayer.controls.currentPosition;
 			}
 		}

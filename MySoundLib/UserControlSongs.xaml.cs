@@ -52,7 +52,7 @@ namespace MySoundLib
 			{
 				if (_currentlyPlayingDataGridRow != null) // there was a song playing before this one
 				{
-					_currentlyPlayingDataGridRow.Background = _lastSongBackground;
+					ResetBackgroundFromRecentSong();
 				}
 				DataGridSongs.SelectedValue = dataGridRow;
 				_lastSongBackground = dataGridRow.Background;
@@ -61,6 +61,11 @@ namespace MySoundLib
 
 				_mainWindow.PlaySong(int.Parse(dataRowView[0].ToString()));
 			}
+		}
+
+		public void ResetBackgroundFromRecentSong()
+		{
+			_currentlyPlayingDataGridRow.Background = _lastSongBackground;
 		}
 	}
 }

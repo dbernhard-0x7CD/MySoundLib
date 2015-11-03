@@ -241,6 +241,10 @@ namespace MySoundLib.Windows
 				_mediaPlayer = null;
 				ProgressBarTrack.Value = 0;
 				HideCurrentSong();
+
+				var userControlSongs = GridContent.Children[0] as UserControlSongs;
+
+				userControlSongs?.ResetBackgroundFromRecentSong();
 			}
 		}
 

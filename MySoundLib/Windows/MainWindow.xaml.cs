@@ -239,6 +239,7 @@ namespace MySoundLib.Windows
 				ButtonPlay.Content = "Play";
 				_currentSongId = 0;
 				_mediaPlayer = null;
+				ProgressBarTrack.Value = 0;
 				HideCurrentSong();
 			}
 		}

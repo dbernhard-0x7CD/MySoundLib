@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
 
@@ -19,9 +20,18 @@ namespace MySoundLib.Windows
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-			var creationTime = (DateTime)_connectionManager.ExecuteScalar("SELECT create_time FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = 'my_sound_lib'");
+			var dataTable =  _connectionManager.GetDataTable("SELECT create_time FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = 'my_sound_lib' group by table_schema");
 
-			LabelDatabaseCreateTime.Content = creationTime.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+			DateTime creationTime;
+
+			if (DateTime.TryParse(dataTable.Rows[0][0].ToString(), out creationTime))
+			{
+				LabelDatabaseCreateTime.Content = creationTime.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+			}
+			else
+			{
+				LabelDatabaseCreateTime.Content = "Nobody knows";
+			}
 		}
 	}
 }

@@ -159,7 +159,7 @@ namespace MySoundLib.Windows
 			LabelSongTitle.Content = "Title: " + title;
 			ButtonPlay.Content = "Start";
 
-			ButtonPlay_OnClick(null, null);
+			PlayTrack();
 		}
 
 		private void ButtonPlay_OnClick(object sender, RoutedEventArgs e)
@@ -174,12 +174,21 @@ namespace MySoundLib.Windows
 					_mediaPlayer.controls.play();
 					ButtonPlay.Content = "Pause";
 					return;
+				case "Start":
+					PlayTrack();
+					return;
+				default:
+					Debug.WriteLine("Undefined action");
+					break;
 			}
+		}
 
+		private void PlayTrack()
+		{
 			Debug.WriteLine("Loading track from song_id " + _currentSongId);
 			var track = _connectionManager.GetDataTable("SELECT track FROM songs WHERE song_id = " + _currentSongId);
 
-			var byteTrack = (byte[])track.Rows[0]["track"];
+			var byteTrack = (byte[]) track.Rows[0]["track"];
 
 			var pathFile = Path.Combine(Settings.PathProgramFolder, Path.GetRandomFileName()) + ".mp3";
 
@@ -199,16 +208,16 @@ namespace MySoundLib.Windows
 			ButtonPlay.Content = "Pause";
 
 			_mediaPlayer = new WindowsMediaPlayer {URL = pathFile};
-			
+
 			_mediaPlayer.PlayStateChange += MediaPlayerOnPlayStateChange;
 
 			_mediaPlayer.controls.play();
 
 			_updateProgressTimer = new DispatcherTimer();
 			_updateProgressTimer.Tick += UpdateProgressTimerOnTick;
-			_updateProgressTimer.Interval = new TimeSpan(0,0,0,0,500);
+			_updateProgressTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
 			_updateProgressTimer.Start();
-			
+
 			Debug.WriteLine("Playing song");
 		}
 

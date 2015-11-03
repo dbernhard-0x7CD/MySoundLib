@@ -158,7 +158,6 @@ namespace MySoundLib.Windows
 
 			LabelSongTitle.Content = "Title: " + title;
 			ButtonPlay.Content = "Start";
-			ButtonMute.Content = "Mute";
 
 			ButtonPlay_OnClick(null, null);
 		}

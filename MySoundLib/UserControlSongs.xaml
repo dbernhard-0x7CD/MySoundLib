@@ -7,15 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <Style x:Key="CellStyle" TargetType="{x:Type DataGridCell}">
-            <Setter Property="Foreground" Value="Black" />
-            <Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="{x:Null}" />
-                    <Setter Property="BorderBrush" Value="{x:Null}" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
         <Style TargetType="{x:Type TextBlock}" x:Key="FirstColumnStyle">
             <Setter Property="Margin" Value="5,2,17,2" />
         </Style>
@@ -30,8 +21,8 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Content="Songs" Style="{StaticResource StyleInfoHeader}" />
-        <Button x:Name="ButtonAddNewSong" Grid.Row="0" HorizontalAlignment="Right" Content="add new" Height="20" Width="Auto" Margin="0,0,5,0" Click="ButtonAddNewSong_Click" Background="{x:Null}"></Button>
-        <DataGrid Grid.Row="1" x:Name="DataGridSongs" HeadersVisibility="Column" MaxColumnWidth="250" AlternatingRowBackground="#FFEAFDC2" CanUserResizeRows="False" IsReadOnly="True" CellStyle="{StaticResource CellStyle}" FontSize="16" AutoGenerateColumns="False" SelectionChanged="DataGridSongs_SelectionChanged">
+        <Button x:Name="ButtonAddNewSong" Grid.Row="0" HorizontalAlignment="Right" Content="add new" Height="20" Width="Auto" Margin="0,0,5,0" Click="ButtonAddNewSong_Click" Background="{x:Null}"/>
+        <DataGrid Grid.Row="1" x:Name="DataGridSongs" HeadersVisibility="Column" MaxColumnWidth="250" AlternatingRowBackground="#FFEAFDC2" CanUserResizeRows="False" IsReadOnly="True" FontSize="16" AutoGenerateColumns="False" SelectionChanged="DataGridSongs_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding song_title}" Header="Title" ElementStyle="{StaticResource FirstColumnStyle}" />
                 <DataGridTextColumn Binding="{Binding artist_name}" Header="Artist" ElementStyle="{StaticResource AnyColumnStyle}" />
@@ -42,6 +33,18 @@
             <DataGrid.Resources>
                 <Style TargetType="DataGridRow">
                     <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_DoubleClick"></EventSetter>
+                </Style>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="Foreground" Value="Black" />
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{x:Null}" />
+                            <Setter Property="BorderBrush" Value="{x:Null}" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                        </Trigger>
+                    </Style.Triggers>
                 </Style>
             </DataGrid.Resources>
         </DataGrid>

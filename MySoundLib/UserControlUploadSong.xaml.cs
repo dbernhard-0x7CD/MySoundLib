@@ -135,9 +135,13 @@ namespace MySoundLib
 			}
 
 			var affectedLines = _connectionManager.ExecuteCommand(CommandFactory.InsertNewSong(TextBoxSongTitle.Text, data, artistId, albumId, genreId, null));
-			if (affectedLines >= 1)
+			if (affectedLines > 1)
 			{
 				Debug.WriteLine("More lines affected");
+			}
+			if (affectedLines >= 1)
+			{
+				Debug.WriteLine("Successfully added");
 			}
 		}
 

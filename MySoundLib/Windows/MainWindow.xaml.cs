@@ -265,5 +265,20 @@ namespace MySoundLib.Windows
 		{
 			_mediaPlayer.controls.currentPosition = 0;
 		}
+
+		private void ProgressBarTrack_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+		{
+			double value = GetProgressBarValue(e.GetPosition(ProgressBarTrack).X);
+
+			ProgressBarTrack.Value = value;
+			_mediaPlayer.controls.currentPosition = value;
+		}
+
+		private double GetProgressBarValue(double MousePosition)
+		{
+			double ratio = MousePosition / ProgressBarTrack.ActualWidth;
+			double ProgressBarValue = ratio * ProgressBarTrack.Maximum;
+			return ProgressBarValue;
+		}
 	}
 }

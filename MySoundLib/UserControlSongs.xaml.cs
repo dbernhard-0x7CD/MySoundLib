@@ -30,12 +30,10 @@ namespace MySoundLib
 
 		private void ButtonAddNewSong_Click(object sender, RoutedEventArgs e)
 		{
-			var uiElementCollection = ((Grid) Parent).Children;
-
 			_mainWindow.ListBoxCategory.UnselectAll();
 
-			uiElementCollection.Clear();
-			uiElementCollection.Add(new UserControlUploadSong(_serverConnectionManager));
+			_mainWindow.GridContent.Children.Clear();
+			_mainWindow.GridContent.Children.Add(new UserControlUploadSong(_serverConnectionManager, _mainWindow));
 		}
 
 		private void DataGridSongs_SelectionChanged(object sender, SelectionChangedEventArgs e)

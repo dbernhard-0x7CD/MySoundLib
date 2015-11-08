@@ -69,8 +69,12 @@ namespace MySoundLib
 						MessageBox.Show($"{userName} is not allowed to create databases");
 						return false;
 					}
+					catch (Exception e) {
+						MessageBox.Show("Unable to create database: " + e.Message);
+					}
 					
 					Debug.WriteLine($"Successfully created {database}");
+					MessageBox.Show("Created initial database");
 				}
 			}
 

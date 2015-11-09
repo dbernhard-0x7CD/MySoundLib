@@ -48,7 +48,7 @@ namespace MySoundLib.Windows
 				if (songExists == 0)
 				{
 					GridContent.Children.Clear();
-					GridContent.Children.Add(new UserControlUploadSong(_connectionManager));
+					GridContent.Children.Add(new UserControlUploadSong(_connectionManager, this));
 				}
 				else
 				{

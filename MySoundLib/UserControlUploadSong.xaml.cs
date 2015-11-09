@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using MySoundLib.Windows;
+using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -12,15 +13,17 @@ namespace MySoundLib
 	public partial class UserControlUploadSong
 	{
 		private readonly ServerConnectionManager _connectionManager;
+		private readonly MainWindow _mainWindow;
 		private string _filePath;
 		private DataTable _dataTableArtists;
 		private DataTable _dataTableAlbums;
 		private DataTable _dataTableGenres;
 
-		public UserControlUploadSong(ServerConnectionManager connectionManager)
+		public UserControlUploadSong(ServerConnectionManager connectionManager, MainWindow mainWindow)
 		{
 			InitializeComponent();
 			_connectionManager = connectionManager;
+			_mainWindow = mainWindow;
 		}
 
 		private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -141,7 +144,12 @@ namespace MySoundLib
 			}
 			if (affectedLines >= 1)
 			{
-				Debug.WriteLine("Successfully added");
+				int song_id;
+				if(int.TryParse(_connectionManager.ExecuteScalar(CommandFactory.GetLastInsertedId()).ToString(), out song_id)) {
+					Debug.WriteLine("Successfully added song: " + song_id);
+					_mainWindow.GridContent.Children.Clear();
+					_mainWindow.GridContent.Children.Add(new UserControlSongs(_connectionManager, _mainWindow, song_id));
+				}
 			}
 		}
 

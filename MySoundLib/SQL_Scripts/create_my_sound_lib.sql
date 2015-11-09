@@ -6,7 +6,8 @@ CREATE TABLE albums
   album_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   album_name text NOT NULL,
   title_song int(11) DEFAULT NULL,
-  album_thumbnail mediumblob
+  album_thumbnail mediumblob,
+  FOREIGN KEY (title_song) REFERENCES songs (song_id) ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
 CREATE TABLE artists

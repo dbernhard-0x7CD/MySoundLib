@@ -56,6 +56,7 @@ namespace MySoundLib
 				_filePath = dlg.FileName;
 
 				ButtonSelectFile.Content = Path.GetFileName(_filePath);
+				TextBoxSongTitle.Text = Path.GetFileNameWithoutExtension(_filePath);
 			}
 		}
 

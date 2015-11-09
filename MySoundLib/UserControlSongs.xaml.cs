@@ -4,6 +4,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using MySoundLib.Windows;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace MySoundLib
 {
@@ -14,8 +16,12 @@ namespace MySoundLib
 	{
 		private readonly ServerConnectionManager _serverConnectionManager;
 		private readonly MainWindow _mainWindow;
-		private DataGridRow _currentlyPlayingDataGridRow;
-		private Brush _lastSongBackground; 
+		private static DataGridRow _currentlyPlayingDataGridRow;
+		private Brush _lastSongBackground;
+		/// <summary>
+		/// Id from the song
+		/// </summary>
+		private int _recentlyAddedSong;
 
 		public UserControlSongs(ServerConnectionManager connectionManager, MainWindow mainWindow)
 		{
@@ -26,6 +32,13 @@ namespace MySoundLib
 			var songs = _serverConnectionManager.GetDataTable("select song_id, song_title, artist_name, album_name, genre_name, length from songs s left join artists a on (a.artist_id = s.artist) left join genres g on (s.genre = g.genre_id) left join albums al on (al.album_id = s.album)");
 
 			DataGridSongs.ItemsSource = songs.DefaultView;
+
+			MarkCurrentSong();
+		}
+
+		public UserControlSongs(ServerConnectionManager connectionManager, MainWindow mainWindow, int song_id) : this(connectionManager, mainWindow)
+		{
+			_recentlyAddedSong = song_id;
 		}
 
 		private void ButtonAddNewSong_Click(object sender, RoutedEventArgs e)
@@ -38,7 +51,7 @@ namespace MySoundLib
 
 		private void DataGridSongs_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			
+
 		}
 
 		private void DataGridRow_DoubleClick(object sender, MouseButtonEventArgs e)
@@ -54,16 +67,33 @@ namespace MySoundLib
 				}
 				DataGridSongs.SelectedValue = dataGridRow;
 				_lastSongBackground = dataGridRow.Background;
-				dataGridRow.Background = new SolidColorBrush(Colors.BurlyWood);
+
 				_currentlyPlayingDataGridRow = dataGridRow;
+				MarkCurrentSong();
 
 				_mainWindow.PlaySong(int.Parse(dataRowView[0].ToString()));
 			}
 		}
 
+		private void MarkCurrentSong() {
+			if (_currentlyPlayingDataGridRow != null)
+				_currentlyPlayingDataGridRow.Background = new SolidColorBrush(Colors.BurlyWood);
+		}
+
 		public void ResetBackgroundFromRecentSong()
 		{
 			_currentlyPlayingDataGridRow.Background = _lastSongBackground;
+		}
+
+		private void DataGridSongs_LoadingRow(object sender, DataGridRowEventArgs e)
+		{
+			var dataRowView = e.Row.DataContext as DataRowView;
+
+			if (dataRowView != null) {
+				if (dataRowView.Row["song_id"].Equals(_recentlyAddedSong)) {
+					e.Row.Background = new SolidColorBrush(Colors.GreenYellow);
+				}
+			}
 		}
 	}
 }

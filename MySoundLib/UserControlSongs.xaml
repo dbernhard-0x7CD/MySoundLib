@@ -22,7 +22,7 @@
 
         <Label Grid.Row="0" Content="Songs" Style="{StaticResource StyleInfoHeader}" />
         <Button x:Name="ButtonAddNewSong" Grid.Row="0" HorizontalAlignment="Right" Content="add new" Height="20" Width="Auto" Margin="0,0,5,0" Click="ButtonAddNewSong_Click" Background="{x:Null}"/>
-        <DataGrid Grid.Row="1" x:Name="DataGridSongs" HeadersVisibility="Column" MaxColumnWidth="250" AlternatingRowBackground="#FFEAFDC2" CanUserResizeRows="False" IsReadOnly="True" FontSize="16" AutoGenerateColumns="False" SelectionChanged="DataGridSongs_SelectionChanged">
+        <DataGrid Grid.Row="1" x:Name="DataGridSongs" HeadersVisibility="Column" MaxColumnWidth="250" AlternatingRowBackground="#FFEAFDC2" CanUserResizeRows="False" IsReadOnly="True" FontSize="16" AutoGenerateColumns="False" SelectionChanged="DataGridSongs_SelectionChanged" LoadingRow="DataGridSongs_LoadingRow" >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding song_title}" Header="Title" ElementStyle="{StaticResource FirstColumnStyle}" />
                 <DataGridTextColumn Binding="{Binding artist_name}" Header="Artist" ElementStyle="{StaticResource AnyColumnStyle}" />

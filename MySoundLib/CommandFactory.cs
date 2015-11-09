@@ -44,5 +44,19 @@ namespace MySoundLib
 		{
 			return new MySqlCommand("select count(*) from songs");
 		}
-    }
+
+		public static MySqlCommand GetAlbums() {
+			return new MySqlCommand("select album_id, album_name from albums order by album_name");
+        }
+
+		public static MySqlCommand GetGenres()
+		{
+			return new MySqlCommand("select genre_id, genre_name from genres order by genre_name");
+		}
+
+		public static MySqlCommand GetArtists()
+		{
+			return new MySqlCommand("select artist_id, artist_name from artists order by artist_name");
+		}
+	}
 }

@@ -16,7 +16,7 @@ namespace MySoundLib
 			_serverConnectionManager = connectionManager;
 			_mainWindow = mainWindow;
 
-			var songs = _serverConnectionManager.GetDataTable("select * from albums");
+			var songs = _serverConnectionManager.GetDataTable(CommandFactory.GetAlbums());
 
 			DataGridAlbums.ItemsSource = songs.DefaultView;
 		}

@@ -177,17 +177,14 @@ namespace MySoundLib
 		/// </summary>
 		/// <param name="command">SQL-Command</param>
 		/// <returns>DataTable</returns>
-		public DataTable GetDataTable(string command)
+		public DataTable GetDataTable(MySqlCommand command)
 		{
-			if (!IsConnected())
-				return new DataTable();
-
 			var dataTable = new DataTable();
-			var mySqlCommand = new MySqlCommand(command) {Connection = CurrentConnection};
+			command.Connection = CurrentConnection;
 
 			try
 			{
-				var reader = mySqlCommand.ExecuteReader();
+				var reader = command.ExecuteReader();
 				var schemaTable = reader.GetSchemaTable();
 
 				if (schemaTable != null)
@@ -209,6 +206,10 @@ namespace MySoundLib
 			}
 			
 			return dataTable;
+		}
+
+		public DataTable GetDataTable(string command) {
+			return GetDataTable(new MySqlCommand(command));
 		}
 
 		private static void HandleException(MySqlException mySqlException)

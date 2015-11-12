@@ -2,12 +2,12 @@
 using System.Data;
 using System.Diagnostics;
 using System.IO;
-using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using MySoundLib.Configuration;
 using WMPLib;
+using System.Threading.Tasks;
 
 namespace MySoundLib.Windows
 {
@@ -160,7 +160,11 @@ namespace MySoundLib.Windows
 			LabelSongTitle.Content = "Title: " + title;
 			ButtonPlay.Content = "Start";
 
-			PlayTrack();
+			Debug.WriteLine("moving to play track");
+			Task task = new Task(PlayTrack);
+
+			task.Start(TaskScheduler.FromCurrentSynchronizationContext());
+			Debug.WriteLine("end play");
 		}
 
 		private void ButtonPlay_OnClick(object sender, RoutedEventArgs e)

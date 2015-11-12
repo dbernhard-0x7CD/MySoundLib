@@ -75,15 +75,5 @@ namespace MySoundLib.Windows
 			Settings.RemoveProperty(Property.AutoConnect);
 			Settings.SaveConfig();
 		}
-
-		private void ButtonHideCurrentSong_OnClick(object sender, RoutedEventArgs e)
-		{
-			MainWindow.HideCurrentSong();
-		}
-
-		private void ButtonShowCurrentSong_OnClick(object sender, RoutedEventArgs e)
-		{
-			MainWindow.ShowCurrentSong();
-		}
 	}
 }

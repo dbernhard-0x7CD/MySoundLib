@@ -18,8 +18,6 @@
             <TextBox x:Name="TextBoxResult" Height="80" VerticalScrollBarVisibility="Auto" Margin="0,5"></TextBox>
             <Button x:Name="ButtonResetDatabase" Content="Reset Database" Click="ButtonResetDatabase_OnClick"></Button>
             <Button x:Name="ButtonStopAutoConnect" Click="ButtonStopAutoConnect_OnClick" Content="Stop Auto Connect"></Button>
-			<Button x:Name="ButtonHideCurrentSong" Click="ButtonHideCurrentSong_OnClick">Hide Current Song Information</Button>
-			<Button x:Name="ButtonShowCurrentSong" Click="ButtonShowCurrentSong_OnClick">Show Current Song Information</Button>
         </StackPanel>
     </Grid>
 </Window>

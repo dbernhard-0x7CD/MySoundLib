@@ -4,8 +4,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using MySoundLib.Windows;
-using System.Threading.Tasks;
-using System.Diagnostics;
 
 namespace MySoundLib
 {

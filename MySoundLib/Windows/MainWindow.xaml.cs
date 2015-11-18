@@ -42,18 +42,15 @@ namespace MySoundLib.Windows
 
 			InitializeComponent();
 
-			int songExists;
-			if (int.TryParse(_connectionManager.ExecuteScalar(CommandFactory.GetSongAmount()).ToString(), out songExists))
+			var songExists = _connectionManager.ExecuteScalar(CommandFactory.GetSongAmount());
+			if (songExists == null)
 			{
-				if (songExists == 0)
-				{
-					GridContent.Children.Clear();
-					GridContent.Children.Add(new UserControlUploadSong(_connectionManager, this));
-				}
-				else
-				{
-					ListBoxCategory.SelectedIndex = 0;
-				}
+				GridContent.Children.Clear();
+				GridContent.Children.Add(new UserControlUploadSong(_connectionManager, this));
+			}
+			else
+			{
+				ListBoxCategory.SelectedIndex = 0;
 			}
 
 			HideCurrentSong();

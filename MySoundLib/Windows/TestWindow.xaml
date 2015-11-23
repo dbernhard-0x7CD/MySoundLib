@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MySoundLib.Windows"
         mc:Ignorable="d"
-        Title="TestWindow" Height="559.2" Width="476" Focusable="False" ShowInTaskbar="False" ShowActivated="False" >
+        Title="TestWindow" Height="559.2" Width="476" Focusable="False" ShowInTaskbar="False" ShowActivated="False" Icon="/MySoundLib;component/Resources/Icon.ico" >
     <Grid>
         <StackPanel>
             <Label Content="Command" x:Name="LabelCommand"></Label>

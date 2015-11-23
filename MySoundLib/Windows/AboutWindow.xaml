@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MySoundLib.Windows"
         mc:Ignorable="d"
-        Title="AboutWindow" Width="360" Height="240" MinWidth="360" MinHeight="240" WindowStartupLocation="CenterOwner" Loaded="Window_Loaded" ResizeMode="NoResize">
+        Title="AboutWindow" Width="360" Height="240" MinWidth="360" MinHeight="240" WindowStartupLocation="CenterOwner" Loaded="Window_Loaded" ResizeMode="NoResize" Icon="/MySoundLib;component/Resources/Icon.ico">
     <DockPanel>
         <Grid DockPanel.Dock="Top" Height="Auto">
 		<Grid.Resources>

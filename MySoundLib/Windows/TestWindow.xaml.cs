@@ -57,7 +57,7 @@ namespace MySoundLib.Windows
 
 		private void ButtonResetDatabase_OnClick(object sender, RoutedEventArgs e)
 		{
-			var rDrop = _connectionManager.ExecuteCommand("drop database my_sound_lib");
+			var rDrop = _connectionManager.ExecuteCommand("drop database if exists my_sound_lib");
 			var rCreate = _connectionManager.ExecuteCommand(Properties.Resources.create_my_sound_lib);
 
 			if (rDrop == -1)

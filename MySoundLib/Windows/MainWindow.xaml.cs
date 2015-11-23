@@ -23,6 +23,7 @@ namespace MySoundLib.Windows
 
 		public MainWindow()
 		{
+			// connect  to database
 			Settings.LoadSettings();
 			if (Settings.Contains(Property.AutoConnect) && Settings.Contains(Property.LastServer) &&
 			    Settings.Contains(Property.LastUser))
@@ -42,6 +43,7 @@ namespace MySoundLib.Windows
 
 			InitializeComponent();
 
+			// show upload-song control when no songs exist
 			var songExists = _connectionManager.ExecuteScalar(CommandFactory.GetSongAmount());
 			int amountSongs;
 

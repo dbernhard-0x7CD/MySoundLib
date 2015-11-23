@@ -160,5 +160,41 @@ namespace MySoundLib.Configuration
 			}
 			return true;
 		}
+
+
+		/// <summary>
+		/// Deletes all data files
+		/// </summary>
+		public static void DeleteLocalSongs()
+		{
+			string[] files = GetDataFiles();
+
+			foreach (var x in files)
+			{
+				if (!x.Contains("config")) {
+					File.Delete(x);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Returns all data file paths which are in the program-data folder
+		/// </summary>
+		/// <returns>String array filled with absolute paths</returns>
+		private static string[] GetDataFiles()
+		{
+			return Directory.GetFiles(PathProgramFolder, "*", SearchOption.AllDirectories);
+		}
+
+		public static int GetSizeOfLocalSongs() {
+			var paths = GetDataFiles();
+			int sum = 0;
+
+			foreach (var x in paths) {
+				sum += File.ReadAllBytes(x).Length;
+			}
+
+			return sum;
+		}
 	}
 }

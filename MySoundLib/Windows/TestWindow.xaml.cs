@@ -15,7 +15,8 @@ namespace MySoundLib.Windows
 		{
 			InitializeComponent();
 			_connectionManager = connectionManager;
-		}
+			LabelAmountBytesForLocalSongs.Content = Settings.GetSizeOfLocalSongs() + " Bytes";
+        }
 
 		private MainWindow MainWindow => Owner as MainWindow;
 
@@ -74,6 +75,12 @@ namespace MySoundLib.Windows
 		{
 			Settings.RemoveProperty(Property.AutoConnect);
 			Settings.SaveConfig();
+		}
+
+		private void ButtonClearSongs_Click(object sender, RoutedEventArgs e)
+		{
+			Settings.DeleteLocalSongs();
+			LabelAmountBytesForLocalSongs.Content = Settings.GetSizeOfLocalSongs() + " Bytes";
 		}
 	}
 }

@@ -18,6 +18,10 @@
             <TextBox x:Name="TextBoxResult" Height="80" VerticalScrollBarVisibility="Auto" Margin="0,5"></TextBox>
             <Button x:Name="ButtonResetDatabase" Content="Reset Database" Click="ButtonResetDatabase_OnClick"></Button>
             <Button x:Name="ButtonStopAutoConnect" Click="ButtonStopAutoConnect_OnClick" Content="Stop Auto Connect"></Button>
+            <StackPanel Orientation="Horizontal">
+                <Label x:Name="LabelAmountBytesForLocalSongs" Height="Auto" />
+                <Button x:Name="ButtonClearSongs" Height="23" Content="Clear" Width="120" Click="ButtonClearSongs_Click"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

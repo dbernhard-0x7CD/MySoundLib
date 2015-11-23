@@ -84,6 +84,8 @@ namespace MySoundLib.Windows
 			_connectionManager.Disconnect();
 			if (ShowLoginWindow())
 				Show();
+			else
+				Close();
 		}
 
 		private void MenuItemSettings_OnClick(object sender, RoutedEventArgs e)

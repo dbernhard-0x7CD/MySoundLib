@@ -1,9 +1,11 @@
 ﻿using MySoundLib.Windows;
+using System;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using TagLib.Mpeg;
 
 namespace MySoundLib
 {
@@ -56,8 +58,114 @@ namespace MySoundLib
 				_filePath = dlg.FileName;
 
 				ButtonSelectFile.Content = Path.GetFileName(_filePath);
-				TextBoxSongTitle.Text = Path.GetFileNameWithoutExtension(_filePath);
+				try // load data from tags
+				{
+					var file = new AudioFile(_filePath);
+
+					// Song title
+					TextBoxSongTitle.Text = file.Tag.Title;
+
+					// Song artist
+					if (string.IsNullOrEmpty(file.Tag.FirstPerformer))
+					{
+						ComboBoxArtist.SelectedIndex = -1;
+					}
+					else
+					{
+						int index = GetArtistIndex(file.Tag.FirstPerformer);
+						if (index == -1)
+						{
+							EnableEditing(ComboBoxArtist);
+							ComboBoxArtist.Text = file.Tag.FirstPerformer;
+						}
+						else
+						{
+							ComboBoxArtist.SelectedIndex = index;
+						}
+					}
+
+					// Song album
+					if (string.IsNullOrEmpty(file.Tag.Album))
+					{
+						ComboBoxAlbum.SelectedIndex = -1;
+					}
+					else
+					{
+						int index = GetAlbumIndex(file.Tag.Album);
+						if (index == -1)
+						{
+							EnableEditing(ComboBoxAlbum);
+							ComboBoxAlbum.Text = file.Tag.Album;
+						}
+						else
+						{
+							ComboBoxAlbum.SelectedIndex = index;
+						}
+					}
+
+					// Song genre
+					if (string.IsNullOrEmpty(file.Tag.Genres[0]))
+					{
+						ComboBoxGenre.SelectedIndex = -1;
+					}
+					else
+					{
+						int index = GetGenreIndex(file.Tag.Genres[0]);
+						if (index == -1)
+						{
+							EnableEditing(ComboBoxGenre);
+							ComboBoxGenre.Text = file.Tag.Genres[0];
+						}
+						else
+						{
+							ComboBoxGenre.SelectedIndex = index;
+						}
+					}
+				}
+				catch (Exception ex)
+				{
+					Debug.WriteLine("Unable to read tags from file. " + ex.Message);
+				}
 			}
+		}
+
+		private int GetArtistIndex(string artistName)
+		{
+			foreach (var x in ComboBoxArtist.Items)
+			{
+				var row = x as DataRowView;
+				if (row.Row["artist_name"].ToString() == artistName)
+				{
+					return ComboBoxArtist.Items.IndexOf(x);
+				}
+			}
+			return -1;
+		}
+
+		private int GetAlbumIndex(string albumName)
+		{
+			foreach (var x in ComboBoxAlbum.Items)
+			{
+				var row = x as DataRowView;
+				if (row.Row["album_name"].ToString() == albumName)
+				{
+					return ComboBoxAlbum.Items.IndexOf(x);
+				}
+			}
+			return -1;
+		}
+
+		private int GetGenreIndex(string genreName)
+		{
+			foreach (var x in ComboBoxGenre.Items)
+			{
+				var row = x as DataRowView;
+				if (row.Row["genre_name"].ToString() == genreName)
+				{
+					return ComboBoxGenre.Items.IndexOf(x);
+				}
+			}
+			return -1;
 		}
 
 		private void ButtonAddSong_Click(object sender, RoutedEventArgs e)

@@ -7,17 +7,26 @@ namespace MySoundLib
 	{
 		public static MySqlCommand InsertNewArtist(string artistName)
 		{
-			return new MySqlCommand($"INSERT INTO artists(artist_name) VALUES('{artistName}')");
+			var command = new MySqlCommand("INSERT INTO artists(artist_name) VALUES(@artist_name)");
+			command.Parameters.AddWithValue("@artist_name", artistName);
+
+			return command;
         }
 
 		public static MySqlCommand InsertNewGenre(string genreName)
 		{
-			return new MySqlCommand($"INSERT INTO genres(genre_name) VALUES('{genreName}')");
+			var command = new MySqlCommand("INSERT INTO genres(genre_name) VALUES(@genre_name)");
+			command.Parameters.AddWithValue("@genre_name", genreName);
+
+			return command;
 		}
 
 		public static MySqlCommand InsertNewAlbum(string albumName)
 		{
-			return new MySqlCommand($"INSERT INTO albums(album_name) VALUES('{albumName}')");
+			var command = new MySqlCommand("INSERT INTO albums(album_name) VALUES(@album_name)");
+			command.Parameters.AddWithValue("@album_name", albumName);
+
+			return command;
 		}
 
 		public static MySqlCommand InsertNewSong(string title, byte[] track, int? artistId, int? albumId, int? genreId, DateTime? dateTimeReleased)

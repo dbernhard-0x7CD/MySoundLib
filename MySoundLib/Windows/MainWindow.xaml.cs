@@ -43,13 +43,18 @@ namespace MySoundLib.Windows
 			InitializeComponent();
 
 			var songExists = _connectionManager.ExecuteScalar(CommandFactory.GetSongAmount());
-			if (songExists == null)
+			int amountSongs;
+
+			if (songExists == null || !int.TryParse(songExists.ToString(), out amountSongs))
 			{
+				Debug.WriteLine("unable to retrieve if there are songs");
+				return;
+			}
+
+			if (amountSongs == 0) {
 				GridContent.Children.Clear();
 				GridContent.Children.Add(new UserControlUploadSong(_connectionManager, this));
-			}
-			else
-			{
+			} else {
 				ListBoxCategory.SelectedIndex = 0;
 			}
 

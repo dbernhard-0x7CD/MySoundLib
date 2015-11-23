@@ -47,13 +47,13 @@ namespace MySoundLib
 				return false;
 			}
 
+			// ensure that the database exists
 			if (database != "")
 			{
 				var databaseExists = new MySqlCommand($"SHOW DATABASES LIKE '{database}'") {Connection = CurrentConnection};
 
 				if (databaseExists.ExecuteScalar() != null)
 				{
-					CurrentConnection.ChangeDatabase(database);
 					Debug.WriteLine($"Database {database} already exists");
 				}
 				else
@@ -76,6 +76,7 @@ namespace MySoundLib
 					Debug.WriteLine($"Successfully created {database}");
 					MessageBox.Show("Created initial database");
 				}
+				CurrentConnection.ChangeDatabase(database);
 			}
 
 			CurrentConnection.StateChange += CurrentConnectionOnStateChange;

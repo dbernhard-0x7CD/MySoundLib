@@ -149,6 +149,7 @@ namespace MySoundLib
 				if(int.TryParse(_connectionManager.ExecuteScalar(CommandFactory.GetLastInsertedId()).ToString(), out song_id)) {
 					Debug.WriteLine("Successfully added song: " + song_id);
 					_mainWindow.GridContent.Children.Clear();
+					_mainWindow.ListBoxCategory.SelectedIndex = 0;
 					_mainWindow.GridContent.Children.Add(new UserControlSongs(_connectionManager, _mainWindow, song_id));
 				}
 			}

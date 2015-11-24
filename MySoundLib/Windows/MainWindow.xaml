@@ -15,7 +15,7 @@
             </Menu.ItemsPanel>
             <MenuItem x:Name="MenuItemSettings" Header="Settings" Click="MenuItemSettings_OnClick"/>
             <MenuItem x:Name="MenuItemAbout" Header="About" Click="MenuItemAbout_OnClick" />
-            <MenuItem x:Name="MenuItemTestingWindow" Header="Testing Window" Click="MenuItemTestingWindow_OnClick"></MenuItem>
+            <MenuItem x:Name="MenuItemTestingWindow" Header="Testing Window" Click="MenuItemTestingWindow_OnClick" />
             <MenuItem x:Name="MenuItemDisconnect" Header="Disconnect" Click="MenuItemDisconnect_OnClick" HorizontalAlignment="Right"/>
         </Menu>
         <Grid x:Name="GridMain">

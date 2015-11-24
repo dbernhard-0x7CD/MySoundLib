@@ -21,10 +21,10 @@ namespace MySoundLib
 		private DataTable _dataTableAlbums;
 		private DataTable _dataTableGenres;
 
-		public UserControlUploadSong(ServerConnectionManager connectionManager, MainWindow mainWindow)
+		public UserControlUploadSong(MainWindow mainWindow)
 		{
 			InitializeComponent();
-			_connectionManager = connectionManager;
+			_connectionManager = mainWindow.ConnectionManager;
 			_mainWindow = mainWindow;
 		}
 

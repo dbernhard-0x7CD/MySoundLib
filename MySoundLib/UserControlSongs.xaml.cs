@@ -44,7 +44,7 @@ namespace MySoundLib
 			_mainWindow.ListBoxCategory.UnselectAll();
 
 			_mainWindow.GridContent.Children.Clear();
-			_mainWindow.GridContent.Children.Add(new UserControlUploadSong(_serverConnectionManager, _mainWindow));
+			_mainWindow.GridContent.Children.Add(new UserControlUploadSong(_mainWindow));
 		}
 
 		private void DataGridSongs_SelectionChanged(object sender, SelectionChangedEventArgs e)

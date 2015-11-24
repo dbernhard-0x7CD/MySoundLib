@@ -16,20 +16,20 @@ namespace MySoundLib.Windows
 	/// </summary>
 	public partial class MainWindow
 	{
-		private ServerConnectionManager _connectionManager;
+		public ServerConnectionManager ConnectionManager { get; private set; }
 		private int _currentSongId;
 		private WindowsMediaPlayer _mediaPlayer;
 		private DispatcherTimer _updateProgressTimer;
 
 		public MainWindow()
 		{
-			// connect  to database
+			// connect  to database if autoconnect is active
 			Settings.LoadSettings();
 			if (Settings.Contains(Property.AutoConnect) && Settings.Contains(Property.LastServer) &&
 			    Settings.Contains(Property.LastUser))
 			{
-				_connectionManager = new ServerConnectionManager();
-				_connectionManager.Connect(Settings.GetValue(Property.LastServer), Settings.GetValue(Property.LastUser),
+				ConnectionManager = new ServerConnectionManager();
+				ConnectionManager.Connect(Settings.GetValue(Property.LastServer), Settings.GetValue(Property.LastUser),
 					LoginWindow.GetDecryptedPassword(), "my_sound_lib");
 			}
 			else
@@ -42,9 +42,12 @@ namespace MySoundLib.Windows
 			}
 
 			InitializeComponent();
+			InitialiseFirstView();
+		}
 
+		private void InitialiseFirstView() {
 			// show upload-song control when no songs exist
-			var songExists = _connectionManager.ExecuteScalar(CommandFactory.GetSongAmount());
+			var songExists = ConnectionManager.ExecuteScalar(CommandFactory.GetSongAmount());
 			int amountSongs;
 
 			if (songExists == null || !int.TryParse(songExists.ToString(), out amountSongs))
@@ -53,10 +56,13 @@ namespace MySoundLib.Windows
 				return;
 			}
 
-			if (amountSongs == 0) {
+			if (amountSongs == 0)
+			{
 				GridContent.Children.Clear();
-				GridContent.Children.Add(new UserControlUploadSong(_connectionManager, this));
-			} else {
+				GridContent.Children.Add(new UserControlUploadSong(this));
+			}
+			else
+			{
 				ListBoxCategory.SelectedIndex = 0;
 			}
 
@@ -69,13 +75,14 @@ namespace MySoundLib.Windows
 			loginWindow.ShowDialog();
 
 			if (loginWindow.ResultConnectionManager == null) return false;
-			_connectionManager = loginWindow.ResultConnectionManager;
+			ConnectionManager = loginWindow.ResultConnectionManager;
+
 			return true;
 		}
 
 		private void MenuItemTestingWindow_OnClick(object sender, RoutedEventArgs e)
 		{
-			var testWindow = new TestWindow(_connectionManager) {Owner =  this};
+			var testWindow = new TestWindow(ConnectionManager) {Owner =  this};
 
 			testWindow.Show();
 		}
@@ -83,9 +90,11 @@ namespace MySoundLib.Windows
 		private void MenuItemDisconnect_OnClick(object sender, RoutedEventArgs e)
 		{
 			Hide();
-			_connectionManager.Disconnect();
-			if (ShowLoginWindow())
+			ConnectionManager.Disconnect();
+			if (ShowLoginWindow()) {
+				InitialiseFirstView();
 				Show();
+			}
 			else
 				Close();
 		}
@@ -97,7 +106,7 @@ namespace MySoundLib.Windows
 
 		private void MenuItemAbout_OnClick(object sender, RoutedEventArgs e)
 		{
-			var aboutWindow = new AboutWindow(_connectionManager) {Owner = this};
+			var aboutWindow = new AboutWindow(ConnectionManager) {Owner = this};
 
 			aboutWindow.ShowDialog();
 		}
@@ -119,19 +128,19 @@ namespace MySoundLib.Windows
 		private void ListBoxItemSongs_OnSelected(object sender, RoutedEventArgs e)
 		{
 			GridContent.Children.Clear();
-			GridContent.Children.Add(new UserControlSongs(_connectionManager, this));
+			GridContent.Children.Add(new UserControlSongs(ConnectionManager, this));
 		}
 
 		private void ListBoxItemAlbums_OnSelected(object sender, RoutedEventArgs e)
 		{
 			GridContent.Children.Clear();
-			GridContent.Children.Add(new UserControlAlbums(_connectionManager, this));
+			GridContent.Children.Add(new UserControlAlbums(ConnectionManager, this));
 		}
 
 		private void ListBoxItemArtists_OnSelected(object sender, RoutedEventArgs e)
 		{
 			GridContent.Children.Clear();
-			GridContent.Children.Add(new UserControlArtists(_connectionManager, this));
+			GridContent.Children.Add(new UserControlArtists(ConnectionManager, this));
 		}
 
 		private void ListBoxItemGenres_OnSelected(object sender, RoutedEventArgs e)
@@ -140,7 +149,7 @@ namespace MySoundLib.Windows
 			var userControlGenres = new UserControlGenres();
 			GridContent.Children.Add(userControlGenres);
 
-			var genres = _connectionManager.GetDataTable("select genre_name from genres");
+			var genres = ConnectionManager.GetDataTable("select genre_name from genres");
 
 			foreach (DataRow row in genres.Rows)
 			{
@@ -150,7 +159,7 @@ namespace MySoundLib.Windows
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			_connectionManager.Disconnect();
+			ConnectionManager.Disconnect();
 		}
 
 		public void PlaySong(int id)
@@ -159,7 +168,7 @@ namespace MySoundLib.Windows
 
 			ShowCurrentSong();
 			_currentSongId = id;
-			var song = _connectionManager.GetDataTable("select song_title, artist_name, album_name, genre_name, length, release_date from songs s left join artists a on (s.artist = a.artist_id) left join genres g on (s.genre = g.genre_id) left join albums al on (s.album = al.album_id) where song_id = " + id);
+			var song = ConnectionManager.GetDataTable("select song_title, artist_name, album_name, genre_name, length, release_date from songs s left join artists a on (s.artist = a.artist_id) left join genres g on (s.genre = g.genre_id) left join albums al on (s.album = al.album_id) where song_id = " + id);
 
 			var title = song.Rows[0]["song_title"];
 
@@ -197,11 +206,11 @@ namespace MySoundLib.Windows
 		private void PlayTrack()
 		{
 			Debug.WriteLine("Loading track from song_id " + _currentSongId);
-			var track = _connectionManager.GetDataTable("SELECT track FROM songs WHERE song_id = " + _currentSongId);
+			var track = ConnectionManager.GetDataTable("SELECT track FROM songs WHERE song_id = " + _currentSongId);
 
 			var byteTrack = (byte[]) track.Rows[0]["track"];
 
-			var pathFile = Path.Combine(Settings.PathProgramFolder, Path.GetRandomFileName()) + ".mp3";
+			var pathFile = Path.Combine(Settings.PathProgramFolder, byteTrack.GetHashCode().ToString()) + ".mp3"; // TODO: save as hash
 
 			try
 			{

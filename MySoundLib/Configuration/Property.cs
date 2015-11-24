@@ -5,6 +5,7 @@
 		LastServer,
 		LastUser,
 		LastPassword,
-		AutoConnect
+		AutoConnect,
+		CollapseMenu
 	}
 }

@@ -66,6 +66,11 @@ namespace MySoundLib.Windows
 				ListBoxCategory.SelectedIndex = 0;
 			}
 
+			// decide visibility of menu
+			if (Settings.Contains(Property.CollapseMenu)) {
+				HideMenu();
+			} // is shown by default
+
 			HideCurrentSong();
 		}
 
@@ -160,6 +165,7 @@ namespace MySoundLib.Windows
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			ConnectionManager.Disconnect();
+			Settings.SaveConfig();
 		}
 
 		public void PlaySong(int id)
@@ -298,6 +304,28 @@ namespace MySoundLib.Windows
 			double ratio = MousePosition / ProgressBarTrack.ActualWidth;
 			double ProgressBarValue = ratio * ProgressBarTrack.Maximum;
 			return ProgressBarValue;
+		}
+
+		private void MenuItemHideMenu_Click(object sender, RoutedEventArgs e)
+		{
+			HideMenu();
+			Settings.SetProperty(Property.CollapseMenu, "yes");
+		}
+
+		private void ButtonShowMenuItem_Click(object sender, RoutedEventArgs e)
+		{
+			ShowMenu();
+			Settings.RemoveProperty(Property.CollapseMenu);
+		}
+
+		private void HideMenu() {
+			AppMenu.Visibility = Visibility.Collapsed;
+			ButtonShowMenuItem.Visibility = Visibility.Visible;
+		}
+
+		private void ShowMenu() {
+			AppMenu.Visibility = Visibility.Visible;
+			ButtonShowMenuItem.Visibility = Visibility.Collapsed;
 		}
 	}
 }

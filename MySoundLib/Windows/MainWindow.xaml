@@ -7,17 +7,23 @@
         mc:Ignorable="d"
         Title="MySoundLib" Height="563" Width="1000" MinWidth="400" MinHeight="200" WindowStartupLocation="CenterScreen"  Closing="Window_Closing" Icon="/MySoundLib;component/Resources/Icon.ico" >
     <DockPanel>
-        <Menu DockPanel.Dock="Top" Height="Auto" Style="{StaticResource BaseStyle}">
+        <Menu x:Name="AppMenu" DockPanel.Dock="Top" Height="Auto" Style="{StaticResource BaseStyle}">
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
                     <DockPanel HorizontalAlignment="Stretch"/>
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
+            <MenuItem x:Name="MenuItemHideMenu" Click="MenuItemHideMenu_Click">
+                <MenuItem.Header>
+                    <Image Margin="0,2,0,0" Width="18" Height="Auto" Source="/MySoundLib;component/Resources/arrow_up.png"/>
+                </MenuItem.Header>
+            </MenuItem>
             <MenuItem x:Name="MenuItemSettings" Header="Settings" Click="MenuItemSettings_OnClick"/>
-            <MenuItem x:Name="MenuItemAbout" Header="About" Click="MenuItemAbout_OnClick" />
             <MenuItem x:Name="MenuItemTestingWindow" Header="Testing Window" Click="MenuItemTestingWindow_OnClick" />
+            <MenuItem x:Name="MenuItemAbout" Header="About" Click="MenuItemAbout_OnClick" />
             <MenuItem x:Name="MenuItemDisconnect" Header="Disconnect" Click="MenuItemDisconnect_OnClick" HorizontalAlignment="Right"/>
         </Menu>
+
         <Grid x:Name="GridMain">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" MaxWidth="250"></ColumnDefinition>
@@ -31,8 +37,31 @@
                 <RowDefinition Height="50" MaxHeight="120"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <StackPanel x:Name="StackPanelNavigation" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Orientation="Vertical" Background="#0000B2" >
-                <Label HorizontalAlignment="Center" Content="My Music" FontFamily="Segoe UI" FontSize="26.667" Foreground="White" FontWeight="Bold" />
+            <StackPanel x:Name="StackPanelNavigation" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Orientation="Vertical" Background="#0000B2">
+                <Grid>
+                    <Button x:Name="ButtonShowMenuItem" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent" Foreground="Black" Visibility="Collapsed" Click="ButtonShowMenuItem_Click" Template="{DynamicResource ButtonBaseControlTemplate1}" Padding="2,0,0,0">
+                        <Button.Resources>
+                            <ControlTemplate x:Key="ButtonBaseControlTemplate1" TargetType="{x:Type ButtonBase}">
+                                <Border x:Name="border" BorderThickness="0" Background="Transparent" SnapsToDevicePixels="True">
+                                    <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="False">
+                                        <Setter Property="Effect" TargetName="border">
+                                            <Setter.Value>
+                                                <BlurEffect KernelType="Gaussian" Radius="2"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Resources>
+                        <Button.Content>
+                            <Image x:Name="ImageArrowDown" Width="20" Height="Auto" Source="/MySoundLib;component/Resources/arrow_down.png" />
+                        </Button.Content>
+                    </Button>
+                    <Label Content="My Music" HorizontalAlignment="Center" FontFamily="Segoe UI" FontSize="26.667" Foreground="White" FontWeight="SemiBold"/>
+                </Grid>
 
                 <ListBox x:Name="ListBoxCategory" ItemContainerStyle="{DynamicResource ListBoxItemStyle1}" BorderBrush="Black" BorderThickness="2" Background="Black" >
                     <ListBox.Resources>

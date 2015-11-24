@@ -208,6 +208,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\arrow_down.png" />
+    <Resource Include="Resources\arrow_up.png" />
     <Content Include="Resources\Icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -82,8 +82,8 @@
                             <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
                             <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
                             <Setter Property="Background" Value="#0000B2"/>
-							<Setter Property="Foreground" Value="White" />
-							<Setter Property="FontSize" Value="22" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="FontSize" Value="22" />
                             <Setter Property="BorderThickness" Value="0" />
                             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
                             <Setter Property="Template">
@@ -98,7 +98,7 @@
                                                     <Condition Property="IsMouseOver" Value="True"/>
                                                 </MultiTrigger.Conditions>
                                                 <Setter Property="Background" TargetName="Bd" Value="{StaticResource Hoover}"/>
-                                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Hoover}" />
+                                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Hoover}"/>
                                             </MultiTrigger>
                                             <MultiTrigger>
                                                 <MultiTrigger.Conditions>

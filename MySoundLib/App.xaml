@@ -5,13 +5,16 @@
              StartupUri="Windows/MainWindow.xaml">
     <Application.Resources>
         <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
-            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontSize" Value="15" />
         </Style>
-        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}"></Style>
-        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}"></Style>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}" />
+        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}" />
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource BaseStyle}" />
         <Style x:Key="StyleInfoHeader" TargetType="{x:Type Label}">
-            <Setter Property="FontSize" Value="17" />
-            <Setter Property="FontWeight" Value="DemiBold"></Setter>
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontWeight" Value="DemiBold" />
+            <Setter Property="Background" Value="#C1C1EC" />
+            <Setter Property="Foreground" Value="#000019" />
         </Style>
     </Application.Resources>
 </Application>

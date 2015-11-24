@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MySoundLib" Height="563" Width="1000" MinWidth="400" MinHeight="200" WindowStartupLocation="CenterScreen"  Closing="Window_Closing" Icon="/MySoundLib;component/Resources/Icon.ico" >
     <DockPanel>
-        <Menu DockPanel.Dock="Top" Height="18">
+        <Menu DockPanel.Dock="Top" Height="Auto" Style="{StaticResource BaseStyle}">
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
                     <DockPanel HorizontalAlignment="Stretch"/>
@@ -20,7 +20,7 @@
         </Menu>
         <Grid x:Name="GridMain">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="130" MaxWidth="200"></ColumnDefinition>
+                <ColumnDefinition Width="200" MaxWidth="250"></ColumnDefinition>
                 <ColumnDefinition Width="4"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
@@ -31,9 +31,10 @@
                 <RowDefinition Height="50" MaxHeight="120"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <StackPanel x:Name="StackPanelNavigation" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Orientation="Vertical" Background="#FFA1C98A" >
-                <Label HorizontalAlignment="Stretch" Content="My Music" FontFamily="Segoe UI Semibold" FontSize="18.667" />
-                <ListBox x:Name="ListBoxCategory" ItemContainerStyle="{DynamicResource ListBoxItemStyle1}">
+            <StackPanel x:Name="StackPanelNavigation" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Orientation="Vertical" Background="#0000B2" >
+                <Label HorizontalAlignment="Center" Content="My Music" FontFamily="Segoe UI" FontSize="26.667" Foreground="White" FontWeight="Bold" />
+
+                <ListBox x:Name="ListBoxCategory" ItemContainerStyle="{DynamicResource ListBoxItemStyle1}" BorderBrush="Black" BorderThickness="2" Background="Black" >
                     <ListBox.Resources>
                         <Style x:Key="FocusVisual">
                             <Setter Property="Control.Template">
@@ -44,16 +45,17 @@
                                 </Setter.Value>
                             </Setter>
                         </Style>
-                        <SolidColorBrush x:Key="Hoover" Color="#7daa7d"/>
-                        <SolidColorBrush x:Key="Selected" Color="#277227"/>
+                        <SolidColorBrush x:Key="Hoover" Color="#5900B2"/>
+                        <SolidColorBrush x:Key="Selected" Color="#3232C1"/>
                         <Style x:Key="ListBoxItemStyle1" TargetType="{x:Type ListBoxItem}">
                             <Setter Property="SnapsToDevicePixels" Value="True"/>
-                            <Setter Property="Padding" Value="4,1"/>
+                            <Setter Property="Padding" Value="6,4.5"/>
                             <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
                             <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-                            <Setter Property="Background" Value="Transparent"/>
-                            <Setter Property="BorderBrush" Value="Transparent"/>
-                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="Background" Value="#0000B2"/>
+							<Setter Property="Foreground" Value="White" />
+							<Setter Property="FontSize" Value="22" />
+                            <Setter Property="BorderThickness" Value="0" />
                             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
                             <Setter Property="Template">
                                 <Setter.Value>
@@ -67,7 +69,7 @@
                                                     <Condition Property="IsMouseOver" Value="True"/>
                                                 </MultiTrigger.Conditions>
                                                 <Setter Property="Background" TargetName="Bd" Value="{StaticResource Hoover}"/>
-												<Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Hoover}" />
+                                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Hoover}" />
                                             </MultiTrigger>
                                             <MultiTrigger>
                                                 <MultiTrigger.Conditions>

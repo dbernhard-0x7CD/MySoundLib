@@ -29,8 +29,11 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Content="Artists" Style="{StaticResource StyleInfoHeader}" />
-        <Button x:Name="ButtonAddNewArtist" Grid.Row="0" HorizontalAlignment="Right" Content="add new" Height="20" Width="Auto" Margin="0,0,5,0" />
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource CurrentHeader}">
+            <Label Content="Artists" Style="{StaticResource StyleInfoHeader}" />
+            <Button x:Name="ButtonAddNewArtist" Content="add" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Background="{x:Null}"/>
+        </StackPanel>
+
         <DataGrid Grid.Row="1" x:Name="DataGridArtists" HeadersVisibility="Column" MaxColumnWidth="250" AlternatingRowBackground="#FFEAFDC2" CanUserResizeRows="False" IsReadOnly="True" CellStyle="{StaticResource CellStyle}" FontSize="16" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding artist_name}" Header="Artist" ElementStyle="{StaticResource FirstColumnStyle}" />

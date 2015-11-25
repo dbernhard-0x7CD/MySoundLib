@@ -12,7 +12,11 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Style="{StaticResource StyleInfoHeader}">Genres</Label>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource CurrentHeader}">
+            <Label Content="Genres" Style="{StaticResource StyleInfoHeader}" />
+            <Button x:Name="ButtonAddNewGenre" Content="add" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Background="{x:Null}"/>
+        </StackPanel>
+
         <ListBox x:Name="ListBoxGenres" Grid.Row="1"></ListBox>
     </Grid>
 </UserControl>

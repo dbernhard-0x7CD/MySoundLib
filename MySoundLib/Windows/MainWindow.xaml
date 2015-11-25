@@ -171,7 +171,7 @@
                 </Grid>
                 <StackPanel Orientation="Vertical" Margin="10,0">
                     <Label x:Name="LabelSongTitle" VerticalAlignment="Center" Content="Current Song Information" Foreground="{StaticResource PrimaryBackground}"></Label>
-                    <ProgressBar x:Name="ProgressBarTrack" Width="400" Height="15" MouseDown="ProgressBarTrack_MouseDown"/>
+                    <ProgressBar x:Name="ProgressBarTrack" Width="400" Height="15" MouseDown="ProgressBarTrack_MouseDown" Foreground="{StaticResource ProgressBarSound}"/>
                 </StackPanel>
             </StackPanel>
         </Grid>

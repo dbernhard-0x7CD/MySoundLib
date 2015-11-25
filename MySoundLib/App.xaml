@@ -25,5 +25,7 @@
         <Brush x:Key="PrimaryBackground">#0000B2</Brush>
         <!-- Text color which texts with the PrimaryBackground have-->
         <Brush x:Key="PrimaryForeground">White</Brush>
+        <!-- ProgressBar color for currently playing song-->
+        <Brush x:Key="ProgressBarSound">#dbb4a8</Brush>
     </Application.Resources>
 </Application>

@@ -60,7 +60,11 @@
                             <Image x:Name="ImageArrowDown" Width="20" Height="Auto" Source="/MySoundLib;component/Resources/arrow_down.png" />
                         </Button.Content>
                     </Button>
-                    <Label Content="My Music" HorizontalAlignment="Center" FontFamily="Segoe UI" FontSize="26.667" Foreground="White" FontWeight="SemiBold"/>
+                    <Label Content="My Music" HorizontalAlignment="Center" FontFamily="Segoe UI" FontSize="26.667" Foreground="White" FontWeight="SemiBold">
+                        <Label.Effect>
+                            <DropShadowEffect BlurRadius="4" Opacity="0.8"/>
+                        </Label.Effect>
+                    </Label>
                 </Grid>
 
                 <ListBox x:Name="ListBoxCategory" ItemContainerStyle="{DynamicResource ListBoxItemStyle1}" BorderBrush="Black" BorderThickness="2" Background="Black" >

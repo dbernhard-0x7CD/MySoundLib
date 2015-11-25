@@ -170,7 +170,7 @@
                     <Button Grid.Row="1" Content="Restart" x:Name="ButtonRestart" Click="ButtonRestart_OnClick"></Button>
                 </Grid>
                 <StackPanel Orientation="Vertical" Margin="10,0">
-                    <Label x:Name="LabelSongTitle" VerticalAlignment="Center" Content="Current Song Information" Foreground="{StaticResource PrimaryBackground}"></Label>
+                    <Label x:Name="LabelSongTitle" VerticalAlignment="Center" Content="Current Song Information" Foreground="{StaticResource PrimaryForeground}"/>
                     <ProgressBar x:Name="ProgressBarTrack" Width="400" Height="15" MouseDown="ProgressBarTrack_MouseDown" Foreground="{StaticResource ProgressBarSound}"/>
                 </StackPanel>
             </StackPanel>

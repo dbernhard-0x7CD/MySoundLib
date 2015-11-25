@@ -37,9 +37,9 @@
                 <RowDefinition Height="50" MaxHeight="120"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <StackPanel x:Name="StackPanelNavigation" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Orientation="Vertical" Background="#0000B2">
+            <StackPanel x:Name="StackPanelNavigation" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Orientation="Vertical" Background="{StaticResource PrimaryBackground}">
                 <Grid>
-                    <Button x:Name="ButtonShowMenuItem" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent" Foreground="Black" Visibility="Collapsed" Click="ButtonShowMenuItem_Click" Template="{DynamicResource ButtonBaseControlTemplate1}" Padding="2,0,0,0">
+                    <Button x:Name="ButtonShowMenuItem" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent" Visibility="Collapsed" Click="ButtonShowMenuItem_Click" Template="{DynamicResource ButtonBaseControlTemplate1}" Padding="2,0,0,0">
                         <Button.Resources>
                             <ControlTemplate x:Key="ButtonBaseControlTemplate1" TargetType="{x:Type ButtonBase}">
                                 <Border x:Name="border" BorderThickness="0" Background="Transparent" SnapsToDevicePixels="True">
@@ -60,7 +60,7 @@
                             <Image x:Name="ImageArrowDown" Width="20" Height="Auto" Source="/MySoundLib;component/Resources/arrow_down.png" />
                         </Button.Content>
                     </Button>
-                    <Label Content="My Music" HorizontalAlignment="Center" FontFamily="Segoe UI" FontSize="26.667" Foreground="White" FontWeight="SemiBold">
+                    <Label Content="My Music" HorizontalAlignment="Center" FontFamily="Segoe UI" FontSize="26.667" Foreground="{StaticResource PrimaryForeground}" FontWeight="SemiBold">
                         <Label.Effect>
                             <DropShadowEffect BlurRadius="4" Opacity="0.8"/>
                         </Label.Effect>
@@ -78,15 +78,15 @@
                                 </Setter.Value>
                             </Setter>
                         </Style>
-                        <SolidColorBrush x:Key="Hoover" Color="#5900B2"/>
-                        <SolidColorBrush x:Key="Selected" Color="#3232C1"/>
+                        <SolidColorBrush x:Key="Hoover" Color="{StaticResource HooverColor}"/>
+                        <SolidColorBrush x:Key="Selected" Color="{StaticResource SelectedColor}"/>
                         <Style x:Key="ListBoxItemStyle1" TargetType="{x:Type ListBoxItem}">
                             <Setter Property="SnapsToDevicePixels" Value="True"/>
                             <Setter Property="Padding" Value="6,4.5"/>
                             <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
                             <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-                            <Setter Property="Background" Value="#0000B2"/>
-                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="Background" Value="{StaticResource PrimaryBackground}"/>
+                            <Setter Property="Foreground" Value="{StaticResource PrimaryForeground}"/>
                             <Setter Property="FontSize" Value="22" />
                             <Setter Property="BorderThickness" Value="0" />
                             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
@@ -159,7 +159,7 @@
 
             <GridSplitter x:Name="GridSplitterHor" Grid.Column="2" Grid.Row="2" Height="4" HorizontalAlignment="Stretch" ResizeDirection="Rows" ResizeBehavior="PreviousAndNext"/>
 
-            <StackPanel x:Name="StackPanelCurrentSongInformation" Grid.Row="3" Grid.Column="2" Orientation="Horizontal" Background="#FFD41313">
+            <StackPanel x:Name="StackPanelCurrentSongInformation" Grid.Row="3" Grid.Column="2" Orientation="Horizontal" Background="{StaticResource PrimaryBackground}">
                 <Button x:Name="ButtonPlay" Content="Play" Margin="0,0,0,0" Padding="10" Width="80" Click="ButtonPlay_OnClick"></Button>
                 <Grid VerticalAlignment="Stretch" Background="DarkGray" Width="70">
                     <Grid.RowDefinitions>
@@ -170,7 +170,7 @@
                     <Button Grid.Row="1" Content="Restart" x:Name="ButtonRestart" Click="ButtonRestart_OnClick"></Button>
                 </Grid>
                 <StackPanel Orientation="Vertical" Margin="10,0">
-                    <Label x:Name="LabelSongTitle" VerticalAlignment="Center" Content="Current Song Information"></Label>
+                    <Label x:Name="LabelSongTitle" VerticalAlignment="Center" Content="Current Song Information" Foreground="{StaticResource PrimaryBackground}"></Label>
                     <ProgressBar x:Name="ProgressBarTrack" Width="400" Height="15" MouseDown="ProgressBarTrack_MouseDown"/>
                 </StackPanel>
             </StackPanel>

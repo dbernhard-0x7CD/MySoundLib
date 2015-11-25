@@ -6,6 +6,7 @@
     <Application.Resources>
         <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
             <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
         </Style>
         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}" />
         <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}" />
@@ -13,8 +14,16 @@
         <Style x:Key="StyleInfoHeader" TargetType="{x:Type Label}">
             <Setter Property="FontSize" Value="24" />
             <Setter Property="FontWeight" Value="DemiBold" />
-            <Setter Property="Background" Value="#C1C1EC" />
-            <Setter Property="Foreground" Value="#000019" />
         </Style>
+        <!-- Background of selected item -->
+        <Color x:Key="SelectedColor">#3232C1</Color>
+        <!-- Background of current header-->
+        <Brush x:Key="CurrentHeader">#C1C1EC</Brush>
+        <!-- Hoover over selectable items -->
+        <Color x:Key="HooverColor">#5900B2</Color>
+        <!-- Most used background color -->
+        <Brush x:Key="PrimaryBackground">#0000B2</Brush>
+        <!-- Text color which texts with the PrimaryBackground have-->
+        <Brush x:Key="PrimaryForeground">White</Brush>
     </Application.Resources>
 </Application>

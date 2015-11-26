@@ -22,5 +22,11 @@ namespace MySoundLib
 			DataGridArtists.ItemsSource = songs.DefaultView;
 			DataGridArtists.Items.SortDescriptions.Add(new SortDescription("artist_name", ListSortDirection.Ascending));
 		}
+
+		private void ButtonAddNewArtist_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+			_mainWindow.GridContent.Children.Clear();
+			_mainWindow.GridContent.Children.Add(new UserControlUploadArtist(_mainWindow, _serverConnectionManager));
+		}
 	}
 }

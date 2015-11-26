@@ -31,7 +31,7 @@
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource CurrentHeader}">
             <Label Content="Artists" Style="{StaticResource StyleInfoHeader}" />
-            <Button x:Name="ButtonAddNewArtist" Content="add" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Background="{x:Null}"/>
+            <Button x:Name="ButtonAddNewArtist" Content="add" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Background="{x:Null}" Click="ButtonAddNewArtist_Click"/>
         </StackPanel>
 
         <DataGrid Grid.Row="1" x:Name="DataGridArtists" HeadersVisibility="Column" MaxColumnWidth="250" AlternatingRowBackground="#FFEAFDC2" CanUserResizeRows="False" IsReadOnly="True" CellStyle="{StaticResource CellStyle}" FontSize="16" AutoGenerateColumns="False">

@@ -27,5 +27,11 @@
         <Brush x:Key="PrimaryForeground">White</Brush>
         <!-- ProgressBar color for currently playing song-->
         <Brush x:Key="ProgressBarSound">#dbb4a8</Brush>
+        <!-- Alternating row background for lists-->
+        <Brush x:Key="AlternatingRow">#CCCCFF</Brush>
+        <!-- Other alternating row background -->
+        <Brush x:Key="RowBackground">#e5e5ff</Brush>
+        <!-- Color for general background-->
+        <Brush x:Key="GeneralBackground">#F5F5FF</Brush>
     </Application.Resources>
 </Application>

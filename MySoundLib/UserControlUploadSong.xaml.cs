@@ -292,5 +292,12 @@ namespace MySoundLib
 			if (int.TryParse(s, out i)) return i;
 			return null;
 		}
+
+		private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+		{
+			_mainWindow.GridContent.Children.Clear();
+			_mainWindow.ListBoxCategory.SelectedIndex = 0;
+			_mainWindow.GridContent.Children.Add(new UserControlSongs(_connectionManager, _mainWindow));
+		}
 	}
 }

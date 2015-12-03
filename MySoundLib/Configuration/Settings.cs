@@ -186,12 +186,15 @@ namespace MySoundLib.Configuration
 			return Directory.GetFiles(PathProgramFolder, "*", SearchOption.AllDirectories);
 		}
 
-		public static int GetSizeOfLocalSongs() {
+		public static long GetSizeOfLocalSongs() {
 			var paths = GetDataFiles();
-			int sum = 0;
+			long sum = 0;
 
 			foreach (var x in paths) {
-				sum += File.ReadAllBytes(x).Length;
+				using (Stream stream = new FileStream(x, FileMode.Open))
+				{
+					sum += stream.Length;
+				}
 			}
 
 			return sum;

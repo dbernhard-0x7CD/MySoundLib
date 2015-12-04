@@ -96,7 +96,7 @@ namespace MySoundLib
             {
                 if (dataRowView.Row["song_id"].Equals(_recentlyAddedSong))
                 {
-                    var clr = (Brush)FindResource("SelectedItem");
+                    var clr = (Brush)FindResource("RecentlyAddedItem");
                     e.Row.Background = clr;
                     e.Row.BorderBrush = clr;
                 }

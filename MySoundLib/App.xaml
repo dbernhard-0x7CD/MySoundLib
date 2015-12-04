@@ -33,5 +33,7 @@
         <Brush x:Key="RowBackground">#e5e5ff</Brush>
         <!-- Color for general background-->
         <Brush x:Key="GeneralBackground">#F5F5FF</Brush>
+        <!-- Color for selected and recently added item -->
+        <Brush x:Key="SelectedItem">#30ACFF</Brush>
     </Application.Resources>
 </Application>

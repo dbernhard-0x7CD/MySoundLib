@@ -89,7 +89,9 @@ namespace MySoundLib
 
 			if (dataRowView != null) {
 				if (dataRowView.Row["song_id"].Equals(_recentlyAddedSong)) {
-					e.Row.Background = new SolidColorBrush(Colors.GreenYellow);
+					var clr = (Brush)FindResource("SelectedItem");
+					e.Row.Background = clr;
+					e.Row.BorderBrush = clr;
 				}
 			}
 		}

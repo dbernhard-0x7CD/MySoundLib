@@ -41,11 +41,8 @@
                     <Setter Property="Foreground" Value="Black" />
                     <Style.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="{x:Null}" />
-                            <Setter Property="BorderBrush" Value="{x:Null}" />
-                        </Trigger>
-                        <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="Background" Value="{StaticResource SelectedItem}" />
+                            <Setter Property="BorderBrush" Value="{StaticResource SelectedItem}" />
                         </Trigger>
                     </Style.Triggers>
                 </Style>

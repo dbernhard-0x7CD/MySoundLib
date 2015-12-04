@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MySoundLib"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="650">
+             d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <Style TargetType="{x:Type TextBlock}" x:Key="FirstColumnStyle">
             <Setter Property="Margin" Value="5,2,17,2" />
@@ -25,13 +25,13 @@
             <Button x:Name="ButtonAddNewSong" Content="add" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonAddNewSong_Click" Background="{x:Null}"/>
         </StackPanel>
 
-        <DataGrid Grid.Row="1" x:Name="DataGridSongs" HeadersVisibility="Column" MaxColumnWidth="350" RowBackground="{StaticResource RowBackground}" AlternatingRowBackground="{StaticResource AlternatingRow}" Background="{StaticResource GeneralBackground}" CanUserResizeRows="False" IsReadOnly="True" FontSize="16" AutoGenerateColumns="False" SelectionChanged="DataGridSongs_SelectionChanged" LoadingRow="DataGridSongs_LoadingRow" >
+        <DataGrid Grid.Row="1" x:Name="DataGridSongs" HeadersVisibility="Column" RowBackground="{StaticResource RowBackground}" AlternatingRowBackground="{StaticResource AlternatingRow}" Background="{StaticResource GeneralBackground}" CanUserResizeRows="False" IsReadOnly="True" FontSize="16" AutoGenerateColumns="False" SelectionChanged="DataGridSongs_SelectionChanged" LoadingRow="DataGridSongs_LoadingRow" IsSynchronizedWithCurrentItem="True" GridLinesVisibility="Vertical" VerticalGridLinesBrush="#FF010922">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding song_title}" Header="Title" ElementStyle="{StaticResource FirstColumnStyle}" />
-                <DataGridTextColumn Binding="{Binding artist_name}" Header="Artist" ElementStyle="{StaticResource AnyColumnStyle}" />
-                <DataGridTextColumn Binding="{Binding album_name}" Header="Album" ElementStyle="{StaticResource AnyColumnStyle}" />
-                <DataGridTextColumn Binding="{Binding genre_name}" Header="Genre" ElementStyle="{StaticResource AnyColumnStyle}" />
-                <DataGridTextColumn Binding="{Binding length}" Header="Length" ElementStyle="{StaticResource AnyColumnStyle}" />
+                <DataGridTextColumn Binding="{Binding song_title}" Header="Title" ElementStyle="{StaticResource FirstColumnStyle}" Width="*" />
+                <DataGridTextColumn Binding="{Binding artist_name}" Header="Artist" ElementStyle="{StaticResource AnyColumnStyle}" Width="Auto" />
+                <DataGridTextColumn Binding="{Binding album_name}" Header="Album" ElementStyle="{StaticResource AnyColumnStyle}"  Width="Auto" />
+                <DataGridTextColumn Binding="{Binding genre_name}" Header="Genre" ElementStyle="{StaticResource AnyColumnStyle}"  Width="Auto" />
+                <DataGridTextColumn Binding="{Binding length}" Header="Length" ElementStyle="{StaticResource AnyColumnStyle}"  Width="Auto" MinWidth="60" MaxWidth="120"/>
             </DataGrid.Columns>
             <DataGrid.Resources>
                 <Style TargetType="DataGridRow">

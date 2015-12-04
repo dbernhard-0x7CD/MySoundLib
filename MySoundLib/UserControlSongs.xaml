@@ -22,10 +22,14 @@
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource CurrentHeader}">
             <Label Content="Songs" Style="{StaticResource StyleInfoHeader}" />
-            <Button x:Name="ButtonAddNewSong" Content="add" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonAddNewSong_Click" Background="{x:Null}"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <Button x:Name="ButtonAddNewSong" Content="add" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonAddNewSong_Click" Background="{x:Null}"/>
+                <Button x:Name="ButtonEditSong" Visibility="Collapsed" Content="edit" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonEditSong_Click" Background="{x:Null}"/>
+                <Button x:Name="ButtonDeleteSong" Visibility="Collapsed" Content="delete" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonDeleteSong_Click" Background="{x:Null}"/>
+            </StackPanel>
         </StackPanel>
 
-        <DataGrid Grid.Row="1" x:Name="DataGridSongs" HeadersVisibility="Column" RowBackground="{StaticResource RowBackground}" AlternatingRowBackground="{StaticResource AlternatingRow}" Background="{StaticResource GeneralBackground}" CanUserResizeRows="False" IsReadOnly="True" FontSize="16" AutoGenerateColumns="False" SelectionChanged="DataGridSongs_SelectionChanged" LoadingRow="DataGridSongs_LoadingRow" IsSynchronizedWithCurrentItem="True" GridLinesVisibility="Vertical" VerticalGridLinesBrush="#FF010922">
+        <DataGrid Grid.Row="1" x:Name="DataGridSongs" HeadersVisibility="Column" RowBackground="{StaticResource RowBackground}" AlternatingRowBackground="{StaticResource AlternatingRow}" Background="{StaticResource GeneralBackground}" CanUserResizeRows="False" IsReadOnly="True" FontSize="16" AutoGenerateColumns="False" SelectionChanged="DataGridSongs_SelectionChanged" LoadingRow="DataGridSongs_LoadingRow" GridLinesVisibility="Vertical" VerticalGridLinesBrush="#FF010922">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding song_title}" Header="Title" ElementStyle="{StaticResource FirstColumnStyle}" Width="*" />
                 <DataGridTextColumn Binding="{Binding artist_name}" Header="Artist" ElementStyle="{StaticResource AnyColumnStyle}" Width="Auto" />

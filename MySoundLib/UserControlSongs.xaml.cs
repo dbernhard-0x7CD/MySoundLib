@@ -50,7 +50,10 @@ namespace MySoundLib
 
         private void DataGridSongs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            if (DataGridSongs.SelectedIndex != -1)
+            {
+                ButtonDeleteSong.Visibility = Visibility.Visible;
+            }
         }
 
         private void DataGridRow_DoubleClick(object sender, MouseButtonEventArgs e)
@@ -96,6 +99,33 @@ namespace MySoundLib
                     var clr = (Brush)FindResource("SelectedItem");
                     e.Row.Background = clr;
                     e.Row.BorderBrush = clr;
+                }
+            }
+        }
+
+        private void ButtonEditSong_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonDeleteSong_Click(object sender, RoutedEventArgs e)
+        {
+            var drv = DataGridSongs.SelectedItem as DataRowView;
+
+            if (drv != null)
+            {
+                int id;
+                if (int.TryParse(drv.Row["song_id"].ToString(), out id))
+                {
+                    Debug.WriteLine(id);
+                    var rowsAffected = _serverConnectionManager.ExecuteCommand(CommandFactory.DeleteSong(id));
+                    if (rowsAffected == 1)
+                    {
+                        drv.Delete();
+                    } else
+                    {
+                        MessageBox.Show("Unable to delete row");
+                    }
                 }
             }
         }

@@ -117,7 +117,6 @@ namespace MySoundLib
                 int id;
                 if (int.TryParse(drv.Row["song_id"].ToString(), out id))
                 {
-                    Debug.WriteLine(id);
                     var rowsAffected = _serverConnectionManager.ExecuteCommand(CommandFactory.DeleteSong(id));
                     if (rowsAffected == 1)
                     {

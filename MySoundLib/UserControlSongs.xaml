@@ -31,7 +31,7 @@
 
         <DataGrid Grid.Row="1" x:Name="DataGridSongs" HeadersVisibility="Column" RowBackground="{StaticResource RowBackground}" AlternatingRowBackground="{StaticResource AlternatingRow}" Background="{StaticResource GeneralBackground}" CanUserResizeRows="False" IsReadOnly="True" FontSize="16" AutoGenerateColumns="False" SelectionChanged="DataGridSongs_SelectionChanged" LoadingRow="DataGridSongs_LoadingRow" GridLinesVisibility="Vertical" VerticalGridLinesBrush="#FF010922">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding song_title}" Header="Title" ElementStyle="{StaticResource FirstColumnStyle}" Width="*" />
+                <DataGridTextColumn Binding="{Binding song_title}" Header="Title" ElementStyle="{StaticResource FirstColumnStyle}" Width="*" MinWidth="200" />
                 <DataGridTextColumn Binding="{Binding artist_name}" Header="Artist" ElementStyle="{StaticResource AnyColumnStyle}" Width="Auto" />
                 <DataGridTextColumn Binding="{Binding album_name}" Header="Album" ElementStyle="{StaticResource AnyColumnStyle}"  Width="Auto" />
                 <DataGridTextColumn Binding="{Binding genre_name}" Header="Genre" ElementStyle="{StaticResource AnyColumnStyle}"  Width="Auto" />

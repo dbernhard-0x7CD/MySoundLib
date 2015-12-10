@@ -50,7 +50,10 @@ namespace MySoundLib
 
         private void DataGridSongs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (DataGridSongs.SelectedIndex != -1)
+            if (DataGridSongs.SelectedIndex == -1)
+            {
+                ButtonDeleteSong.Visibility = Visibility.Collapsed;
+            } else
             {
                 ButtonDeleteSong.Visibility = Visibility.Visible;
             }

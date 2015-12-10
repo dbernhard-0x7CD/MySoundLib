@@ -18,25 +18,25 @@
         <!-- Background of selected item -->
         <Color x:Key="SelectedColor">#3232C1</Color>
         <!-- Background of current header-->
-        <Brush x:Key="CurrentHeader">#C1C1EC</Brush>
+        <SolidColorBrush x:Key="CurrentHeader">#C1C1EC</SolidColorBrush>
         <!-- Hoover over selectable items -->
         <Color x:Key="HooverColor">#5900B2</Color>
         <!-- Most used background color -->
-        <Brush x:Key="PrimaryBackground">#0000B2</Brush>
+        <SolidColorBrush x:Key="PrimaryBackground">#0000B2</SolidColorBrush>
         <!-- Text color which texts with the PrimaryBackground have-->
-        <Brush x:Key="PrimaryForeground">White</Brush>
+        <SolidColorBrush x:Key="PrimaryForeground">White</SolidColorBrush>
         <!-- ProgressBar color for currently playing song-->
-        <Brush x:Key="ProgressBarSound">#dbb4a8</Brush>
+        <SolidColorBrush x:Key="ProgressBarSound">#dbb4a8</SolidColorBrush>
         <!-- Alternating row background for lists-->
-        <Brush x:Key="AlternatingRow">#CCCCFF</Brush>
+        <SolidColorBrush x:Key="AlternatingRow">#CCCCFF</SolidColorBrush>
         <!-- Other alternating row background -->
-        <Brush x:Key="RowBackground">#e5e5ff</Brush>
+        <SolidColorBrush x:Key="RowBackground">#e5e5ff</SolidColorBrush>
         <!-- Color for general background-->
-        <Brush x:Key="GeneralBackground">#F5F5FF</Brush>
+        <SolidColorBrush x:Key="GeneralBackground">#F5F5FF</SolidColorBrush>
         <!-- Color for selected item -->
-        <Brush x:Key="SelectedItem">#30ACFF</Brush>
+        <SolidColorBrush x:Key="SelectedItem">#30ACFF</SolidColorBrush>
         <!-- Color for recently added item-->
-        <Brush x:Key="RecentlyAddedItem">#B2B2FF</Brush>
+        <SolidColorBrush x:Key="RecentlyAddedItem">#B2B2FF</SolidColorBrush>
         <!-- Color for currently playing item -->
         <SolidColorBrush x:Key="CurrentlyPlaying">BurlyWood</SolidColorBrush>
     </Application.Resources>

@@ -80,7 +80,7 @@ namespace MySoundLib
         private void MarkCurrentSong()
         {
             if (_currentlyPlayingDataGridRow != null)
-                _currentlyPlayingDataGridRow.Background = new SolidColorBrush(Colors.BurlyWood);
+                _currentlyPlayingDataGridRow.Background = (Brush)FindResource("CurrentlyPlaying");
         }
 
         public void ResetBackgroundFromRecentSong()

@@ -37,5 +37,7 @@
         <Brush x:Key="SelectedItem">#30ACFF</Brush>
         <!-- Color for recently added item-->
         <Brush x:Key="RecentlyAddedItem">#B2B2FF</Brush>
+        <!-- Color for currently playing item -->
+        <SolidColorBrush x:Key="CurrentlyPlaying">BurlyWood</SolidColorBrush>
     </Application.Resources>
 </Application>

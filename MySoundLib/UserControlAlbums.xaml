@@ -24,7 +24,7 @@
         <DataGrid Grid.Row="1" x:Name="DataGridAlbums" Style="{StaticResource DataGridListStyle}" SelectionChanged="DataGridAlbums_SelectionChanged" VerticalGridLinesBrush="#FF010922" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Album" Binding="{Binding album_name}" ElementStyle="{StaticResource FirstColumnStyle}" />
-                <DataGridTextColumn Header="Artist" ElementStyle="{StaticResource FirstColumnStyle}" />
+                <DataGridTextColumn Header="Artist" Binding="{Binding artist_name}" ElementStyle="{StaticResource FirstColumnStyle}" />
                 <DataGridTextColumn Header="Songs" Binding="{Binding song_count}" ElementStyle="{StaticResource AnyColumnStyle}" />
                 <DataGridTextColumn Header="Length" ElementStyle="{StaticResource AnyColumnStyle}" />
             </DataGrid.Columns>

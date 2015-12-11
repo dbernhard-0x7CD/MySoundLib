@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
+using System.Windows;
 using MySoundLib.Windows;
+using System.Data;
 
 namespace MySoundLib
 {
@@ -28,7 +30,7 @@ namespace MySoundLib
             DataGridArtists.Items.SortDescriptions.Add(new SortDescription("artist_name", ListSortDirection.Ascending));
         }
 
-        private void ButtonAddArtist_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void ButtonAddArtist_Click(object sender, RoutedEventArgs e)
         {
             _mainWindow.GridContent.Children.Clear();
             _mainWindow.GridContent.Children.Add(new UserControlUploadArtist(_mainWindow));
@@ -36,17 +38,44 @@ namespace MySoundLib
 
         private void DataGridArtists_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-
+            if (DataGridArtists.SelectedIndex == -1)
+            {
+                ButtonDeleteArtist.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                ButtonDeleteArtist.Visibility = Visibility.Visible;
+            }
         }
 
-        private void ButtonRenameArtist_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void ButtonRenameArtist_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void ButtonDeleteArtist_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void ButtonDeleteArtist_Click(object sender, RoutedEventArgs e)
         {
+            while (DataGridArtists.SelectedItems.Count != 0)
+            {
+                var dataRowView = DataGridArtists.SelectedItems[0] as DataRowView;
 
+                if (dataRowView != null)
+                {
+                    int id;
+                    if (int.TryParse(dataRowView.Row["artist_id"].ToString(), out id))
+                    {
+                        var rowsAffected = _serverConnectionManager.ExecuteCommand(CommandFactory.DeleteArtist(id));
+                        if (rowsAffected == 1)
+                        {
+                            dataRowView.Delete();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Unable to delete row");
+                        }
+                    }
+                }
+            }
         }
     }
 }

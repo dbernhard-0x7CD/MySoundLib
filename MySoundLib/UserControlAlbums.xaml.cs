@@ -1,4 +1,5 @@
-﻿using MySoundLib.Windows;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace MySoundLib
 {
@@ -8,17 +9,35 @@ namespace MySoundLib
 	public partial class UserControlAlbums
 	{
 		private readonly ServerConnectionManager _serverConnectionManager;
-		private readonly MainWindow _mainWindow;
 
-		public UserControlAlbums(ServerConnectionManager connectionManager, MainWindow mainWindow)
+		public UserControlAlbums(ServerConnectionManager connectionManager)
 		{
 			InitializeComponent();
-			_serverConnectionManager = connectionManager;
-			_mainWindow = mainWindow;
+            _serverConnectionManager = connectionManager;
 
-			var songs = _serverConnectionManager.GetDataTable(CommandFactory.GetAlbums());
+            var albums = _serverConnectionManager.GetDataTable(CommandFactory.GetAlbums());
 
-			DataGridAlbums.ItemsSource = songs.DefaultView;
+			DataGridAlbums.ItemsSource = albums.DefaultView;
+		}
+
+		private void ButtonAddNewAlbum_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void ButtonRenameAlbum_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void ButtonDeleteAlbum_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void DataGridAlbums_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+
 		}
 	}
 }

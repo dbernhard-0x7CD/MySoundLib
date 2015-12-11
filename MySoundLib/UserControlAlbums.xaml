@@ -5,39 +5,27 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MySoundLib"
              mc:Ignorable="d" 
-             d:DesignHeight="358.065" d:DesignWidth="395.015">
-    <UserControl.Resources>
-        <Style x:Key="CellStyle" TargetType="{x:Type DataGridCell}">
-            <Setter Property="Foreground" Value="Black" />
-            <Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="{x:Null}" />
-                    <Setter Property="BorderBrush" Value="{x:Null}" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="{x:Type TextBlock}" x:Key="FirstColumnStyle">
-            <Setter Property="Margin" Value="5,2,17,2" />
-        </Style>
-        <Style TargetType="{x:Type TextBlock}" x:Key="AnyColumnStyle">
-            <Setter Property="Margin" Value="7,2" />
-        </Style>
-    </UserControl.Resources>
+             d:DesignHeight="400" d:DesignWidth="600">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource CurrentHeader}">
             <Label Content="Albums" Style="{StaticResource StyleInfoHeader}" />
-            <Button x:Name="ButtonAddNewAlbum" Content="add" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Background="{x:Null}"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <Button x:Name="ButtonAddNewAlbum" Content="add" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonAddNewAlbum_Click" Background="{x:Null}"/>
+                <Button x:Name="ButtonRenameAlbum" Visibility="Collapsed" Content="rename" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonRenameAlbum_Click" Background="{x:Null}"/>
+                <Button x:Name="ButtonDeleteAlbum" Visibility="Collapsed" Content="delete" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonDeleteAlbum_Click" Background="{x:Null}"/>
+            </StackPanel>
         </StackPanel>
 
-        <DataGrid Grid.Row="1" x:Name="DataGridAlbums" HeadersVisibility="Column" MaxColumnWidth="250" AlternatingRowBackground="#FFEAFDC2" CanUserResizeRows="False" IsReadOnly="True" CellStyle="{StaticResource CellStyle}" FontSize="16" AutoGenerateColumns="False">
+        <DataGrid Grid.Row="1" x:Name="DataGridAlbums" Style="{StaticResource DataGridListStyle}" SelectionChanged="DataGridAlbums_SelectionChanged" VerticalGridLinesBrush="#FF010922" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding album_name}" Header="Album" ElementStyle="{StaticResource FirstColumnStyle}" />
                 <DataGridTextColumn Header="Artist" ElementStyle="{StaticResource FirstColumnStyle}" />
+                <DataGridTextColumn Header="Songs" ElementStyle="{StaticResource AnyColumnStyle}" />
                 <DataGridTextColumn Header="Length" ElementStyle="{StaticResource AnyColumnStyle}" />
             </DataGrid.Columns>
         </DataGrid>

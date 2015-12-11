@@ -14,8 +14,14 @@ namespace MySoundLib
 	/// </summary>
 	public partial class UserControlUploadSong
 	{
-		private readonly ServerConnectionManager _connectionManager;
 		private readonly MainWindow _mainWindow;
+		private ServerConnectionManager _connectionManager
+		{
+			get
+			{
+				return _mainWindow.ConnectionManager;
+			}
+		}
 		private string _filePath;
 		private DataTable _dataTableArtists;
 		private DataTable _dataTableAlbums;
@@ -24,7 +30,6 @@ namespace MySoundLib
 		public UserControlUploadSong(MainWindow mainWindow)
 		{
 			InitializeComponent();
-			_connectionManager = mainWindow.ConnectionManager;
 			_mainWindow = mainWindow;
 		}
 
@@ -259,7 +264,7 @@ namespace MySoundLib
 					Debug.WriteLine("Successfully added song: " + song_id);
 					_mainWindow.GridContent.Children.Clear();
 					_mainWindow.ListBoxCategory.SelectedIndex = 0;
-					_mainWindow.GridContent.Children.Add(new UserControlSongs(_connectionManager, _mainWindow, song_id));
+					_mainWindow.GridContent.Children.Add(new UserControlSongs(_mainWindow, song_id));
 				}
 			}
 		}
@@ -297,7 +302,7 @@ namespace MySoundLib
 		{
 			_mainWindow.GridContent.Children.Clear();
 			_mainWindow.ListBoxCategory.SelectedIndex = 0;
-			_mainWindow.GridContent.Children.Add(new UserControlSongs(_connectionManager, _mainWindow));
+			_mainWindow.GridContent.Children.Add(new UserControlSongs(_mainWindow));
 		}
 	}
 }

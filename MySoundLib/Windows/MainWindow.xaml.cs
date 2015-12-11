@@ -133,13 +133,13 @@ namespace MySoundLib.Windows
 		private void ListBoxItemSongs_OnSelected(object sender, RoutedEventArgs e)
 		{
 			GridContent.Children.Clear();
-			GridContent.Children.Add(new UserControlSongs(ConnectionManager, this));
+			GridContent.Children.Add(new UserControlSongs(this));
 		}
 
 		private void ListBoxItemAlbums_OnSelected(object sender, RoutedEventArgs e)
 		{
 			GridContent.Children.Clear();
-			GridContent.Children.Add(new UserControlAlbums(ConnectionManager, this));
+			GridContent.Children.Add(new UserControlAlbums(ConnectionManager));
 		}
 
 		private void ListBoxItemArtists_OnSelected(object sender, RoutedEventArgs e)

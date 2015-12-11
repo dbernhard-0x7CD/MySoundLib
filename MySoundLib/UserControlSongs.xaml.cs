@@ -13,8 +13,14 @@ namespace MySoundLib
     /// </summary>
     public partial class UserControlSongs
     {
-        private readonly ServerConnectionManager _serverConnectionManager;
         private readonly MainWindow _mainWindow;
+        private ServerConnectionManager _serverConnectionManager
+        {
+            get
+            {
+                return _mainWindow.ConnectionManager;
+            }
+        }
         private static DataGridRow _currentlyPlayingDataGridRow;
         private Brush _lastSongBackground;
         /// <summary>
@@ -22,10 +28,9 @@ namespace MySoundLib
         /// </summary>
         private int _recentlyAddedSong;
 
-        public UserControlSongs(ServerConnectionManager connectionManager, MainWindow mainWindow)
+        public UserControlSongs(MainWindow mainWindow)
         {
             InitializeComponent();
-            _serverConnectionManager = connectionManager;
             _mainWindow = mainWindow;
 
             var songs = _serverConnectionManager.GetDataTable("select song_id, song_title, artist_name, album_name, genre_name, length from songs s left join artists a on (a.artist_id = s.artist) left join genres g on (s.genre = g.genre_id) left join albums al on (al.album_id = s.album) order by song_title");
@@ -36,7 +41,7 @@ namespace MySoundLib
             MarkCurrentSong();
         }
 
-        public UserControlSongs(ServerConnectionManager connectionManager, MainWindow mainWindow, int song_id) : this(connectionManager, mainWindow)
+        public UserControlSongs(MainWindow mainWindow, int song_id) : this(mainWindow)
         {
             _recentlyAddedSong = song_id;
         }

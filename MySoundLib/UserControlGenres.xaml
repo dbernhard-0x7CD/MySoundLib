@@ -5,18 +5,27 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MySoundLib"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="400" d:DesignWidth="600">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource CurrentHeader}">
             <Label Content="Genres" Style="{StaticResource StyleInfoHeader}" />
-            <Button x:Name="ButtonAddNewGenre" Content="add" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Background="{x:Null}"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <Button x:Name="ButtonAddGenre" Content="add" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonAddGenre_Click" Background="{x:Null}"/>
+                <Button x:Name="ButtonRenameGenre" Visibility="Collapsed" Content="rename" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonRenameGenre_Click" Background="{x:Null}"/>
+                <Button x:Name="ButtonDeleteGenre" Visibility="Collapsed" Content="delete" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonDeleteGenre_Click" Background="{x:Null}"/>
+            </StackPanel>
         </StackPanel>
 
-        <ListBox x:Name="ListBoxGenres" Grid.Row="1"></ListBox>
+        <DataGrid Grid.Row="1" x:Name="DataGridGenres" Style="{StaticResource DataGridListStyle}" AutoGenerateColumns="False" SelectionChanged="DataGridSongs_SelectionChanged" VerticalGridLinesBrush="#FF010922">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding genre_name}" Header="Genre" ElementStyle="{StaticResource FirstColumnStyle}" Width="Auto"/>
+                <DataGridTextColumn Binding="{Binding song_count}" Header="Songs" ElementStyle="{StaticResource AnyColumnStyle}" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

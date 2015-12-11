@@ -60,7 +60,7 @@ namespace MySoundLib
 
 		public static MySqlCommand GetGenres()
 		{
-			return new MySqlCommand("select genre_id, genre_name from genres order by genre_name");
+			return new MySqlCommand("select genre_id, genre_name, count(s.song_id) as song_count from genres g left join songs s on (s.genre = g.genre_id) group by s.genre order by genre_name;");
 		}
 
 		public static MySqlCommand GetArtists()
@@ -81,6 +81,11 @@ namespace MySoundLib
         public static MySqlCommand DeleteAlbum(int id)
         {
             return new MySqlCommand($"DELETE FROM albums WHERE `album_id`='{id}'");
+        }
+
+        public static MySqlCommand DeleteGenre(int id)
+        {
+            return new MySqlCommand($"DELETE FROM genres WHERE `genre_id`='{id}'");
         }
     }
 }

@@ -151,15 +151,7 @@ namespace MySoundLib.Windows
 		private void ListBoxItemGenres_OnSelected(object sender, RoutedEventArgs e)
 		{
 			GridContent.Children.Clear();
-			var userControlGenres = new UserControlGenres();
-			GridContent.Children.Add(userControlGenres);
-
-			var genres = ConnectionManager.GetDataTable("select genre_name from genres");
-
-			foreach (DataRow row in genres.Rows)
-			{
-				userControlGenres.ListBoxGenres.Items.Add(row[0]);
-			}
+			GridContent.Children.Add(new UserControlGenres(ConnectionManager));
 		}
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

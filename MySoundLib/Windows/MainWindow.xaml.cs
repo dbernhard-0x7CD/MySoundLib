@@ -145,7 +145,7 @@ namespace MySoundLib.Windows
 		private void ListBoxItemArtists_OnSelected(object sender, RoutedEventArgs e)
 		{
 			GridContent.Children.Clear();
-			GridContent.Children.Add(new UserControlArtists(ConnectionManager, this));
+			GridContent.Children.Add(new UserControlArtists(this));
 		}
 
 		private void ListBoxItemGenres_OnSelected(object sender, RoutedEventArgs e)

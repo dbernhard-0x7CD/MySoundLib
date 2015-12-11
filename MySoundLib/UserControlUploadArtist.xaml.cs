@@ -10,14 +10,18 @@ namespace MySoundLib
 	/// </summary>
 	public partial class UserControlUploadArtist : UserControl
 	{
-		MainWindow _mainWindow;
-		ServerConnectionManager _connectionManager;
+		private readonly MainWindow _mainWindow;
+		ServerConnectionManager _connectionManager {
+            get
+            {
+                return _mainWindow.ConnectionManager;
+            }
+        }
 
-		public UserControlUploadArtist(MainWindow mainWindow, ServerConnectionManager connectionManager)
+		public UserControlUploadArtist(MainWindow mainWindow)
 		{
 			InitializeComponent();
 			_mainWindow = mainWindow;
-			_connectionManager = connectionManager;
 		}
 
 		private void ButtonCancel_Click(object sender, RoutedEventArgs e)
@@ -44,7 +48,7 @@ namespace MySoundLib
 		private void ShowArtists() {
 			_mainWindow.GridContent.Children.Clear();
 			_mainWindow.ListBoxCategory.SelectedIndex = 2;
-			_mainWindow.GridContent.Children.Add(new UserControlArtists(_connectionManager, _mainWindow));
+			_mainWindow.GridContent.Children.Add(new UserControlArtists(_mainWindow));
 		}
 	}
 }

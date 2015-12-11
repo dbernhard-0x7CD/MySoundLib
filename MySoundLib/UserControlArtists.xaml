@@ -4,41 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MySoundLib"
-             mc:Ignorable="d" d:DesignHeight="332.024" d:DesignWidth="443.402">
-    <UserControl.Resources>
-        <Style x:Key="CellStyle" TargetType="{x:Type DataGridCell}">
-            <Setter Property="Foreground" Value="Black" />
-            <Setter Property="FontSize" Value="13"></Setter>
-            <Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="{x:Null}" />
-                    <Setter Property="BorderBrush" Value="{x:Null}" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="{x:Type TextBlock}" x:Key="FirstColumnStyle">
-            <Setter Property="Margin" Value="5,2,17,2" />
-        </Style>
-        <Style TargetType="{x:Type TextBlock}" x:Key="AnyColumnStyle">
-            <Setter Property="Margin" Value="7,2" />
-        </Style>
-    </UserControl.Resources>
+             mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="600">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource CurrentHeader}">
             <Label Content="Artists" Style="{StaticResource StyleInfoHeader}" />
-            <Button x:Name="ButtonAddNewArtist" Content="add" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Background="{x:Null}" Click="ButtonAddNewArtist_Click"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <Button x:Name="ButtonAddArtist" Content="add" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonAddArtist_Click" Background="{x:Null}"/>
+                <Button x:Name="ButtonRenameArtist" Visibility="Collapsed" Content="edit" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonRenameArtist_Click" Background="{x:Null}"/>
+                <Button x:Name="ButtonDeleteArtist" Visibility="Collapsed" Content="delete" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonDeleteArtist_Click" Background="{x:Null}"/>
+            </StackPanel>
         </StackPanel>
 
-        <DataGrid Grid.Row="1" x:Name="DataGridArtists" HeadersVisibility="Column" MaxColumnWidth="250" AlternatingRowBackground="#FFEAFDC2" CanUserResizeRows="False" IsReadOnly="True" CellStyle="{StaticResource CellStyle}" FontSize="16" AutoGenerateColumns="False">
+        <DataGrid Grid.Row="1" x:Name="DataGridArtists" Style="{StaticResource DataGridListStyle}" AutoGenerateColumns="False" SelectionChanged="DataGridArtists_SelectionChanged" VerticalGridLinesBrush="#FF010922">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding artist_name}" Header="Artist" ElementStyle="{StaticResource FirstColumnStyle}" />
-                <DataGridTextColumn Binding="{Binding song_count}" Header="Songs" ElementStyle="{StaticResource AnyColumnStyle}" />
-                <DataGridTextColumn Header="Albums" ElementStyle="{StaticResource AnyColumnStyle}" />
+                <DataGridTextColumn Binding="{Binding artist_name}" Header="Artist" ElementStyle="{StaticResource FirstColumnStyle}" Width="Auto" />
+                <DataGridTextColumn Binding="{Binding song_count}" Header="Songs" ElementStyle="{StaticResource AnyColumnStyle}" Width="Auto" />
+                <DataGridTextColumn Binding="{Binding song_count}" Header="Songs" ElementStyle="{StaticResource AnyColumnStyle}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

@@ -77,5 +77,10 @@ namespace MySoundLib
         {
             return new MySqlCommand($"DELETE FROM artists WHERE `artist_id`='{id}'");
         }
+
+        public static MySqlCommand DeleteAlbum(int id)
+        {
+            return new MySqlCommand($"DELETE FROM albums WHERE `album_id`='{id}'");
+        }
     }
 }

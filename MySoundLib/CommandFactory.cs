@@ -55,7 +55,7 @@ namespace MySoundLib
 		}
 
 		public static MySqlCommand GetAlbums() {
-			return new MySqlCommand("select album_id, album_name from albums order by album_name");
+			return new MySqlCommand("select album_id, album_name, count(s.song_id) as song_count from albums a left join songs s on (s.album = a.album_id) group by a.album_id order by album_name");
         }
 
 		public static MySqlCommand GetGenres()

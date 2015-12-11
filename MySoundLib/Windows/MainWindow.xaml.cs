@@ -11,313 +11,318 @@ using System.Threading.Tasks;
 
 namespace MySoundLib.Windows
 {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
-	public partial class MainWindow
-	{
-		public ServerConnectionManager ConnectionManager { get; private set; }
-		private int _currentSongId;
-		private WindowsMediaPlayer _mediaPlayer;
-		private DispatcherTimer _updateProgressTimer;
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow
+    {
+        public ServerConnectionManager ConnectionManager { get; private set; }
+        private int _currentSongId;
+        private WindowsMediaPlayer _mediaPlayer;
+        private DispatcherTimer _updateProgressTimer;
 
-		public MainWindow()
-		{
-			// connect  to database if autoconnect is active
-			Settings.LoadSettings();
-			if (Settings.Contains(Property.AutoConnect) && Settings.Contains(Property.LastServer) &&
-			    Settings.Contains(Property.LastUser))
-			{
-				ConnectionManager = new ServerConnectionManager();
-				ConnectionManager.Connect(Settings.GetValue(Property.LastServer), Settings.GetValue(Property.LastUser),
-					LoginWindow.GetDecryptedPassword(), "my_sound_lib");
-			}
-			else
-			{
-				if (!ShowLoginWindow())
-				{
-					Close();
-					return;
-				}
-			}
+        public MainWindow()
+        {
+            // connect  to database if autoconnect is active
+            Settings.LoadSettings();
+            if (Settings.Contains(Property.AutoConnect) && Settings.Contains(Property.LastServer) &&
+                Settings.Contains(Property.LastUser))
+            {
+                ConnectionManager = new ServerConnectionManager();
+                ConnectionManager.Connect(Settings.GetValue(Property.LastServer), Settings.GetValue(Property.LastUser),
+                    LoginWindow.GetDecryptedPassword(), "my_sound_lib");
+            }
+            else
+            {
+                if (!ShowLoginWindow())
+                {
+                    Close();
+                    return;
+                }
+            }
 
-			InitializeComponent();
-			InitialiseFirstView();
-		}
+            InitializeComponent();
+            InitialiseFirstView();
+        }
 
-		private void InitialiseFirstView() {
-			// show upload-song control when no songs exist
-			var songExists = ConnectionManager.ExecuteScalar(CommandFactory.GetSongAmount());
-			int amountSongs;
+        private void InitialiseFirstView()
+        {
+            // show upload-song control when no songs exist
+            var songExists = ConnectionManager.ExecuteScalar(CommandFactory.GetSongAmount());
+            int amountSongs;
 
-			if (songExists == null || !int.TryParse(songExists.ToString(), out amountSongs))
-			{
-				Debug.WriteLine("unable to retrieve if there are songs");
-				return;
-			}
+            if (songExists == null || !int.TryParse(songExists.ToString(), out amountSongs))
+            {
+                Debug.WriteLine("unable to retrieve if there are songs");
+                return;
+            }
 
-			if (amountSongs == 0)
-			{
-				GridContent.Children.Clear();
-				GridContent.Children.Add(new UserControlUploadSong(this));
-			}
-			else
-			{
-				ListBoxCategory.SelectedIndex = 0;
-			}
+            if (amountSongs == 0)
+            {
+                GridContent.Children.Clear();
+                GridContent.Children.Add(new UserControlUploadSong(this));
+            }
+            else
+            {
+                ListBoxCategory.SelectedIndex = 0;
+            }
 
-			// decide visibility of menu
-			if (Settings.Contains(Property.CollapseMenu)) {
-				HideMenu();
-			} // is shown by default
+            // decide visibility of menu
+            if (Settings.Contains(Property.CollapseMenu))
+            {
+                HideMenu();
+            } // is shown by default
 
-			HideCurrentSong();
-		}
+            HideCurrentSong();
+        }
 
-		private bool ShowLoginWindow()
-		{
-			var loginWindow = new LoginWindow();
-			loginWindow.ShowDialog();
+        private bool ShowLoginWindow()
+        {
+            var loginWindow = new LoginWindow();
+            loginWindow.ShowDialog();
 
-			if (loginWindow.ResultConnectionManager == null) return false;
-			ConnectionManager = loginWindow.ResultConnectionManager;
+            if (loginWindow.ResultConnectionManager == null) return false;
+            ConnectionManager = loginWindow.ResultConnectionManager;
 
-			return true;
-		}
+            return true;
+        }
 
-		private void MenuItemTestingWindow_OnClick(object sender, RoutedEventArgs e)
-		{
-			var testWindow = new TestWindow(ConnectionManager) {Owner =  this};
+        private void MenuItemTestingWindow_OnClick(object sender, RoutedEventArgs e)
+        {
+            var testWindow = new TestWindow(ConnectionManager) { Owner = this };
 
-			testWindow.Show();
-		}
+            testWindow.Show();
+        }
 
-		private void MenuItemDisconnect_OnClick(object sender, RoutedEventArgs e)
-		{
-			Hide();
-			ConnectionManager.Disconnect();
-			if (ShowLoginWindow()) {
-				InitialiseFirstView();
-				Show();
-			}
-			else
-				Close();
-		}
+        private void MenuItemDisconnect_OnClick(object sender, RoutedEventArgs e)
+        {
+            Hide();
+            ConnectionManager.Disconnect();
+            if (ShowLoginWindow())
+            {
+                InitialiseFirstView();
+                Show();
+            }
+            else
+                Close();
+        }
 
-		private void MenuItemSettings_OnClick(object sender, RoutedEventArgs e)
-		{
-			
-		}
+        private void MenuItemSettings_OnClick(object sender, RoutedEventArgs e)
+        {
 
-		private void MenuItemAbout_OnClick(object sender, RoutedEventArgs e)
-		{
-			var aboutWindow = new AboutWindow(ConnectionManager) {Owner = this};
+        }
 
-			aboutWindow.ShowDialog();
-		}
+        private void MenuItemAbout_OnClick(object sender, RoutedEventArgs e)
+        {
+            var aboutWindow = new AboutWindow(ConnectionManager) { Owner = this };
 
-		public void HideCurrentSong()
-		{
-			StackPanelCurrentSongInformation.Visibility = Visibility.Collapsed;
-			GridSplitterHor.Visibility = Visibility.Collapsed;
-			Grid.SetRowSpan(GridContent, 3);
-		}
+            aboutWindow.ShowDialog();
+        }
 
-		public void ShowCurrentSong()
-		{
-			StackPanelCurrentSongInformation.Visibility = Visibility.Visible;
-			GridSplitterHor.Visibility = Visibility.Visible;
-			Grid.SetRowSpan(GridContent, 1);
-		}
+        public void HideCurrentSong()
+        {
+            StackPanelCurrentSongInformation.Visibility = Visibility.Collapsed;
+            GridSplitterHor.Visibility = Visibility.Collapsed;
+            Grid.SetRowSpan(GridContent, 3);
+        }
 
-		private void ListBoxItemSongs_OnSelected(object sender, RoutedEventArgs e)
-		{
-			GridContent.Children.Clear();
-			GridContent.Children.Add(new UserControlSongs(this));
-		}
+        public void ShowCurrentSong()
+        {
+            StackPanelCurrentSongInformation.Visibility = Visibility.Visible;
+            GridSplitterHor.Visibility = Visibility.Visible;
+            Grid.SetRowSpan(GridContent, 1);
+        }
 
-		private void ListBoxItemAlbums_OnSelected(object sender, RoutedEventArgs e)
-		{
-			GridContent.Children.Clear();
-			GridContent.Children.Add(new UserControlAlbums(ConnectionManager));
-		}
+        private void ListBoxItemSongs_OnSelected(object sender, RoutedEventArgs e)
+        {
+            GridContent.Children.Clear();
+            GridContent.Children.Add(new UserControlSongs(this));
+        }
 
-		private void ListBoxItemArtists_OnSelected(object sender, RoutedEventArgs e)
-		{
-			GridContent.Children.Clear();
-			GridContent.Children.Add(new UserControlArtists(this));
-		}
+        private void ListBoxItemAlbums_OnSelected(object sender, RoutedEventArgs e)
+        {
+            GridContent.Children.Clear();
+            GridContent.Children.Add(new UserControlAlbums(ConnectionManager));
+        }
 
-		private void ListBoxItemGenres_OnSelected(object sender, RoutedEventArgs e)
-		{
-			GridContent.Children.Clear();
-			GridContent.Children.Add(new UserControlGenres(ConnectionManager));
-		}
+        private void ListBoxItemArtists_OnSelected(object sender, RoutedEventArgs e)
+        {
+            GridContent.Children.Clear();
+            GridContent.Children.Add(new UserControlArtists(this));
+        }
 
-		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-			ConnectionManager.Disconnect();
-			Settings.SaveConfig();
-		}
+        private void ListBoxItemGenres_OnSelected(object sender, RoutedEventArgs e)
+        {
+            GridContent.Children.Clear();
+            GridContent.Children.Add(new UserControlGenres(ConnectionManager));
+        }
 
-		public void PlaySong(int id)
-		{
-			_mediaPlayer?.close();
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ConnectionManager.Disconnect();
+            Settings.SaveConfig();
+        }
 
-			ShowCurrentSong();
-			_currentSongId = id;
-			var song = ConnectionManager.GetDataTable("select song_title, artist_name, album_name, genre_name, length, release_date from songs s left join artists a on (s.artist = a.artist_id) left join genres g on (s.genre = g.genre_id) left join albums al on (s.album = al.album_id) where song_id = " + id);
+        public void PlaySong(int id)
+        {
+            _mediaPlayer?.close();
 
-			var title = song.Rows[0]["song_title"];
+            ShowCurrentSong();
+            _currentSongId = id;
+            var song = ConnectionManager.GetDataTable("select song_title, artist_name, album_name, genre_name, length, release_date from songs s left join artists a on (s.artist = a.artist_id) left join genres g on (s.genre = g.genre_id) left join albums al on (s.album = al.album_id) where song_id = " + id);
 
-			LabelSongTitle.Content = "Title: " + title;
-			ButtonPlay.Content = "Start";
+            var title = song.Rows[0]["song_title"];
 
-			Debug.WriteLine("moving to play track");
-			Task task = new Task(PlayTrack);
+            LabelSongTitle.Content = "Title: " + title;
+            ButtonPlay.Content = "Start";
 
-			task.Start(TaskScheduler.FromCurrentSynchronizationContext());
-			Debug.WriteLine("end play");
-		}
+            Debug.WriteLine("moving to play track");
+            Task task = new Task(PlayTrack);
 
-		private void ButtonPlay_OnClick(object sender, RoutedEventArgs e)
-		{
-			switch (ButtonPlay.Content.ToString())
-			{
-				case "Pause":
-					_mediaPlayer.controls.pause();
-					ButtonPlay.Content = "Continue";
-					return;
-				case "Continue":
-					_mediaPlayer.controls.play();
-					ButtonPlay.Content = "Pause";
-					return;
-				case "Start":
-					PlayTrack();
-					return;
-				default:
-					Debug.WriteLine("Undefined action");
-					break;
-			}
-		}
+            task.Start(TaskScheduler.FromCurrentSynchronizationContext());
+            Debug.WriteLine("end play");
+        }
 
-		private void PlayTrack()
-		{
-			Debug.WriteLine("Loading track from song_id " + _currentSongId);
-			var track = ConnectionManager.GetDataTable("SELECT track FROM songs WHERE song_id = " + _currentSongId);
+        private void ButtonPlay_OnClick(object sender, RoutedEventArgs e)
+        {
+            switch (ButtonPlay.Content.ToString())
+            {
+                case "Pause":
+                    _mediaPlayer.controls.pause();
+                    ButtonPlay.Content = "Continue";
+                    return;
+                case "Continue":
+                    _mediaPlayer.controls.play();
+                    ButtonPlay.Content = "Pause";
+                    return;
+                case "Start":
+                    PlayTrack();
+                    return;
+                default:
+                    Debug.WriteLine("Undefined action");
+                    break;
+            }
+        }
 
-			var byteTrack = (byte[]) track.Rows[0]["track"];
+        private void PlayTrack()
+        {
+            Debug.WriteLine("Loading track from song_id " + _currentSongId);
+            var track = ConnectionManager.GetDataTable("SELECT track FROM songs WHERE song_id = " + _currentSongId);
 
-			var pathFile = Path.Combine(Settings.PathProgramFolder, byteTrack.GetHashCode().ToString()) + ".mp3"; // TODO: save as hash
+            var byteTrack = (byte[])track.Rows[0]["track"];
 
-			try
-			{
-				var fileStream = new FileStream(pathFile, FileMode.Create, FileAccess.Write);
+            var pathFile = Path.Combine(Settings.PathProgramFolder, byteTrack.GetHashCode().ToString()) + ".mp3"; // TODO: save as hash
 
-				fileStream.Write(byteTrack, 0, byteTrack.Length);
+            try
+            {
+                var fileStream = new FileStream(pathFile, FileMode.Create, FileAccess.Write);
 
-				fileStream.Close();
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine("unable to save file: ", ex.ToString());
-				return;
-			}
-			ButtonPlay.Content = "Pause";
+                fileStream.Write(byteTrack, 0, byteTrack.Length);
 
-			_mediaPlayer = new WindowsMediaPlayer {URL = pathFile};
+                fileStream.Close();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("unable to save file: ", ex.ToString());
+                return;
+            }
+            ButtonPlay.Content = "Pause";
 
-			_mediaPlayer.PlayStateChange += MediaPlayerOnPlayStateChange;
+            _mediaPlayer = new WindowsMediaPlayer { URL = pathFile };
 
-			_mediaPlayer.controls.play();
+            _mediaPlayer.PlayStateChange += MediaPlayerOnPlayStateChange;
 
-			_updateProgressTimer = new DispatcherTimer();
-			_updateProgressTimer.Tick += UpdateProgressTimerOnTick;
-			_updateProgressTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
-			_updateProgressTimer.Start();
+            _mediaPlayer.controls.play();
 
-			Debug.WriteLine("Playing song");
-		}
+            _updateProgressTimer = new DispatcherTimer();
+            _updateProgressTimer.Tick += UpdateProgressTimerOnTick;
+            _updateProgressTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
+            _updateProgressTimer.Start();
 
-		private void UpdateProgressTimerOnTick(object sender, EventArgs eventArgs)
-		{
-			var duration = _mediaPlayer?.currentMedia?.duration;
+            Debug.WriteLine("Playing song");
+        }
 
-			if (duration != null && (int)duration != 0)
-			{
-				ProgressBarTrack.Maximum = (double) duration;
-				ProgressBarTrack.Value = _mediaPlayer.controls.currentPosition;
-			}
-		}
+        private void UpdateProgressTimerOnTick(object sender, EventArgs eventArgs)
+        {
+            var duration = _mediaPlayer?.currentMedia?.duration;
 
-		private void MediaPlayerOnPlayStateChange(int newState)
-		{
-			if (newState == (int)WMPPlayState.wmppsStopped)
-			{
-				ButtonPlay.Content = "Play";
-				_currentSongId = 0;
-				_mediaPlayer = null;
-				ProgressBarTrack.Value = 0;
-				HideCurrentSong();
+            if (duration != null && (int)duration != 0)
+            {
+                ProgressBarTrack.Maximum = (double)duration;
+                ProgressBarTrack.Value = _mediaPlayer.controls.currentPosition;
+            }
+        }
 
-				var userControlSongs = GridContent.Children[0] as UserControlSongs;
+        private void MediaPlayerOnPlayStateChange(int newState)
+        {
+            if (newState == (int)WMPPlayState.wmppsStopped)
+            {
+                ButtonPlay.Content = "Play";
+                _currentSongId = 0;
+                _mediaPlayer = null;
+                ProgressBarTrack.Value = 0;
+                HideCurrentSong();
 
-				userControlSongs?.ResetBackgroundFromRecentSong();
-			}
-		}
+                var userControlSongs = GridContent.Children[0] as UserControlSongs;
 
-		private void ButtonMute_OnClick(object sender, RoutedEventArgs e)
-		{
-			if (ButtonMute.Content.ToString() == "Unmute")
-			{
-				_mediaPlayer.settings.mute = false;
-				ButtonMute.Content = "Mute";
-				return;
-			}
-			_mediaPlayer.settings.mute = true;
-			ButtonMute.Content = "Unmute";
-		}
+                userControlSongs?.ResetBackgroundFromRecentSong();
+            }
+        }
 
-		private void ButtonRestart_OnClick(object sender, RoutedEventArgs e)
-		{
-			_mediaPlayer.controls.currentPosition = 0;
-		}
+        private void ButtonMute_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (ButtonMute.Content.ToString() == "Unmute")
+            {
+                _mediaPlayer.settings.mute = false;
+                ButtonMute.Content = "Mute";
+                return;
+            }
+            _mediaPlayer.settings.mute = true;
+            ButtonMute.Content = "Unmute";
+        }
 
-		private void ProgressBarTrack_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-		{
-			double value = GetProgressBarValue(e.GetPosition(ProgressBarTrack).X);
+        private void ButtonRestart_OnClick(object sender, RoutedEventArgs e)
+        {
+            _mediaPlayer.controls.currentPosition = 0;
+        }
 
-			ProgressBarTrack.Value = value;
-			_mediaPlayer.controls.currentPosition = value;
-		}
+        private void ProgressBarTrack_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            double value = GetProgressBarValue(e.GetPosition(ProgressBarTrack).X);
 
-		private double GetProgressBarValue(double MousePosition)
-		{
-			double ratio = MousePosition / ProgressBarTrack.ActualWidth;
-			double ProgressBarValue = ratio * ProgressBarTrack.Maximum;
-			return ProgressBarValue;
-		}
+            ProgressBarTrack.Value = value;
+            _mediaPlayer.controls.currentPosition = value;
+        }
 
-		private void MenuItemHideMenu_Click(object sender, RoutedEventArgs e)
-		{
-			HideMenu();
-			Settings.SetProperty(Property.CollapseMenu, "yes");
-		}
+        private double GetProgressBarValue(double MousePosition)
+        {
+            double ratio = MousePosition / ProgressBarTrack.ActualWidth;
+            double ProgressBarValue = ratio * ProgressBarTrack.Maximum;
+            return ProgressBarValue;
+        }
 
-		private void ButtonShowMenuItem_Click(object sender, RoutedEventArgs e)
-		{
-			ShowMenu();
-			Settings.RemoveProperty(Property.CollapseMenu);
-		}
+        private void MenuItemHideMenu_Click(object sender, RoutedEventArgs e)
+        {
+            HideMenu();
+            Settings.SetProperty(Property.CollapseMenu, "yes");
+        }
 
-		private void HideMenu() {
-			AppMenu.Visibility = Visibility.Collapsed;
-			ButtonShowMenuItem.Visibility = Visibility.Visible;
-		}
+        private void ButtonShowMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            ShowMenu();
+            Settings.RemoveProperty(Property.CollapseMenu);
+        }
 
-		private void ShowMenu() {
-			AppMenu.Visibility = Visibility.Visible;
-			ButtonShowMenuItem.Visibility = Visibility.Collapsed;
-		}
-	}
+        private void HideMenu()
+        {
+            AppMenu.Visibility = Visibility.Collapsed;
+            ButtonShowMenuItem.Visibility = Visibility.Visible;
+        }
+
+        private void ShowMenu()
+        {
+            AppMenu.Visibility = Visibility.Visible;
+            ButtonShowMenuItem.Visibility = Visibility.Collapsed;
+        }
+    }
 }

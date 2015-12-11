@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using MySoundLib.Windows;
+using System.Diagnostics;
 
 namespace MySoundLib
 {
@@ -53,9 +54,11 @@ namespace MySoundLib
             if (DataGridSongs.SelectedIndex == -1)
             {
                 ButtonDeleteSong.Visibility = Visibility.Collapsed;
+                ButtonPlaySong.Visibility = Visibility.Collapsed;
             } else
             {
                 ButtonDeleteSong.Visibility = Visibility.Visible;
+                ButtonPlaySong.Visibility = Visibility.Visible;
             }
         }
 
@@ -63,21 +66,7 @@ namespace MySoundLib
         {
             var dataGridRow = e.Source as DataGridRow;
             var dataRowView = dataGridRow?.DataContext as DataRowView;
-
-            if (dataRowView != null)
-            {
-                if (_currentlyPlayingDataGridRow != null) // there was a song playing before this one
-                {
-                    ResetBackgroundFromRecentSong();
-                }
-                DataGridSongs.SelectedValue = dataGridRow;
-                _lastSongBackground = dataGridRow.Background;
-
-                _currentlyPlayingDataGridRow = dataGridRow;
-                MarkCurrentSong();
-
-                _mainWindow.PlaySong(int.Parse(dataRowView[0].ToString()));
-            }
+            StartPlayingSong(dataRowView);
         }
 
         private void MarkCurrentSong()
@@ -130,6 +119,37 @@ namespace MySoundLib
                     }
                 }
             }
+        }
+
+        private void ButtonPlaySong_Click(object sender, RoutedEventArgs e)
+        {
+            StartPlayingSong(DataGridSongs.SelectedItem as DataRowView);
+        }
+
+        void StartPlayingSong(DataRowView dataRowView)
+        {
+            if (dataRowView == null)
+            {
+                Debug.WriteLine("DataRowView is null");
+                return;
+            }
+            DataGridRow dataGridRow = (DataGridRow)DataGridSongs.ItemContainerGenerator.ContainerFromItem(dataRowView);
+
+            if (dataRowView != null)
+            {
+                if (_currentlyPlayingDataGridRow != null) // there was a song playing before this one
+                {
+                    ResetBackgroundFromRecentSong();
+                }
+                DataGridSongs.SelectedValue = dataGridRow;
+                _lastSongBackground = dataGridRow.Background;
+
+                _currentlyPlayingDataGridRow = dataGridRow;
+                MarkCurrentSong();
+
+                _mainWindow.PlaySong(int.Parse(dataRowView["song_id"].ToString()));
+            }
+            ButtonPlaySong.Visibility = Visibility.Collapsed;
         }
     }
 }

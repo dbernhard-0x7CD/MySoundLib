@@ -39,5 +39,29 @@
         <SolidColorBrush x:Key="RecentlyAddedItem">#B2B2FF</SolidColorBrush>
         <!-- Color for currently playing item -->
         <SolidColorBrush x:Key="CurrentlyPlaying">BurlyWood</SolidColorBrush>
+        <Style x:Key="DataGridListStyle" TargetType="{x:Type DataGrid}">
+            <Setter Property="RowBackground" Value="{StaticResource RowBackground}" />
+            <Setter Property="AlternatingRowBackground" Value="{StaticResource AlternatingRow}" />
+            <Setter Property="Background" Value="{StaticResource GeneralBackground}" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="HeadersVisibility" Value="Column" />
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="GridLinesVisibility" Value="Vertical" />
+        </Style>
+        <Style TargetType="{x:Type DataGridCell}">
+            <Setter Property="Foreground" Value="Black" />
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{StaticResource SelectedItem}" />
+                    <Setter Property="BorderBrush" Value="{StaticResource SelectedItem}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}" x:Key="FirstColumnStyle">
+            <Setter Property="Margin" Value="5,2,17,2" />
+        </Style>
+        <Style TargetType="{x:Type TextBlock}" x:Key="AnyColumnStyle">
+            <Setter Property="Margin" Value="7,2" />
+        </Style>
     </Application.Resources>
 </Application>

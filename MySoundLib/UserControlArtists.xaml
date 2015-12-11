@@ -24,7 +24,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding artist_name}" Header="Artist" ElementStyle="{StaticResource FirstColumnStyle}" Width="Auto" />
                 <DataGridTextColumn Binding="{Binding song_count}" Header="Songs" ElementStyle="{StaticResource AnyColumnStyle}" Width="Auto" />
-                <DataGridTextColumn Binding="{Binding song_count}" Header="Songs" ElementStyle="{StaticResource AnyColumnStyle}" Width="*" />
+                <DataGridTextColumn Header="Albums" ElementStyle="{StaticResource AnyColumnStyle}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

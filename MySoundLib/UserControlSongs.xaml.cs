@@ -107,20 +107,24 @@ namespace MySoundLib
 
         private void ButtonDeleteSong_Click(object sender, RoutedEventArgs e)
         {
-            var drv = DataGridSongs.SelectedItem as DataRowView;
-
-            if (drv != null)
+            while (DataGridSongs.SelectedItems.Count != 0)
             {
-                int id;
-                if (int.TryParse(drv.Row["song_id"].ToString(), out id))
+                var dataRowView = DataGridSongs.SelectedItems[0] as DataRowView;
+
+                if (dataRowView != null)
                 {
-                    var rowsAffected = _serverConnectionManager.ExecuteCommand(CommandFactory.DeleteSong(id));
-                    if (rowsAffected == 1)
+                    int id;
+                    if (int.TryParse(dataRowView.Row["song_id"].ToString(), out id))
                     {
-                        drv.Delete();
-                    } else
-                    {
-                        MessageBox.Show("Unable to delete row");
+                        var rowsAffected = _serverConnectionManager.ExecuteCommand(CommandFactory.DeleteSong(id));
+                        if (rowsAffected == 1)
+                        {
+                            dataRowView.Delete();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Unable to delete row");
+                        }
                     }
                 }
             }

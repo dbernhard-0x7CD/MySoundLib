@@ -32,6 +32,8 @@ namespace MySoundLib
 
         private void ButtonAddArtist_Click(object sender, RoutedEventArgs e)
         {
+            _mainWindow.ListBoxCategory.UnselectAll();
+
             _mainWindow.GridContent.Children.Clear();
             _mainWindow.GridContent.Children.Add(new UserControlUploadArtist(_mainWindow));
         }

@@ -1,6 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows;
 using System.Data;
+using MySoundLib.Windows;
 
 namespace MySoundLib
 {
@@ -9,12 +10,20 @@ namespace MySoundLib
     /// </summary>
     public partial class UserControlGenres : UserControl
     {
-        private ServerConnectionManager _connectionManager;
+        private readonly MainWindow _mainWindow;
+        private ServerConnectionManager _connectionManager
+        {
+            get
+            {
+                return _mainWindow.ConnectionManager;
+            }
+        }
 
-        public UserControlGenres(ServerConnectionManager connectionManager)
+        public UserControlGenres(MainWindow mainWindow)
         {
             InitializeComponent();
-            _connectionManager = connectionManager;
+            _mainWindow = mainWindow;
+
             var genres = _connectionManager.GetDataTable(CommandFactory.GetGenres());
 
             DataGridGenres.ItemsSource = genres.DefaultView;

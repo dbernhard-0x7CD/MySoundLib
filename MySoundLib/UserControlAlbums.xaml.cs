@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using MySoundLib.Windows;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -9,14 +10,21 @@ namespace MySoundLib
     /// </summary>
     public partial class UserControlAlbums
     {
-        private readonly ServerConnectionManager _serverConnectionManager;
+        private readonly MainWindow _mainWindow;
+        private ServerConnectionManager _connectionManager
+        {
+            get
+            {
+                return _mainWindow.ConnectionManager;
+            }
+        }
 
-        public UserControlAlbums(ServerConnectionManager connectionManager)
+        public UserControlAlbums(MainWindow mainWindow)
         {
             InitializeComponent();
-            _serverConnectionManager = connectionManager;
+            _mainWindow = mainWindow;
 
-            var albums = _serverConnectionManager.GetDataTable(CommandFactory.GetAlbums());
+            var albums = _connectionManager.GetDataTable(CommandFactory.GetAlbums());
 
             DataGridAlbums.ItemsSource = albums.DefaultView;
         }
@@ -42,7 +50,7 @@ namespace MySoundLib
                     int id;
                     if (int.TryParse(dataRowView.Row["album_id"].ToString(), out id))
                     {
-                        var rowsAffected = _serverConnectionManager.ExecuteCommand(CommandFactory.DeleteAlbum(id));
+                        var rowsAffected = _connectionManager.ExecuteCommand(CommandFactory.DeleteAlbum(id));
                         if (rowsAffected == 1)
                         {
                             dataRowView.Delete();

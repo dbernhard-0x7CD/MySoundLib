@@ -142,7 +142,7 @@ namespace MySoundLib.Windows
         private void ListBoxItemAlbums_OnSelected(object sender, RoutedEventArgs e)
         {
             GridContent.Children.Clear();
-            GridContent.Children.Add(new UserControlAlbums(ConnectionManager));
+            GridContent.Children.Add(new UserControlAlbums(this));
         }
 
         private void ListBoxItemArtists_OnSelected(object sender, RoutedEventArgs e)
@@ -154,7 +154,7 @@ namespace MySoundLib.Windows
         private void ListBoxItemGenres_OnSelected(object sender, RoutedEventArgs e)
         {
             GridContent.Children.Clear();
-            GridContent.Children.Add(new UserControlGenres(ConnectionManager));
+            GridContent.Children.Add(new UserControlGenres(this));
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

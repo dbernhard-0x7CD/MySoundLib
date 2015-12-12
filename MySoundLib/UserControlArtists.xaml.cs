@@ -11,7 +11,7 @@ namespace MySoundLib
     public partial class UserControlArtists
     {
         private readonly MainWindow _mainWindow;
-        private ServerConnectionManager _serverConnectionManager
+        private ServerConnectionManager _connectionManager
         {
             get
             {
@@ -24,7 +24,7 @@ namespace MySoundLib
             InitializeComponent();
             _mainWindow = mainWindow;
 
-            var songs = _serverConnectionManager.GetDataTable("select artist_id, artist_name, count(s.song_id) as song_count from artists a left join songs s on (a.artist_id = s.artist) group by a.artist_id");
+            var songs = _connectionManager.GetDataTable("select artist_id, artist_name, count(s.song_id) as song_count from artists a left join songs s on (a.artist_id = s.artist) group by a.artist_id");
 
             DataGridArtists.ItemsSource = songs.DefaultView;
             DataGridArtists.Items.SortDescriptions.Add(new SortDescription("artist_name", ListSortDirection.Ascending));
@@ -64,7 +64,7 @@ namespace MySoundLib
                     int id;
                     if (int.TryParse(dataRowView.Row["artist_id"].ToString(), out id))
                     {
-                        var rowsAffected = _serverConnectionManager.ExecuteCommand(CommandFactory.DeleteArtist(id));
+                        var rowsAffected = _connectionManager.ExecuteCommand(CommandFactory.DeleteArtist(id));
                         if (rowsAffected == 1)
                         {
                             dataRowView.Delete();

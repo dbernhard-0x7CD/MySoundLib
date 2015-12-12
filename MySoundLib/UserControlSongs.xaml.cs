@@ -33,7 +33,7 @@ namespace MySoundLib
             InitializeComponent();
             _mainWindow = mainWindow;
 
-            var songs = _connectionManager.GetDataTable("select song_id, song_title, artist_name, album_name, genre_name, length from songs s left join artists a on (a.artist_id = s.artist) left join genres g on (s.genre = g.genre_id) left join albums al on (al.album_id = s.album) order by song_title");
+            var songs = _connectionManager.GetDataTable(CommandFactory.GetSongs());
 
             DataGridSongs.ItemsSource = songs.DefaultView;
             DataGridSongs.SelectedIndex = -1;

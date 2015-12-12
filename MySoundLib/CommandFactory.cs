@@ -54,9 +54,19 @@ namespace MySoundLib
             return new MySqlCommand("select count(*) from songs");
         }
 
+        public static MySqlCommand GetSongs()
+        {
+            return new MySqlCommand("select song_id, song_title, artist_name, album_name, genre_name, length from songs s left join artists a on (a.artist_id = s.artist) left join genres g on (s.genre = g.genre_id) left join albums al on (al.album_id = s.album) order by song_title");
+        }
+
         public static MySqlCommand GetAlbums()
         {
             return new MySqlCommand("select album_id, album_name, count(s.song_id) as song_count, artist_name from albums a left join songs s on (s.album = a.album_id) left join artists ar on (s.artist = ar.artist_id) group by a.album_id order by album_name;");
+        }
+
+        public static MySqlCommand GetArtists()
+        {
+            return new MySqlCommand("select artist_id, artist_name, count(s.song_id) as song_count from artists a left join songs s on (a.artist_id = s.artist) group by a.artist_id order by artist_name");
         }
 
         public static MySqlCommand GetGenres()
@@ -72,11 +82,6 @@ namespace MySoundLib
         public static MySqlCommand GetArtistNames()
         {
             return new MySqlCommand("select artist_id, artist_name from artists order by artist_name");
-        }
-
-        public static MySqlCommand GetArtists()
-        {
-            return new MySqlCommand("select artist_id, artist_name, count(s.song_id) as song_count from artists a left join songs s on (a.artist_id = s.artist) group by a.artist_id order by artist_name");
         }
 
         public static MySqlCommand DeleteSong(int id)

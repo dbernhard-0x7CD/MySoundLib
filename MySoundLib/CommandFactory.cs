@@ -63,7 +63,12 @@ namespace MySoundLib
 			return new MySqlCommand("select genre_id, genre_name, count(s.song_id) as song_count from genres g left join songs s on (s.genre = g.genre_id) group by s.genre order by genre_name;");
 		}
 
-		public static MySqlCommand GetArtists()
+		public static MySqlCommand GetGenreNames()
+		{
+			return new MySqlCommand("select genre_id, genre_name from genres order by genre_name;");
+		}
+
+		public static MySqlCommand GetArtistNames()
 		{
 			return new MySqlCommand("select artist_id, artist_name from artists order by artist_name");
 		}

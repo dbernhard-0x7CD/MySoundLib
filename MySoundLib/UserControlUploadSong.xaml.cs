@@ -35,11 +35,11 @@ namespace MySoundLib
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            _dataTableArtists = _connectionManager.GetDataTable(CommandFactory.GetArtists());
+            _dataTableArtists = _connectionManager.GetDataTable(CommandFactory.GetArtistNames());
 
             ComboBoxArtist.ItemsSource = _dataTableArtists.DefaultView;
 
-            _dataTableGenres = _connectionManager.GetDataTable(CommandFactory.GetGenres());
+            _dataTableGenres = _connectionManager.GetDataTable(CommandFactory.GetGenreNames());
 
             ComboBoxGenre.ItemsSource = _dataTableGenres.DefaultView;
 

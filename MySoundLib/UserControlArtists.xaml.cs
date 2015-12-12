@@ -24,10 +24,9 @@ namespace MySoundLib
             InitializeComponent();
             _mainWindow = mainWindow;
 
-            var songs = _connectionManager.GetDataTable("select artist_id, artist_name, count(s.song_id) as song_count from artists a left join songs s on (a.artist_id = s.artist) group by a.artist_id");
+            var songs = _connectionManager.GetDataTable(CommandFactory.GetArtists());
 
             DataGridArtists.ItemsSource = songs.DefaultView;
-            DataGridArtists.Items.SortDescriptions.Add(new SortDescription("artist_name", ListSortDirection.Ascending));
         }
 
         private void ButtonAddArtist_Click(object sender, RoutedEventArgs e)

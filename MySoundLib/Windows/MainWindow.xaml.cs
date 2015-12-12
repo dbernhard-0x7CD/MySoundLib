@@ -211,20 +211,31 @@ namespace MySoundLib.Windows
 
             var byteTrack = (byte[])track.Rows[0]["track"];
 
-            var pathFile = Path.Combine(Settings.PathProgramFolder, byteTrack.GetHashCode().ToString()) + ".mp3"; // TODO: save as hash
-
-            try
+            string hash;
+            using (var md5 = new SHA1CryptoServiceProvider())
             {
-                var fileStream = new FileStream(pathFile, FileMode.Create, FileAccess.Write);
-
-                fileStream.Write(byteTrack, 0, byteTrack.Length);
-
-                fileStream.Close();
+                hash = Convert.ToBase64String(md5.ComputeHash(byteTrack));
             }
-            catch (Exception ex)
+            var pathFile = Path.Combine(Settings.PathProgramFolder, hash.Replace('/','_') + ".mp3");
+
+            if (File.Exists(pathFile))
             {
-                Debug.WriteLine("unable to save file: ", ex.ToString());
-                return;
+                Debug.WriteLine("Already played song");
+            } else
+            {
+                try
+                {
+                    var fileStream = new FileStream(pathFile, FileMode.Create, FileAccess.Write);
+
+                    fileStream.Write(byteTrack, 0, byteTrack.Length);
+
+                    fileStream.Close();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("unable to save file: ", ex.ToString());
+                    return;
+                }
             }
             ButtonPlay.Content = "Pause";
 

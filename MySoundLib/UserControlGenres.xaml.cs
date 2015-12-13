@@ -43,7 +43,10 @@ namespace MySoundLib
 
         private void ButtonAddGenre_Click(object sender, RoutedEventArgs e)
         {
+            _mainWindow.ListBoxCategory.UnselectAll();
 
+            _mainWindow.GridContent.Children.Clear();
+            _mainWindow.GridContent.Children.Add(new UserControlUploadGenre(_mainWindow));
         }
 
         private void ButtonRenameGenre_Click(object sender, RoutedEventArgs e)

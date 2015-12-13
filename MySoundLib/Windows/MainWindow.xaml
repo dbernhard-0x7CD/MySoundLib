@@ -7,8 +7,75 @@
         mc:Ignorable="d"
         Title="MySoundLib" Height="563" Width="1000" MinWidth="400" MinHeight="200" WindowStartupLocation="CenterScreen"  Closing="Window_Closing" Icon="/MySoundLib;component/Resources/Icon.ico" >
     <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Hoover" Color="{StaticResource HooverColor}"/>
+        <SolidColorBrush x:Key="Selected" Color="{StaticResource SelectedColor}"/>
+        <Style x:Key="ListBoxItemStyle1" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Padding" Value="6,4.5"/>
+            <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+            <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+            <Setter Property="Background" Value="{StaticResource PrimaryBackground}"/>
+            <Setter Property="Foreground" Value="{StaticResource PrimaryForeground}"/>
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource Hoover}"/>
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Hoover}"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsSelected" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Cursor" Value="Hand"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                                    <Condition Property="IsSelected" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource Selected}"/>
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Selected}"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Selector.IsSelectionActive" Value="True"/>
+                                    <Condition Property="IsSelected" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource Selected}"/>
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Selected}"/>
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <BitmapImage x:Key="ImagePause" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="/MySoundLib;component/Resources/pause.png"/>
         <BitmapImage x:Key="ImagePlay" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="/MySoundLib;component/Resources/play.png"/>
+        <DropShadowEffect x:Key="DropShadowEffectLabel" BlurRadius="4" Opacity="0.8"/>
     </Window.Resources>
     <DockPanel>
         <Menu x:Name="AppMenu" DockPanel.Dock="Top" Height="Auto" Style="{StaticResource BaseStyle}">
@@ -64,94 +131,49 @@
                             <Image x:Name="ImageArrowDown" Width="20" Height="Auto" Source="/MySoundLib;component/Resources/arrow_down.png" />
                         </Button.Content>
                     </Button>
-                    <Label Content="My Music" HorizontalAlignment="Center" FontFamily="Segoe UI" FontSize="26.667" Foreground="{StaticResource PrimaryForeground}" FontWeight="SemiBold">
-                        <Label.Effect>
-                            <DropShadowEffect BlurRadius="4" Opacity="0.8"/>
-                        </Label.Effect>
-                    </Label>
+                    <Label Content="My Music" HorizontalAlignment="Center" FontFamily="Segoe UI" FontSize="26.667" Foreground="{StaticResource PrimaryForeground}" FontWeight="SemiBold" Effect="{StaticResource DropShadowEffectLabel}" />
                 </Grid>
 
                 <ListBox x:Name="ListBoxCategory" ItemContainerStyle="{DynamicResource ListBoxItemStyle1}" BorderBrush="Black" BorderThickness="2" Background="Black" >
-                    <ListBox.Resources>
-                        <Style x:Key="FocusVisual">
-                            <Setter Property="Control.Template">
-                                <Setter.Value>
-                                    <ControlTemplate>
-                                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                        <SolidColorBrush x:Key="Hoover" Color="{StaticResource HooverColor}"/>
-                        <SolidColorBrush x:Key="Selected" Color="{StaticResource SelectedColor}"/>
-                        <Style x:Key="ListBoxItemStyle1" TargetType="{x:Type ListBoxItem}">
-                            <Setter Property="SnapsToDevicePixels" Value="True"/>
-                            <Setter Property="Padding" Value="6,4.5"/>
-                            <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-                            <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-                            <Setter Property="Background" Value="{StaticResource PrimaryBackground}"/>
-                            <Setter Property="Foreground" Value="{StaticResource PrimaryForeground}"/>
-                            <Setter Property="FontSize" Value="22" />
-                            <Setter Property="BorderThickness" Value="0" />
-                            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
-                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <MultiTrigger>
-                                                <MultiTrigger.Conditions>
-                                                    <Condition Property="IsMouseOver" Value="True"/>
-                                                </MultiTrigger.Conditions>
-                                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource Hoover}"/>
-                                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Hoover}"/>
-                                            </MultiTrigger>
-                                            <MultiTrigger>
-                                                <MultiTrigger.Conditions>
-                                                    <Condition Property="IsMouseOver" Value="True"/>
-                                                    <Condition Property="IsSelected" Value="False"/>
-                                                </MultiTrigger.Conditions>
-                                                <Setter Property="Cursor" Value="Hand"/>
-                                            </MultiTrigger>
-                                            <MultiTrigger>
-                                                <MultiTrigger.Conditions>
-                                                    <Condition Property="Selector.IsSelectionActive" Value="False"/>
-                                                    <Condition Property="IsSelected" Value="True"/>
-                                                </MultiTrigger.Conditions>
-                                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource Selected}"/>
-                                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Selected}"/>
-                                            </MultiTrigger>
-                                            <MultiTrigger>
-                                                <MultiTrigger.Conditions>
-                                                    <Condition Property="Selector.IsSelectionActive" Value="True"/>
-                                                    <Condition Property="IsSelected" Value="True"/>
-                                                </MultiTrigger.Conditions>
-                                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource Selected}"/>
-                                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Selected}"/>
-                                            </MultiTrigger>
-                                            <Trigger Property="IsEnabled" Value="False">
-                                                <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </ListBox.Resources>
                     <ListBoxItem x:Name="ListBoxItemSongs" Selected="ListBoxItemSongs_OnSelected">Songs</ListBoxItem>
                     <ListBoxItem x:Name="ListBoxItemAlbums" Selected="ListBoxItemAlbums_OnSelected">Albums</ListBoxItem>
                     <ListBoxItem x:Name="ListBoxItemArtists" Selected="ListBoxItemArtists_OnSelected">Artists</ListBoxItem>
                     <ListBoxItem x:Name="ListBoxItemGenres" Selected="ListBoxItemGenres_OnSelected">Genres</ListBoxItem>
                 </ListBox>
-                <Label Visibility="Collapsed">Playlists</Label>
-                <ListBox Visibility="Collapsed" x:Name="ListBoxPlaylists">
-                    <ListBoxItem>Playlist1</ListBoxItem>
-                    <ListBoxItem>Playlist2</ListBoxItem>
-                    <ListBoxItem>Playlist3</ListBoxItem>
-                    <ListBoxItem>Playlist4</ListBoxItem>
-                    <ListBoxItem>Playlist5</ListBoxItem>
+
+                <Grid>
+                    <Label Content="Playlists" FontFamily="Segoe UI" FontSize="26.667" Foreground="{StaticResource PrimaryForeground}" FontWeight="SemiBold" HorizontalAlignment="Center" Effect="{StaticResource DropShadowEffectLabel}">
+                    </Label>
+                    <Button x:Name="ButtonCreatePlaylist" Margin="158,0,0,0" Click="ButtonCreatePlaylist_Click" Template="{DynamicResource ButtonBaseControlTemplate1}">
+                        <Button.Resources>
+                            <ControlTemplate x:Key="ButtonBaseControlTemplate1" TargetType="{x:Type ButtonBase}">
+                                <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True">
+                                    <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" TargetName="border" Value="{StaticResource HooverBackground}" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Resources>
+                        <Button.Content>
+                            <Image Source="/MySoundLib;component/Resources/plus.png" />
+                        </Button.Content>
+                    </Button>
+                </Grid>
+
+                <ListBox x:Name="ListBoxPlaylists" ItemContainerStyle="{DynamicResource ListBoxItemStyle1}" BorderBrush="Black" BorderThickness="2" Background="Black">
+                    <ListBox.Style>
+                        <Style TargetType="{x:Type ListBox}">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding HasItems, RelativeSource={RelativeSource Self}}" Value="False">
+                                    <Setter Property="Visibility" Value="Hidden" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.Style>
                 </ListBox>
             </StackPanel>
 

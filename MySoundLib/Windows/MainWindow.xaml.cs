@@ -336,6 +336,10 @@ namespace MySoundLib.Windows
             ButtonShowMenuItem.Visibility = Visibility.Collapsed;
         }
 
+        private void ButtonCreatePlaylist_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("TODO");
+        }
     }
 
     public enum PlayState

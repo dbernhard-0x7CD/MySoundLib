@@ -21,6 +21,7 @@
         <SolidColorBrush x:Key="CurrentHeader">#C1C1EC</SolidColorBrush>
         <!-- Hoover over selectable items -->
         <Color x:Key="HooverColor">#5900B2</Color>
+        <SolidColorBrush x:Key="HooverBackground">#5900B2</SolidColorBrush>
         <!-- Most used background color -->
         <SolidColorBrush x:Key="PrimaryBackground">#0000B2</SolidColorBrush>
         <!-- Text color which texts with the PrimaryBackground have-->

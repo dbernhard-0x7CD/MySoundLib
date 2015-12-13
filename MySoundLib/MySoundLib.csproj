@@ -227,8 +227,8 @@
     <Content Include="Resources\Icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Resources\pause_resized.png" />
-    <Resource Include="Resources\standard_resized.png" />
+    <Resource Include="Resources\play.png" />
+    <Resource Include="Resources\pause.png" />
     <Content Include="SQL_Scripts\create_my_sound_lib.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>

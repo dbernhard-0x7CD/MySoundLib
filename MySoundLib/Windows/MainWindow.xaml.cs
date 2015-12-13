@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using MySoundLib.Configuration;
-using WMPLib;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+
+using WMPLib;
 
 namespace MySoundLib.Windows
 {
@@ -20,6 +21,7 @@ namespace MySoundLib.Windows
         private int _currentSongId;
         private WindowsMediaPlayer _mediaPlayer;
         private DispatcherTimer _updateProgressTimer;
+        private PlayState _playState = PlayState.Start;
 
         public MainWindow()
         {
@@ -174,7 +176,6 @@ namespace MySoundLib.Windows
             var title = song.Rows[0]["song_title"];
 
             LabelSongTitle.Content = "Title: " + title;
-            ButtonPlay.Content = "Start";
 
             Debug.WriteLine("moving to play track");
             Task task = new Task(PlayTrack);
@@ -185,22 +186,21 @@ namespace MySoundLib.Windows
 
         private void ButtonPlay_OnClick(object sender, RoutedEventArgs e)
         {
-            switch (ButtonPlay.Content.ToString())
+            switch (_playState)
             {
-                case "Pause":
-                    _mediaPlayer.controls.pause();
-                    ButtonPlay.Content = "Continue";
-                    return;
-                case "Continue":
-                    _mediaPlayer.controls.play();
-                    ButtonPlay.Content = "Pause";
-                    return;
-                case "Start":
+                case PlayState.Start:
                     PlayTrack();
                     return;
-                default:
-                    Debug.WriteLine("Undefined action");
-                    break;
+                case PlayState.Pause:
+                    _mediaPlayer.controls.pause();
+                    _playState = PlayState.Continue;
+                    ImagePlay.Source = (System.Windows.Media.Imaging.BitmapImage)FindResource("ImagePlay");
+                    return;
+                case PlayState.Continue:
+                    _mediaPlayer.controls.play();
+                    _playState = PlayState.Pause;
+                    ImagePlay.Source = (System.Windows.Media.Imaging.BitmapImage)FindResource("ImagePause");
+                    return;
             }
         }
 
@@ -237,7 +237,6 @@ namespace MySoundLib.Windows
                     return;
                 }
             }
-            ButtonPlay.Content = "Pause";
 
             _mediaPlayer = new WindowsMediaPlayer { URL = pathFile };
 
@@ -251,6 +250,8 @@ namespace MySoundLib.Windows
             _updateProgressTimer.Start();
 
             Debug.WriteLine("Playing song");
+            _playState = PlayState.Pause;
+            ImagePlay.Source = (System.Windows.Media.Imaging.BitmapImage)FindResource("ImagePause");
         }
 
         private void UpdateProgressTimerOnTick(object sender, EventArgs eventArgs)
@@ -268,7 +269,6 @@ namespace MySoundLib.Windows
         {
             if (newState == (int)WMPPlayState.wmppsStopped)
             {
-                ButtonPlay.Content = "Play";
                 _currentSongId = 0;
                 _mediaPlayer = null;
                 ProgressBarTrack.Value = 0;
@@ -335,5 +335,13 @@ namespace MySoundLib.Windows
             AppMenu.Visibility = Visibility.Visible;
             ButtonShowMenuItem.Visibility = Visibility.Collapsed;
         }
+
+    }
+
+    public enum PlayState
+    {
+        Start,
+        Pause,
+        Continue
     }
 }

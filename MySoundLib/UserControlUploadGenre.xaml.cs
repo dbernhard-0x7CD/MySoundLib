@@ -10,13 +10,18 @@ namespace MySoundLib
     /// </summary>
     public partial class UserControlUploadGenre : UserControl
     {
-        private ServerConnectionManager _connectionManager;
+        private ServerConnectionManager _connectionManager
+        {
+            get
+            {
+                return _mainWindow.ConnectionManager;
+            }
+        }
         private MainWindow _mainWindow;
 
         public UserControlUploadGenre(MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
-            _connectionManager = mainWindow.ConnectionManager;
             InitializeComponent();
         }
 
@@ -44,7 +49,7 @@ namespace MySoundLib
             if (result == 1)
             {
                 _mainWindow.GridContent.Children.Clear();
-                _mainWindow.ListBoxCategory.SelectedIndex = 0;
+                _mainWindow.ListBoxCategory.SelectedIndex = 3;
                 _mainWindow.GridContent.Children.Add(new UserControlGenres(_mainWindow));
             }
             else
@@ -56,7 +61,7 @@ namespace MySoundLib
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
             _mainWindow.GridContent.Children.Clear();
-            _mainWindow.ListBoxCategory.SelectedIndex = 0;
+            _mainWindow.ListBoxCategory.SelectedIndex = 3;
             _mainWindow.GridContent.Children.Add(new UserControlGenres(_mainWindow));
         }
     }

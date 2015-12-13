@@ -106,6 +106,9 @@
     <Compile Include="UserControlSongs.xaml.cs">
       <DependentUpon>UserControlSongs.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControlUploadAlbum.xaml.cs">
+      <DependentUpon>UserControlUploadAlbum.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControlUploadArtist.xaml.cs">
       <DependentUpon>UserControlUploadArtist.xaml</DependentUpon>
     </Compile>
@@ -124,6 +127,10 @@
     <Compile Include="Windows\TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="UserControlUploadAlbum.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControlUploadArtist.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

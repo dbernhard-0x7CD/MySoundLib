@@ -31,7 +31,10 @@ namespace MySoundLib
 
         private void ButtonAddNewAlbum_Click(object sender, RoutedEventArgs e)
         {
+            _mainWindow.ListBoxCategory.UnselectAll();
 
+            _mainWindow.GridContent.Children.Clear();
+            _mainWindow.GridContent.Children.Add(new UserControlUploadAlbum(_mainWindow));
         }
 
         private void ButtonRenameAlbum_Click(object sender, RoutedEventArgs e)

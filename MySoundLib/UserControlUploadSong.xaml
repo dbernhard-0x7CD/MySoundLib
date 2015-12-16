@@ -4,59 +4,70 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MySoundLib"
-             mc:Ignorable="d" Loaded="UserControl_Loaded" d:DesignWidth="435.316" d:DesignHeight="273.092">
-    <Grid>
+             mc:Ignorable="d" Loaded="UserControl_Loaded" d:DesignWidth="600" d:DesignHeight="400">
+    <Grid Background="{StaticResource GeneralBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label x:Name="LabelHeaderTitle" Grid.Row="0" Content="Add new song" Style="{StaticResource StyleInfoHeader}" />
-        <Grid Grid.Row="1">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource CurrentHeader}">
+            <Label x:Name="LabelHeaderTitle" Grid.Row="0" Content="Add new song" Style="{StaticResource StyleInfoHeader}" />
+        </StackPanel>
+        
+        <Grid Grid.Row="1" Margin="0,5,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="11*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
+            <Grid.Resources>
+                <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+                    <Setter Property="Margin" Value="0,3" />
+                    <Setter Property="Height" Value="Auto" />
+                    <Setter Property="MinWidth" Value="140" />
+                    <Setter Property="HorizontalAlignment" Value="Left" />
+                    <Setter Property="IsReadOnly" Value="True" />
+                </Style>
+            </Grid.Resources>
 
             <Label Grid.Row="0" Grid.Column="0" Content="File" />
-            <Button x:Name="ButtonSelectFile" Grid.Row="0" Grid.Column="1" Padding="6,0" Width="Auto" MinWidth="180" Height="22" Content="Select File" HorizontalAlignment="Left" Click="ButtonSelectFile_Click" TabIndex="1" />
+            <Button x:Name="ButtonSelectFile" Grid.Row="0" Grid.Column="1" Margin="0,2" Width="Auto" Height="Auto" MinWidth="180" Content="Select File" HorizontalAlignment="Left" Click="ButtonSelectFile_Click" TabIndex="1" />
 
             <Label Grid.Row="1" Grid.Column="0" Content="Title" />
-            <TextBox x:Name="TextBoxSongTitle" Grid.Row="1" Grid.Column="1" Height="20" Width="180" HorizontalAlignment="Left" TabIndex="2" />
+            <TextBox x:Name="TextBoxSongTitle" Grid.Row="1" Grid.Column="1" Margin="0,2" Padding="0,1,0,0" MinWidth="180" Width="Auto" HorizontalAlignment="Left" TabIndex="2" FontSize="15"/>
 
             <Label Grid.Row="2" Grid.Column="0" Content="Artist" />
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
-                <ComboBox x:Name="ComboBoxArtist" Height="22" Width="120" HorizontalAlignment="Left" IsReadOnly="True" DisplayMemberPath="artist_name" SelectedValuePath="artist_id" />
+                <ComboBox x:Name="ComboBoxArtist" Style="{StaticResource ComboBoxStyle}" DisplayMemberPath="artist_name" SelectedValuePath="artist_id" TabIndex="3"/>
                 <Button x:Name="ButtonAddArtist" Content="+" Background="{x:Null}" BorderBrush="{x:Null}" Margin="7,0,0,0" Click="ButtonAddArtist_OnClick" />
             </StackPanel>
 
             <Label Grid.Row="3" Grid.Column="0" Content="Album" />
 
             <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
-                <ComboBox x:Name="ComboBoxAlbum" Height="22" Width="120" HorizontalAlignment="Left" IsReadOnly="True" TabIndex="4" DisplayMemberPath="album_name" SelectedValuePath="album_id"/>
+                <ComboBox x:Name="ComboBoxAlbum" Style="{StaticResource ComboBoxStyle}" DisplayMemberPath="album_name" SelectedValuePath="album_id" TabIndex="4"/>
                 <Button x:Name="ButtonAddAlbum" Content="+" Background="{x:Null}" BorderBrush="{x:Null}" Margin="7,0,0,0" Click="ButtonAddAlbum_OnClick" />
             </StackPanel>
 
             <Label Grid.Row="4" Grid.Column="0" Content="Genre" />
             <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
-                <ComboBox x:Name="ComboBoxGenre" Height="22" Width="120" HorizontalAlignment="Left" IsReadOnly="True" TabIndex="5" DisplayMemberPath="genre_name" SelectedValuePath="genre_id"/>
+                <ComboBox x:Name="ComboBoxGenre" Style="{StaticResource ComboBoxStyle}" DisplayMemberPath="genre_name" SelectedValuePath="genre_id" TabIndex="5"/>
                 <Button x:Name="ButtonAddGenre" Content="+" Background="{x:Null}" BorderBrush="{x:Null}" Margin="7,0,0,0" Click="ButtonAddGenre_OnClick" />
             </StackPanel>
 
             <Label Grid.Row="5" Grid.Column="0" Content="Release Date" />
-            <DatePicker x:Name="DatePickerReleased" Grid.Row="5" Grid.Column="1" Width="120" HorizontalAlignment="Left" TabIndex="6"></DatePicker>
+            <DatePicker x:Name="DatePickerReleased" Grid.Row="5" Grid.Column="1" Margin="0,3,0,0" Width="140" HorizontalAlignment="Left" TabIndex="6" FontSize="14"></DatePicker>
         </Grid>
-        <Button x:Name="ButtonCancel" Grid.Row="2" Height="22" Width="120" HorizontalAlignment="Right" Content="Cancel" IsCancel="True" Margin="0,5,130,5" Click="ButtonCancel_Click"/>
-        <Button x:Name="ButtonAddSong" Grid.Row="2" Height="22" Width="120" HorizontalAlignment="Right" Content="Add" Margin="5" Click="ButtonAddSong_Click" IsDefault="True" />
+        <Button x:Name="ButtonCancel" Grid.Row="2" Height="Auto" Width="120" HorizontalAlignment="Right" Content="Cancel" IsCancel="True" Margin="0,8,133,8" Click="ButtonCancel_Click"/>
+        <Button x:Name="ButtonAddSong" Grid.Row="2" Height="Auto" Width="120" HorizontalAlignment="Right" Content="Add" Margin="8" Click="ButtonAddSong_Click" IsDefault="True" />
     </Grid>
 </UserControl>

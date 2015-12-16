@@ -194,7 +194,7 @@ namespace MySoundLib
 
         private void ButtonAddSong_Click(object sender, RoutedEventArgs e)
         {
-            if (TextBoxSongTitle.Text == "" || (_filePath == "" && !IsEditMode))
+            if (TextBoxSongTitle.Text == "" || (string.IsNullOrEmpty(_filePath) && !IsEditMode))
             {
                 MessageBox.Show("Missing data");
                 return;

@@ -166,38 +166,27 @@ namespace MySoundLib
 
         private int GetArtistIndex(string artistName)
         {
-            foreach (var x in ComboBoxArtist.Items)
-            {
-                var row = x as DataRowView;
-                if (row.Row["artist_name"].ToString() == artistName)
-                {
-                    return ComboBoxArtist.Items.IndexOf(x);
-                }
-            }
-            return -1;
+            return GetIndex(artistName, ComboBoxArtist, "artist_name");
         }
 
         private int GetAlbumIndex(string albumName)
         {
-            foreach (var x in ComboBoxAlbum.Items)
-            {
-                var row = x as DataRowView;
-                if (row.Row["album_name"].ToString() == albumName)
-                {
-                    return ComboBoxAlbum.Items.IndexOf(x);
-                }
-            }
-            return -1;
+            return GetIndex(albumName, ComboBoxAlbum, "album_name");
         }
 
         private int GetGenreIndex(string genreName)
         {
-            foreach (var x in ComboBoxGenre.Items)
+            return GetIndex(genreName, ComboBoxGenre, "genre_name");
+        }
+
+        private int GetIndex(string name, ComboBox comboBox, string header)
+        {
+            foreach (var x in comboBox.Items)
             {
                 var row = x as DataRowView;
-                if (row.Row["genre_name"].ToString() == genreName)
+                if (row.Row[header].ToString() == name)
                 {
-                    return ComboBoxGenre.Items.IndexOf(x);
+                    return comboBox.Items.IndexOf(x);
                 }
             }
             return -1;
@@ -226,6 +215,7 @@ namespace MySoundLib
             int? albumId = null;
             int? genreId = null;
 
+            // when selected value of comboBox is null, the value has to be new
             // ensure artist exist
             if (ComboBoxArtist.SelectedValue == null)
             {

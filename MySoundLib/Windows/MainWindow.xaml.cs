@@ -171,7 +171,7 @@ namespace MySoundLib.Windows
 
             ShowCurrentSong();
             _currentSongId = id;
-            var song = ConnectionManager.GetDataTable("select song_title, artist_name, album_name, genre_name, length, release_date from songs s left join artists a on (s.artist = a.artist_id) left join genres g on (s.genre = g.genre_id) left join albums al on (s.album = al.album_id) where song_id = " + id);
+            var song = ConnectionManager.GetDataTable(CommandFactory.GetSongInformation(id));
 
             var title = song.Rows[0]["song_title"];
 

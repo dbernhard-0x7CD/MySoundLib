@@ -106,5 +106,31 @@ namespace MySoundLib
         {
             return new MySqlCommand($"DELETE FROM genres WHERE `genre_id`='{id}'");
         }
+
+        public static MySqlCommand GetSongInformation(int id)
+        {
+            return new MySqlCommand("select song_title, artist_name, album_name, genre_name, length, release_date from songs s left join artists a on (s.artist = a.artist_id) left join genres g on (s.genre = g.genre_id) left join albums al on (s.album = al.album_id) where song_id = " + id);
+        }
+
+        public static MySqlCommand GetSongInformationIds(int id)
+        {
+            return new MySqlCommand("select song_title, artist, album, genre, release_date from songs where song_id = " + id);
+        }
+
+        public static MySqlCommand UpdateSong(int id, string title, int? artistId, int? albumId, int? genreId, DateTime? dateTimeReleased)
+        {
+            var command = new MySqlCommand($"update songs set song_title=@title, release_date=@release_date, artist=@artist, genre=@genre, album=@album where song_id = {id}");
+
+            command.Parameters.AddWithValue("@title", title);
+            command.Parameters.AddWithValue("@artist", artistId);
+            command.Parameters.AddWithValue("@album", albumId);
+            command.Parameters.AddWithValue("@genre", genreId);
+            if (dateTimeReleased.HasValue)
+                command.Parameters.AddWithValue("@release_date", dateTimeReleased.Value.ToString("yyyy-MM-dd"));
+            else
+                command.Parameters.AddWithValue("@release_date", null);
+
+            return command;
+        }
     }
 }

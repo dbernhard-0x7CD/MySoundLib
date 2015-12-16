@@ -26,11 +26,22 @@ namespace MySoundLib
         private DataTable _dataTableArtists;
         private DataTable _dataTableAlbums;
         private DataTable _dataTableGenres;
+        public bool IsEditMode = false;
+        private int _songId;
 
         public UserControlUploadSong(MainWindow mainWindow)
         {
             InitializeComponent();
             _mainWindow = mainWindow;
+        }
+
+        public UserControlUploadSong(MainWindow mainWindow, int songId) : this(mainWindow)
+        {
+            _songId = songId;
+
+            LabelHeaderTitle.Content = "Edit song";
+            ButtonAddSong.Content = "Save";
+            IsEditMode = true;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -46,6 +57,25 @@ namespace MySoundLib
             _dataTableAlbums = _connectionManager.GetDataTable(CommandFactory.GetAlbums());
 
             ComboBoxAlbum.ItemsSource = _dataTableAlbums.DefaultView;
+
+            if (IsEditMode)
+            {
+                var songInformation = _connectionManager.GetDataTable(CommandFactory.GetSongInformationIds(_songId)).Rows[0];
+
+                TextBoxSongTitle.Text = songInformation["song_title"].ToString();
+
+                ButtonSelectFile.Content = "Select different file";
+                ButtonSelectFile.IsEnabled = false;
+
+                ComboBoxArtist.SelectedValue = songInformation["artist"];
+                ComboBoxAlbum.SelectedValue = songInformation["album"];
+                ComboBoxGenre.SelectedValue = songInformation["genre"];
+
+                string releaseDate = songInformation["release_date"].ToString();
+
+                if (!string.IsNullOrEmpty(releaseDate))
+                    DatePickerReleased.SelectedDate = Convert.ToDateTime(releaseDate);
+            }
         }
 
         private void ButtonSelectFile_Click(object sender, RoutedEventArgs e)
@@ -175,17 +205,22 @@ namespace MySoundLib
 
         private void ButtonAddSong_Click(object sender, RoutedEventArgs e)
         {
-            if (TextBoxSongTitle.Text == "" || _filePath == "")
+            if (TextBoxSongTitle.Text == "" || (_filePath == "" && !IsEditMode))
             {
                 MessageBox.Show("Missing data");
                 return;
             }
 
-            var fs = new FileStream(_filePath, FileMode.Open, FileAccess.Read);
-            var br = new BinaryReader(fs);
-            var data = br.ReadBytes((int)fs.Length);
-            br.Close();
-            fs.Close();
+            byte[] data = null;
+
+            if (!string.IsNullOrEmpty(_filePath))
+            {
+                var fs = new FileStream(_filePath, FileMode.Open, FileAccess.Read);
+                var br = new BinaryReader(fs);
+                data = br.ReadBytes((int)fs.Length);
+                br.Close();
+                fs.Close();
+            }
 
             int? artistId = null;
             int? albumId = null;
@@ -251,22 +286,42 @@ namespace MySoundLib
                 genreId = (int)ComboBoxGenre.SelectedValue;
             }
 
-            var affectedLines = _connectionManager.ExecuteCommand(CommandFactory.InsertNewSong(TextBoxSongTitle.Text, data, artistId, albumId, genreId, DatePickerReleased.SelectedDate));
-            if (affectedLines > 1)
+            int affectedLines = -1;
+
+            if (IsEditMode)
             {
-                Debug.WriteLine("More lines affected");
-            }
-            if (affectedLines >= 1)
+                affectedLines = _connectionManager.ExecuteCommand(CommandFactory.UpdateSong(_songId, TextBoxSongTitle.Text, artistId, albumId, genreId, DatePickerReleased.SelectedDate));
+
+                MoveToSongList(_songId);
+            } else
             {
-                int song_id;
-                if (int.TryParse(_connectionManager.ExecuteScalar(CommandFactory.GetLastInsertedId()).ToString(), out song_id))
+                affectedLines = _connectionManager.ExecuteCommand(CommandFactory.InsertNewSong(TextBoxSongTitle.Text, data, artistId, albumId, genreId, DatePickerReleased.SelectedDate));
+
+                if (affectedLines != 1)
                 {
-                    Debug.WriteLine("Successfully added song: " + song_id);
-                    _mainWindow.GridContent.Children.Clear();
-                    _mainWindow.ListBoxCategory.SelectedIndex = 0;
-                    _mainWindow.GridContent.Children.Add(new UserControlSongs(_mainWindow, song_id));
+                    Debug.WriteLine("Unable to create song!");
+                    return;
+                }
+
+                int songId;
+                if (int.TryParse(_connectionManager.ExecuteScalar(CommandFactory.GetLastInsertedId()).ToString(), out songId))
+                {
+                    Debug.WriteLine("Successfully added song: " + songId);
+                    MoveToSongList(songId);
                 }
             }
+
+            if (affectedLines != 1)
+            {
+                Debug.WriteLine("More lines affected: " + affectedLines);
+            }
+        }
+
+        private void MoveToSongList(int songId)
+        {
+            _mainWindow.GridContent.Children.Clear();
+            _mainWindow.ListBoxCategory.SelectedIndex = 0;
+            _mainWindow.GridContent.Children.Add(new UserControlSongs(_mainWindow, songId));
         }
 
         private void ButtonAddArtist_OnClick(object sender, RoutedEventArgs e)

@@ -60,10 +60,12 @@ namespace MySoundLib
             {
                 ButtonDeleteSong.Visibility = Visibility.Collapsed;
                 ButtonPlaySong.Visibility = Visibility.Collapsed;
+                ButtonEditSong.Visibility = Visibility.Collapsed;
             } else
             {
                 ButtonDeleteSong.Visibility = Visibility.Visible;
                 ButtonPlaySong.Visibility = Visibility.Visible;
+                ButtonEditSong.Visibility = Visibility.Visible;
             }
         }
 
@@ -102,7 +104,19 @@ namespace MySoundLib
 
         private void ButtonEditSong_Click(object sender, RoutedEventArgs e)
         {
+            _mainWindow.ListBoxCategory.UnselectAll();
 
+            _mainWindow.GridContent.Children.Clear();
+
+            var song = DataGridSongs.SelectedItem as DataRowView;
+
+            if (song != null)
+            {
+                _mainWindow.GridContent.Children.Add(new UserControlUploadSong(_mainWindow, (int)song["song_id"]));
+            } else
+            {
+                MessageBox.Show("Unable to edit song. (Selection wrong)");
+            }
         }
 
         private void ButtonDeleteSong_Click(object sender, RoutedEventArgs e)

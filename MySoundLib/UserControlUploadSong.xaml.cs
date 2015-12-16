@@ -98,7 +98,13 @@ namespace MySoundLib
                     var file = new AudioFile(_filePath);
 
                     // Song title
-                    TextBoxSongTitle.Text = file.Tag.Title;
+                    if (string.IsNullOrEmpty(file.Tag.Title))
+                    {
+                        TextBoxSongTitle.Text = Path.GetFileNameWithoutExtension(_filePath);
+                    } else
+                    {
+                        TextBoxSongTitle.Text = file.Tag.Title;
+                    }
 
                     // Song artist
                     if (string.IsNullOrEmpty(file.Tag.FirstPerformer))

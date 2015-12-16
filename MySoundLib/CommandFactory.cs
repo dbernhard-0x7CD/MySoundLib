@@ -39,7 +39,10 @@ namespace MySoundLib
             command.Parameters.AddWithValue("@artist", artistId);
             command.Parameters.AddWithValue("@album", albumId);
             command.Parameters.AddWithValue("@genre", genreId);
-            command.Parameters.AddWithValue("@release_date", dateTimeReleased);
+            if (dateTimeReleased.HasValue)
+                command.Parameters.AddWithValue("@release_date", dateTimeReleased.Value.ToString("yyyy-MM-dd"));
+            else
+                command.Parameters.AddWithValue("@release_date", null);
 
             return command;
         }

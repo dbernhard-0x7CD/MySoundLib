@@ -251,7 +251,7 @@ namespace MySoundLib
                 genreId = (int)ComboBoxGenre.SelectedValue;
             }
 
-            var affectedLines = _connectionManager.ExecuteCommand(CommandFactory.InsertNewSong(TextBoxSongTitle.Text, data, artistId, albumId, genreId, null));
+            var affectedLines = _connectionManager.ExecuteCommand(CommandFactory.InsertNewSong(TextBoxSongTitle.Text, data, artistId, albumId, genreId, DatePickerReleased.SelectedDate));
             if (affectedLines > 1)
             {
                 Debug.WriteLine("More lines affected");

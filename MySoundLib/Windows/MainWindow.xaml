@@ -134,7 +134,7 @@
                     <Label Content="My Music" HorizontalAlignment="Center" FontFamily="Segoe UI" FontSize="26.667" Foreground="{StaticResource PrimaryForeground}" FontWeight="SemiBold" Effect="{StaticResource DropShadowEffectLabel}" />
                 </Grid>
 
-                <ListBox x:Name="ListBoxCategory" ItemContainerStyle="{DynamicResource ListBoxItemStyle1}" BorderBrush="Black" BorderThickness="2" Background="Black" >
+                <ListBox x:Name="ListBoxCategory" ItemContainerStyle="{DynamicResource ListBoxItemStyle1}" BorderBrush="Black" BorderThickness="0,1" Background="Black" >
                     <ListBoxItem x:Name="ListBoxItemSongs" Selected="ListBoxItemSongs_OnSelected">Songs</ListBoxItem>
                     <ListBoxItem x:Name="ListBoxItemAlbums" Selected="ListBoxItemAlbums_OnSelected">Albums</ListBoxItem>
                     <ListBoxItem x:Name="ListBoxItemArtists" Selected="ListBoxItemArtists_OnSelected">Artists</ListBoxItem>

@@ -144,7 +144,7 @@
                 <Grid>
                     <Label Content="Playlists" FontFamily="Segoe UI" FontSize="26.667" Foreground="{StaticResource PrimaryForeground}" FontWeight="SemiBold" HorizontalAlignment="Center" Effect="{StaticResource DropShadowEffectLabel}">
                     </Label>
-                    <Button x:Name="ButtonCreatePlaylist" Margin="158,0,0,0" Click="ButtonCreatePlaylist_Click" Template="{DynamicResource ButtonBaseControlTemplate1}">
+                    <Button x:Name="ButtonCreatePlaylist" Height="44" Width="44" HorizontalAlignment="Left" Click="ButtonCreatePlaylist_Click" Template="{DynamicResource ButtonBaseControlTemplate1}">
                         <Button.Resources>
                             <ControlTemplate x:Key="ButtonBaseControlTemplate1" TargetType="{x:Type ButtonBase}">
                                 <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True">

@@ -15,7 +15,7 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource CurrentHeader}">
             <Label x:Name="LabelHeaderTitle" Grid.Row="0" Content="Add new song" Style="{StaticResource StyleInfoHeader}" />
         </StackPanel>
-        
+
         <Grid Grid.Row="1" Margin="0,5,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5*"/>

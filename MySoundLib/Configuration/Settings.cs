@@ -18,12 +18,15 @@ namespace MySoundLib.Configuration
 		/// Configuration file path
 		/// </summary>
 		static readonly string PathConfigFile = Path.Combine(PathProgramFolder, "config.txt");
-		
+
 		/// <summary>
 		/// Dictionary of values accessed by properties
 		/// </summary>
 		static readonly Dictionary<Property, string> Config = new Dictionary<Property, string>();
-		
+
+		static readonly string[] SizeSuffixes =
+				  { "bytes", "KB", "MB", "GB", "TB" };
+
 		/// <summary>
 		/// Create paths if they don't exist and load the dictionary
 		/// </summary>
@@ -32,14 +35,15 @@ namespace MySoundLib.Configuration
 			Config.Clear();
 			CreateDirectory(PathProgramFolder);
 			CreateFile(PathConfigFile);
-			
+
 			// load settings from file
 			string[] lines = GetLines(PathConfigFile);
-			
-			foreach (var line in lines) {
+
+			foreach (var line in lines)
+			{
 				var property = line.Split('=')[0];
 				var value = line.Replace(property + "=", "");
-				
+
 				Config.Add(ParseEnum<Property>(property), value);
 			}
 		}
@@ -55,22 +59,24 @@ namespace MySoundLib.Configuration
 		/// <param name="strPath">Directory path</param>
 		static void CreateDirectory(string strPath)
 		{
-			if (!Directory.Exists(strPath)) {
-				Directory.CreateDirectory(strPath);	
+			if (!Directory.Exists(strPath))
+			{
+				Directory.CreateDirectory(strPath);
 			}
 		}
-		
+
 		/// <summary>
 		///  Makes sure the file at the given path exists
 		/// </summary>
 		/// <param name="strPath">Path to the file</param>
 		static void CreateFile(string strPath)
 		{
-			if (!File.Exists(strPath)) {
+			if (!File.Exists(strPath))
+			{
 				File.Create(strPath).Dispose();
 			}
 		}
-		
+
 		/// <summary>
 		/// Sets the property to a given value
 		/// </summary>
@@ -78,13 +84,15 @@ namespace MySoundLib.Configuration
 		/// <param name="strValue">Value</param>
 		public static void SetProperty(Property property, string strValue)
 		{
-			if (Contains(property)) {
+			if (Contains(property))
+			{
 				Config[property] = strValue;
-			} else {
+			}
+			else {
 				Config.Add(property, strValue);
 			}
 		}
-		
+
 		/// <summary>
 		/// Returns the value from the given property
 		/// </summary>
@@ -93,7 +101,7 @@ namespace MySoundLib.Configuration
 		{
 			return Config[property];
 		}
-		
+
 		/// <summary>
 		/// Return true if the property is already in the config
 		/// </summary>
@@ -102,8 +110,8 @@ namespace MySoundLib.Configuration
 		{
 			return Config.ContainsKey(property);
 		}
-		
-		
+
+
 		/// <summary>
 		/// Removes the given property from the config
 		/// </summary>
@@ -112,7 +120,7 @@ namespace MySoundLib.Configuration
 		{
 			Config.Remove(property);
 		}
-		
+
 		/// <summary>
 		/// Saves the config to the configuration file
 		/// </summary>
@@ -120,14 +128,15 @@ namespace MySoundLib.Configuration
 		public static bool SaveConfig()
 		{
 			List<string> list = new List<string>();
-			
-			foreach (var e in Config) {
+
+			foreach (var e in Config)
+			{
 				list.Add(e.Key + "=" + e.Value);
-			}			
-			
+			}
+
 			return WriteLines(list.ToArray(), PathConfigFile);
 		}
-		
+
 		/// <summary>
 		/// Returns the lines from the given file
 		/// </summary>
@@ -136,14 +145,17 @@ namespace MySoundLib.Configuration
 		static string[] GetLines(string strPath)
 		{
 			string[] lines;
-			try {
+			try
+			{
 				lines = File.ReadAllLines(strPath);
-			} catch (Exception) {
+			}
+			catch (Exception)
+			{
 				return null;
 			}
 			return lines;
 		}
-		
+
 		/// <summary>
 		/// Writes the lines to the given file
 		/// </summary>
@@ -152,9 +164,12 @@ namespace MySoundLib.Configuration
 		/// <returns>True if success, false otherwise</returns>
 		static bool WriteLines(string[] lines, string strPath)
 		{
-			try {
+			try
+			{
 				File.WriteAllLines(strPath, lines);
-			} catch (Exception) {
+			}
+			catch (Exception)
+			{
 				Debug.WriteLine("Can't write to " + strPath);
 				return false;
 			}
@@ -171,8 +186,16 @@ namespace MySoundLib.Configuration
 
 			foreach (var x in files)
 			{
-				if (!x.Contains("config")) {
-					File.Delete(x);
+				if (!x.Contains("config"))
+				{
+					try
+					{
+						File.Delete(x);
+					}
+					catch (Exception)
+					{
+						Debug.WriteLine("Unable to delete file: " + x);
+					}
 				}
 			}
 		}
@@ -186,18 +209,28 @@ namespace MySoundLib.Configuration
 			return Directory.GetFiles(PathProgramFolder, "*", SearchOption.AllDirectories);
 		}
 
-		public static long GetSizeOfLocalSongs() {
+		public static string GetSizeOfLocalSongs()
+		{
 			var paths = GetDataFiles();
 			long sum = 0;
 
-			foreach (var x in paths) {
-				using (Stream stream = new FileStream(x, FileMode.Open))
-				{
-					sum += stream.Length;
-				}
+			foreach (var x in paths)
+			{
+				sum += new FileInfo(x).Length;
 			}
 
-			return sum;
+			return GetSizeWithSuffix(sum);
+		}
+
+		static string GetSizeWithSuffix(long value)
+		{
+			if (value < 0) { return "-" + GetSizeWithSuffix(-value); }
+			if (value == 0) { return "0.0 bytes"; }
+
+			int mag = (int)Math.Log(value, 1024);
+			decimal adjustedSize = (decimal)value / (1L << (mag * 10));
+
+			return string.Format("{0:n1} {1}", adjustedSize, SizeSuffixes[mag]);
 		}
 	}
 }

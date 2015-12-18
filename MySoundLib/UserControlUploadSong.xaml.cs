@@ -342,6 +342,10 @@ namespace MySoundLib
             comboBox.IsEditable = true;
             comboBox.IsReadOnly = false;
             comboBox.Text = "";
+            comboBox.UpdateLayout();
+            var x = comboBox.Template.FindName("PART_EditableTextBox", comboBox) as TextBox;
+            x.Focus();
+            x.SelectAll();
         }
 
         public static int? ToNullableInt32(string s)

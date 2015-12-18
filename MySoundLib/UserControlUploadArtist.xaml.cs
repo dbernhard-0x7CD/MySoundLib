@@ -18,12 +18,36 @@ namespace MySoundLib
                 return _mainWindow.ConnectionManager;
             }
         }
+        private bool IsEditMode = false;
+        private int _artistId;
 
         public UserControlUploadArtist(MainWindow mainWindow)
         {
             InitializeComponent();
             _mainWindow = mainWindow;
             TextBoxArtistName.Focus();
+        }
+
+        public UserControlUploadArtist(MainWindow mainWindow, int artistId) : this (mainWindow)
+        {
+            _artistId = artistId;
+
+            LabelHeaderTitle.Content = "Edit artist";
+            ButtonAddArtist.Content = "Save";
+            IsEditMode = true;
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            TextBoxArtistName.Focus();
+
+            if (IsEditMode)
+            {
+                var artistInformation = _connectionManager.GetDataTable(CommandFactory.GetArtistInformation(_artistId)).Rows[0];
+
+                TextBoxArtistName.Text = artistInformation["artist_name"].ToString();
+                TextBoxArtistName.Select(TextBoxArtistName.Text.Length, 0);
+            }
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
@@ -38,11 +62,28 @@ namespace MySoundLib
                 MessageBox.Show("Please insert name");
                 return;
             }
-            int result = _connectionManager.ExecuteCommand(CommandFactory.InsertNewArtist(TextBoxArtistName.Text));
+
+            var existsArtist = _connectionManager.ExecuteScalar(CommandFactory.ExistsArtist(TextBoxArtistName.Text));
+
+            if (existsArtist != null)
+            {
+                MessageBox.Show("Artist already exists. Change artists of songs individually");
+                return;
+            }
+
+            int result;
+
+            if (IsEditMode)
+            {
+                result = _connectionManager.ExecuteCommand(CommandFactory.UpdateArtist(_artistId, TextBoxArtistName.Text));
+            } else
+            {
+                result = _connectionManager.ExecuteCommand(CommandFactory.InsertNewArtist(TextBoxArtistName.Text));
+            }
 
             if (result != 1)
             {
-                Debug.WriteLine("Unable to insert artist: " + TextBoxArtistName.Text);
+                Debug.WriteLine("Unable to insert or update artist: " + TextBoxArtistName.Text);
             }
             if (result == 1)
             {

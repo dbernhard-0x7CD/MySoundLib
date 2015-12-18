@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MySoundLib"
-             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="300">
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="300" Loaded="UserControl_Loaded">
     <Grid Background="{StaticResource GeneralBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

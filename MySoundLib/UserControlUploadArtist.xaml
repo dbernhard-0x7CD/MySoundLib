@@ -29,7 +29,7 @@
             <TextBox x:Name="TextBoxArtistName" Grid.Row="1" Grid.Column="1" Height="20" Width="Auto" MinWidth="200" HorizontalAlignment="Left" TabIndex="1" />
         </Grid>
 
-        <Button x:Name="ButtonCancel" Grid.Row="2" Height="22" Width="120" HorizontalAlignment="Right" Content="Cancel" IsCancel="True" Margin="0,8,133,8" Click="ButtonCancel_Click"/>
-        <Button x:Name="ButtonAddArtist" Grid.Row="2" Height="22" Width="120" HorizontalAlignment="Right" Content="Add" Margin="8" IsDefault="True" Click="ButtonAddArtist_Click"/>
+        <Button x:Name="ButtonCancel" Grid.Row="2" Height="Auto" Width="120" HorizontalAlignment="Right" Content="Cancel" IsCancel="True" Margin="0,8,133,8" Click="ButtonCancel_Click"/>
+        <Button x:Name="ButtonAddArtist" Grid.Row="2" Height="Auto" Width="120" HorizontalAlignment="Right" Content="Add" Margin="8" IsDefault="True" Click="ButtonAddArtist_Click"/>
     </Grid>
 </UserControl>

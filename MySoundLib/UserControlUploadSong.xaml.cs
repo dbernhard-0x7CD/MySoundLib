@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
+using Microsoft.WindowsAPICodePack.Shell;
 using TagLib.Mpeg;
 
 namespace MySoundLib
@@ -209,6 +209,7 @@ namespace MySoundLib
             }
 
             byte[] data = null;
+            TimeSpan? length = null;
 
             if (!string.IsNullOrEmpty(_filePath))
             {
@@ -217,6 +218,17 @@ namespace MySoundLib
                 data = br.ReadBytes((int)fs.Length);
                 br.Close();
                 fs.Close();
+
+                ShellFile so = ShellFile.FromFilePath(_filePath);
+                double nanoseconds;
+                if (double.TryParse(so.Properties.System.Media.Duration.Value.ToString(), out nanoseconds))
+                {
+                    double milliseconds = nanoseconds / 10000;
+                    length = TimeSpan.FromMilliseconds(milliseconds);
+                } else
+                {
+                    Debug.WriteLine("unable to get length of track");
+                }
             }
 
             int? artistId = null;
@@ -293,7 +305,7 @@ namespace MySoundLib
                 MoveToSongList(_songId);
             } else
             {
-                affectedLines = _connectionManager.ExecuteCommand(CommandFactory.InsertNewSong(TextBoxSongTitle.Text, data, artistId, albumId, genreId, DatePickerReleased.SelectedDate));
+                affectedLines = _connectionManager.ExecuteCommand(CommandFactory.InsertNewSong(TextBoxSongTitle.Text, data, length, artistId, albumId, genreId, DatePickerReleased.SelectedDate));
 
                 if (affectedLines != 1)
                 {

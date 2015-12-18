@@ -3,10 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MySoundLib"
+             xmlns:local="clr-namespace:MySoundLib.Windows"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
+        <Grid.Resources>
+            <local:MillisecondsToValueConverter x:Key="TimeConverter" />
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -28,7 +31,7 @@
                 <DataGridTextColumn Binding="{Binding artist_name}" Header="Artist" ElementStyle="{StaticResource AnyColumnStyle}" Width="Auto" />
                 <DataGridTextColumn Binding="{Binding album_name}" Header="Album" ElementStyle="{StaticResource AnyColumnStyle}"  Width="Auto" />
                 <DataGridTextColumn Binding="{Binding genre_name}" Header="Genre" ElementStyle="{StaticResource AnyColumnStyle}"  Width="Auto" />
-                <DataGridTextColumn Binding="{Binding length}" Header="Length" ElementStyle="{StaticResource AnyColumnStyle}"  Width="Auto" MinWidth="60" MaxWidth="120"/>
+                <DataGridTextColumn Binding="{Binding Path=length, Converter={StaticResource TimeConverter}}" Header="Length" ElementStyle="{StaticResource AnyColumnStyle}" Width="Auto" MinWidth="60" MaxWidth="120"/>
             </DataGrid.Columns>
             <DataGrid.Resources>
                 <Style TargetType="DataGridRow">

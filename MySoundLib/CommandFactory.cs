@@ -29,12 +29,16 @@ namespace MySoundLib
             return command;
         }
 
-        public static MySqlCommand InsertNewSong(string title, byte[] track, int? artistId, int? albumId, int? genreId, DateTime? dateTimeReleased)
+        public static MySqlCommand InsertNewSong(string title, byte[] track, TimeSpan? length, int? artistId, int? albumId, int? genreId, DateTime? dateTimeReleased)
         {
-            var command = new MySqlCommand("INSERT INTO Songs(song_title, track, artist, album, genre, release_date) VALUES(@title, @track, @artist, @album, @genre, @release_date)");
+            var command = new MySqlCommand("INSERT INTO Songs(song_title, track, length, artist, album, genre, release_date) VALUES(@title, @track, @length, @artist, @album, @genre, @release_date)");
 
             command.Parameters.AddWithValue("@title", title);
             command.Parameters.AddWithValue("@track", track);
+            if (length.HasValue)
+                command.Parameters.AddWithValue("@length", length.Value.TotalMilliseconds);
+            else
+                command.Parameters.AddWithValue("@length", null);
 
             command.Parameters.AddWithValue("@artist", artistId);
             command.Parameters.AddWithValue("@album", albumId);

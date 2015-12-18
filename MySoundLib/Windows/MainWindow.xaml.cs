@@ -4,11 +4,12 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using MySoundLib.Configuration;
+using System.Windows.Data;
+using System.Globalization;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
-
 using WMPLib;
+using MySoundLib.Configuration;
 
 namespace MySoundLib.Windows
 {
@@ -216,12 +217,13 @@ namespace MySoundLib.Windows
             {
                 hash = Convert.ToBase64String(md5.ComputeHash(byteTrack));
             }
-            var pathFile = Path.Combine(Settings.PathProgramFolder, hash.Replace('/','_') + ".mp3");
+            var pathFile = Path.Combine(Settings.PathProgramFolder, hash.Replace('/', '_') + ".mp3");
 
             if (File.Exists(pathFile))
             {
                 Debug.WriteLine("Already played song");
-            } else
+            }
+            else
             {
                 try
                 {
@@ -347,5 +349,25 @@ namespace MySoundLib.Windows
         Start,
         Pause,
         Continue
+    }
+
+    public class MillisecondsToValueConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            int milliseconds;
+            if (int.TryParse(value.ToString(), out milliseconds))
+            {
+                var ts = TimeSpan.FromMilliseconds(milliseconds);
+
+                return ts.ToString("mm':'ss");
+            }
+            return "";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

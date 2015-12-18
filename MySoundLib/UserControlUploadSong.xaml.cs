@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using TagLib.Mpeg;
 
 namespace MySoundLib
@@ -75,6 +76,9 @@ namespace MySoundLib
 
                 if (!string.IsNullOrEmpty(releaseDate))
                     DatePickerReleased.SelectedDate = Convert.ToDateTime(releaseDate);
+
+                TextBoxSongTitle.Focus();
+                TextBoxSongTitle.Select(TextBoxSongTitle.Text.Length, 0);
             }
         }
 

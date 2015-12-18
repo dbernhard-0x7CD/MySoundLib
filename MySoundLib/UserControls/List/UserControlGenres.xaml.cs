@@ -2,8 +2,9 @@
 using System.Windows;
 using System.Data;
 using MySoundLib.Windows;
+using MySoundLib.UserControls.Create;
 
-namespace MySoundLib
+namespace MySoundLib.UserControls.List
 {
     /// <summary>
     /// Interaction logic for UserControlGenres.xaml

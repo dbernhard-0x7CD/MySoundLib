@@ -1,4 +1,5 @@
 ﻿using MySoundLib.Windows;
+using MySoundLib.UserControls.List;
 using System;
 using System.Data;
 using System.Diagnostics;
@@ -8,7 +9,7 @@ using System.Windows.Controls;
 using Microsoft.WindowsAPICodePack.Shell;
 using TagLib.Mpeg;
 
-namespace MySoundLib
+namespace MySoundLib.UserControls.Create
 {
     /// <summary>
     /// Interaction logic for UserControlUploadSong.xaml
@@ -225,7 +226,8 @@ namespace MySoundLib
                 {
                     double milliseconds = nanoseconds / 10000;
                     length = TimeSpan.FromMilliseconds(milliseconds);
-                } else
+                }
+                else
                 {
                     Debug.WriteLine("unable to get length of track");
                 }
@@ -303,7 +305,8 @@ namespace MySoundLib
                 affectedLines = _connectionManager.ExecuteCommand(CommandFactory.UpdateSong(_songId, TextBoxSongTitle.Text, artistId, albumId, genreId, DatePickerReleased.SelectedDate));
 
                 MoveToSongList(_songId);
-            } else
+            }
+            else
             {
                 affectedLines = _connectionManager.ExecuteCommand(CommandFactory.InsertNewSong(TextBoxSongTitle.Text, data, length, artistId, albumId, genreId, DatePickerReleased.SelectedDate));
 

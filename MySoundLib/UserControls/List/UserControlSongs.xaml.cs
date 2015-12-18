@@ -4,9 +4,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using MySoundLib.Windows;
+using MySoundLib.UserControls.Create;
 using System.Diagnostics;
 
-namespace MySoundLib
+namespace MySoundLib.UserControls.List
 {
     /// <summary>
     /// Interaction logic for UserControlSongs.xaml
@@ -61,7 +62,8 @@ namespace MySoundLib
                 ButtonDeleteSong.Visibility = Visibility.Collapsed;
                 ButtonPlaySong.Visibility = Visibility.Collapsed;
                 ButtonEditSong.Visibility = Visibility.Collapsed;
-            } else
+            }
+            else
             {
                 ButtonDeleteSong.Visibility = Visibility.Visible;
                 ButtonPlaySong.Visibility = Visibility.Visible;
@@ -113,7 +115,8 @@ namespace MySoundLib
             if (song != null)
             {
                 _mainWindow.GridContent.Children.Add(new UserControlUploadSong(_mainWindow, (int)song["song_id"]));
-            } else
+            }
+            else
             {
                 MessageBox.Show("Unable to edit song. (Selection wrong)");
             }
@@ -173,6 +176,24 @@ namespace MySoundLib
                 _mainWindow.PlaySong(int.Parse(dataRowView["song_id"].ToString()));
             }
             ButtonPlaySong.Visibility = Visibility.Collapsed;
+        }
+
+        private void DataGridCell_MouseEnter(object sender, MouseEventArgs e)
+        {
+            var cell = sender as DataGridCell;
+
+            if (cell.Column.SortMemberPath == "song_title")
+            {
+
+            }
+            else if (cell.Column.SortMemberPath == "artist_name" && !string.IsNullOrEmpty(cell.ToString()))
+            {
+                cell.Cursor = Cursors.Hand;
+            }
+            else
+            {
+                cell.Cursor = Cursors.Arrow;
+            }
         }
     }
 }

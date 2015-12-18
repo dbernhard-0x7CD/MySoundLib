@@ -1,9 +1,9 @@
-﻿using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
 using MySoundLib.Windows;
 using System.Data;
+using MySoundLib.UserControls.Create;
 
-namespace MySoundLib
+namespace MySoundLib.UserControls.List
 {
     /// <summary>
     /// Interaction logic for UserControlArtists.xaml

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MySoundLib"
+        xmlns:local="clr-namespace:MySoundLib.Windows"
         mc:Ignorable="d"
         Title="MySoundLib" Height="563" Width="1000" MinWidth="400" MinHeight="200" WindowStartupLocation="CenterScreen"  Closing="Window_Closing" Icon="/MySoundLib;component/Resources/Icon.ico" >
     <Window.Resources>

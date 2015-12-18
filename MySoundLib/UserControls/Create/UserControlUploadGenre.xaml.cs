@@ -1,9 +1,10 @@
 ﻿using MySoundLib.Windows;
+using MySoundLib.UserControls.List;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace MySoundLib
+namespace MySoundLib.UserControls.Create
 {
     /// <summary>
     /// Interaction logic for UserControlUploadGenre.xaml

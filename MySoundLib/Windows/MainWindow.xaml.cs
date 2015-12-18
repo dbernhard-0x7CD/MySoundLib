@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using WMPLib;
 using MySoundLib.Configuration;
+using MySoundLib.UserControls.List;
+using MySoundLib.UserControls.Create;
 
 namespace MySoundLib.Windows
 {

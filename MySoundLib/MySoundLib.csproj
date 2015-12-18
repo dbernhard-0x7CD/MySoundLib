@@ -102,28 +102,28 @@
     <Compile Include="ServerConnectionManager.cs" />
     <Compile Include="Configuration\Property.cs" />
     <Compile Include="Configuration\Settings.cs" />
-    <Compile Include="UserControlAlbums.xaml.cs">
+    <Compile Include="UserControls\List\UserControlAlbums.xaml.cs">
       <DependentUpon>UserControlAlbums.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControlArtists.xaml.cs">
+    <Compile Include="UserControls\List\UserControlArtists.xaml.cs">
       <DependentUpon>UserControlArtists.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControlGenres.xaml.cs">
+    <Compile Include="UserControls\List\UserControlGenres.xaml.cs">
       <DependentUpon>UserControlGenres.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControlSongs.xaml.cs">
+    <Compile Include="UserControls\List\UserControlSongs.xaml.cs">
       <DependentUpon>UserControlSongs.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControlUploadAlbum.xaml.cs">
+    <Compile Include="UserControls\Create\UserControlUploadAlbum.xaml.cs">
       <DependentUpon>UserControlUploadAlbum.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControlUploadArtist.xaml.cs">
+    <Compile Include="UserControls\Create\UserControlUploadArtist.xaml.cs">
       <DependentUpon>UserControlUploadArtist.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControlUploadGenre.xaml.cs">
+    <Compile Include="UserControls\Create\UserControlUploadGenre.xaml.cs">
       <DependentUpon>UserControlUploadGenre.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControlUploadSong.xaml.cs">
+    <Compile Include="UserControls\Create\UserControlUploadSong.xaml.cs">
       <DependentUpon>UserControlUploadSong.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\AboutWindow.xaml.cs">
@@ -135,15 +135,15 @@
     <Compile Include="Windows\TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="UserControlUploadAlbum.xaml">
+    <Page Include="UserControls\Create\UserControlUploadAlbum.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControlUploadArtist.xaml">
+    <Page Include="UserControls\Create\UserControlUploadArtist.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControlUploadGenre.xaml">
+    <Page Include="UserControls\Create\UserControlUploadGenre.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -159,23 +159,23 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UserControlAlbums.xaml">
+    <Page Include="UserControls\List\UserControlAlbums.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControlArtists.xaml">
+    <Page Include="UserControls\List\UserControlArtists.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControlGenres.xaml">
+    <Page Include="UserControls\List\UserControlGenres.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControlSongs.xaml">
+    <Page Include="UserControls\List\UserControlSongs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControlUploadSong.xaml">
+    <Page Include="UserControls\Create\UserControlUploadSong.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -261,7 +261,9 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="UserControls\Information\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

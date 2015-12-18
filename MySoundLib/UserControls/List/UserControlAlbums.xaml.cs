@@ -1,9 +1,10 @@
 ﻿using MySoundLib.Windows;
+using MySoundLib.UserControls.Create;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace MySoundLib
+namespace MySoundLib.UserControls.List
 {
     /// <summary>
     /// Interaction logic for UserControlAlbums.xaml

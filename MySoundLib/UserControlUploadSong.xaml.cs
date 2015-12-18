@@ -102,13 +102,7 @@ namespace MySoundLib
                     var file = new AudioFile(_filePath);
 
                     // Song title
-                    if (string.IsNullOrEmpty(file.Tag.Title))
-                    {
-                        TextBoxSongTitle.Text = Path.GetFileNameWithoutExtension(_filePath);
-                    } else
-                    {
-                        TextBoxSongTitle.Text = file.Tag.Title;
-                    }
+                    TextBoxSongTitle.Text = file.Tag.Title;
 
                     // Song artist
                     if (string.IsNullOrEmpty(file.Tag.FirstPerformer))
@@ -170,6 +164,10 @@ namespace MySoundLib
                 catch (Exception ex)
                 {
                     Debug.WriteLine("Unable to read tags from file. " + ex.Message);
+                }
+                if (string.IsNullOrEmpty(TextBoxSongTitle.Text))
+                {
+                    TextBoxSongTitle.Text = Path.GetFileNameWithoutExtension(_filePath);
                 }
             }
         }

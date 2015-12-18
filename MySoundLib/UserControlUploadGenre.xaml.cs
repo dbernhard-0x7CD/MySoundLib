@@ -38,11 +38,14 @@ namespace MySoundLib
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            TextBoxName.Focus();
+
             if (IsEditMode)
             {
                 var genreInformation = _connectionManager.GetDataTable(CommandFactory.GetGenreInformation(_genreId)).Rows[0];
 
                 TextBoxName.Text = genreInformation["genre_name"].ToString();
+                TextBoxName.Select(TextBoxName.Text.Length,0);
             }
         }
 

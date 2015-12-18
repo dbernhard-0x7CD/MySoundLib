@@ -22,6 +22,7 @@ namespace MySoundLib
 		{
 			InitializeComponent();
 			_mainWindow = mainWindow;
+			TextBoxArtistName.Focus();
 		}
 
 		private void ButtonCancel_Click(object sender, RoutedEventArgs e)

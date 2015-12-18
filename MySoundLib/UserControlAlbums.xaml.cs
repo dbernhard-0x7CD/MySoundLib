@@ -31,15 +31,30 @@ namespace MySoundLib
 
         private void ButtonAddNewAlbum_Click(object sender, RoutedEventArgs e)
         {
-            _mainWindow.ListBoxCategory.UnselectAll();
-
-            _mainWindow.GridContent.Children.Clear();
+            ResetMainWindow();
             _mainWindow.GridContent.Children.Add(new UserControlUploadAlbum(_mainWindow));
         }
 
         private void ButtonRenameAlbum_Click(object sender, RoutedEventArgs e)
         {
+            ResetMainWindow();
 
+            var album = DataGridAlbums.SelectedItem as DataRowView;
+
+            if (album != null)
+            {
+                _mainWindow.GridContent.Children.Add(new UserControlUploadAlbum(_mainWindow, (int)album["album_id"]));
+            } else
+            {
+                MessageBox.Show("Unable to rename album. (Selection wrong)");
+            }
+        }
+
+        private void ResetMainWindow()
+        {
+            _mainWindow.ListBoxCategory.UnselectAll();
+
+            _mainWindow.GridContent.Children.Clear();
         }
 
         private void ButtonDeleteAlbum_Click(object sender, RoutedEventArgs e)
@@ -72,10 +87,12 @@ namespace MySoundLib
             if (DataGridAlbums.SelectedIndex == -1)
             {
                 ButtonDeleteAlbum.Visibility = Visibility.Collapsed;
+                ButtonRenameAlbum.Visibility = Visibility.Collapsed;
             }
             else
             {
                 ButtonDeleteAlbum.Visibility = Visibility.Visible;
+                ButtonRenameAlbum.Visibility = Visibility.Visible;
             }
         }
     }

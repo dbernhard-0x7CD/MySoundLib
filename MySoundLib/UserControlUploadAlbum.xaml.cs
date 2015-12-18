@@ -18,7 +18,8 @@ namespace MySoundLib
                 return _mainWindow.ConnectionManager;
             }
         }
-
+        private bool IsEditMode = false;
+        private int _albumId;
 
         public UserControlUploadAlbum(MainWindow mainWindow)
         {
@@ -27,10 +28,31 @@ namespace MySoundLib
             TextBoxName.Focus();
         }
 
+        public UserControlUploadAlbum(MainWindow mainWindow, int albumId) : this (mainWindow)
+        {
+            _albumId = albumId;
+
+            LabelHeaderTitle.Content = "Edit album";
+            ButtonAddAlbum.Content = "Save";
+            IsEditMode = true;
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            TextBoxName.Focus();
+
+            if (IsEditMode)
+            {
+                var albumInformation = _connectionManager.GetDataTable(CommandFactory.GetAlbumInformation(_albumId)).Rows[0];
+
+                TextBoxName.Text = albumInformation["album_name"].ToString();
+                TextBoxName.Select(TextBoxName.Text.Length, 0);
+            }
+        }
+
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
-            _mainWindow.GridContent.Children.Clear();
-            _mainWindow.ListBoxCategory.SelectedIndex = 1;
+            SelectAlbumsMainWindow();
             _mainWindow.GridContent.Children.Add(new UserControlAlbums(_mainWindow));
         }
 
@@ -42,29 +64,37 @@ namespace MySoundLib
                 return;
             }
 
-            var result = _connectionManager.ExecuteCommand(CommandFactory.InsertNewAlbum(TextBoxName.Text));
+            int result;
+
+            if (IsEditMode)
+            {
+                result = _connectionManager.ExecuteCommand(CommandFactory.UpdateAlbum(_albumId, TextBoxName.Text));
+            } else
+            {
+                result = _connectionManager.ExecuteCommand(CommandFactory.InsertNewAlbum(TextBoxName.Text));
+            }
 
             if (result != 1)
             {
-                Debug.WriteLine("Unable to create genre");
+                Debug.WriteLine("Unable to create album");
                 return;
-            }
-            int albumId;
-            if (!int.TryParse(_connectionManager.ExecuteScalar(CommandFactory.GetLastInsertedId()).ToString(), out albumId))
-            {
-                Debug.WriteLine("unable to get id");
             }
 
             if (result == 1)
             {
-                _mainWindow.GridContent.Children.Clear();
-                _mainWindow.ListBoxCategory.SelectedIndex = 1;
+                SelectAlbumsMainWindow();
                 _mainWindow.GridContent.Children.Add(new UserControlAlbums(_mainWindow));
             }
             else
             {
                 Debug.WriteLine("unable to insert");
             }
+        }
+
+        private void SelectAlbumsMainWindow()
+        {
+            _mainWindow.GridContent.Children.Clear();
+            _mainWindow.ListBoxCategory.SelectedIndex = 1;
         }
     }
 }

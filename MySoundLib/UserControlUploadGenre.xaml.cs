@@ -18,11 +18,32 @@ namespace MySoundLib
             }
         }
         private MainWindow _mainWindow;
+        public bool IsEditMode = false;
+        private int _genreId;
 
         public UserControlUploadGenre(MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
             InitializeComponent();
+        }
+
+        public UserControlUploadGenre(MainWindow mainWindow, int genreId) : this (mainWindow)
+        {
+            _genreId = genreId;
+
+            LabelHeaderTitle.Content = "Edit genre";
+            ButtonAddGenre.Content = "Save";
+            IsEditMode = true;
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (IsEditMode)
+            {
+                var genreInformation = _connectionManager.GetDataTable(CommandFactory.GetGenreInformation(_genreId)).Rows[0];
+
+                TextBoxName.Text = genreInformation["genre_name"].ToString();
+            }
         }
 
         private void ButtonAddGenre_Click(object sender, RoutedEventArgs e)
@@ -33,11 +54,27 @@ namespace MySoundLib
                 return;
             }
 
-            var result = _connectionManager.ExecuteCommand(CommandFactory.InsertNewGenre(TextBoxName.Text));
+            var existsGenre = _connectionManager.ExecuteScalar(CommandFactory.ExistGenre(TextBoxName.Text));
+
+            if (existsGenre != null)
+            {
+                MessageBox.Show("Genre already exists. Change genres of songs individually");
+                return;
+            }
+
+            int result;
+
+            if (IsEditMode)
+            {
+                result = _connectionManager.ExecuteCommand(CommandFactory.UpdateGenre(_genreId, TextBoxName.Text));
+            } else
+            {
+                result = _connectionManager.ExecuteCommand(CommandFactory.InsertNewGenre(TextBoxName.Text));
+            }
 
             if (result != 1)
             {
-                Debug.WriteLine("Unable to create genre");
+                Debug.WriteLine("Unable to create or update genre");
                 return;
             }
             int genreId;

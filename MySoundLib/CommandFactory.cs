@@ -117,6 +117,11 @@ namespace MySoundLib
             return new MySqlCommand("select song_title, artist, album, genre, release_date from songs where song_id = " + id);
         }
 
+        public static MySqlCommand GetGenreInformation(int id)
+        {
+            return new MySqlCommand($"select genre_name from genres where genre_id = {id}");
+        }
+
         public static MySqlCommand UpdateSong(int id, string title, int? artistId, int? albumId, int? genreId, DateTime? dateTimeReleased)
         {
             var command = new MySqlCommand($"update songs set song_title=@title, release_date=@release_date, artist=@artist, genre=@genre, album=@album where song_id = {id}");
@@ -131,6 +136,20 @@ namespace MySoundLib
                 command.Parameters.AddWithValue("@release_date", null);
 
             return command;
+        }
+
+        public static MySqlCommand UpdateGenre(int id, string name)
+        {
+            var command = new MySqlCommand($"update genres set genre_name=@genre_name where genre_id={id}");
+
+            command.Parameters.AddWithValue("@genre_name", name);
+
+            return command;
+        }
+
+        public static MySqlCommand ExistGenre(string name)
+        {
+            return new MySqlCommand($"select 1 from genres where genre_name='{name}'");
         }
     }
 }

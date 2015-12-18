@@ -34,24 +34,40 @@ namespace MySoundLib
             if (DataGridGenres.SelectedIndex == -1)
             {
                 ButtonDeleteGenre.Visibility = Visibility.Collapsed;
+                ButtonRenameGenre.Visibility = Visibility.Collapsed;
             }
             else
             {
                 ButtonDeleteGenre.Visibility = Visibility.Visible;
+                ButtonRenameGenre.Visibility = Visibility.Visible;
             }
         }
 
         private void ButtonAddGenre_Click(object sender, RoutedEventArgs e)
         {
-            _mainWindow.ListBoxCategory.UnselectAll();
-
-            _mainWindow.GridContent.Children.Clear();
+            ResetMainWindow();
             _mainWindow.GridContent.Children.Add(new UserControlUploadGenre(_mainWindow));
         }
 
         private void ButtonRenameGenre_Click(object sender, RoutedEventArgs e)
         {
+            ResetMainWindow();
 
+            var genre = DataGridGenres.SelectedItem as DataRowView;
+
+            if (genre != null)
+            {
+                _mainWindow.GridContent.Children.Add(new UserControlUploadGenre(_mainWindow, (int)genre["genre_id"]));
+            } else
+            {
+                MessageBox.Show("Unable to rename genre. (Selection wrong");
+            }
+        }
+
+        private void ResetMainWindow()
+        {
+            _mainWindow.ListBoxCategory.UnselectAll();
+            _mainWindow.GridContent.Children.Clear();
         }
 
         private void ButtonDeleteGenre_Click(object sender, RoutedEventArgs e)

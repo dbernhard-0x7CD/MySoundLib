@@ -51,6 +51,27 @@ namespace MySoundLib
             return command;
         }
 
+        public static MySqlCommand InsertNewPlaylist(string name, string description, DateTime date_created)
+        {
+            var command = new MySqlCommand("INSERT INTO playlists(name, description, date_created) VALUES(@name, @description, @date_created);");
+
+            command.Parameters.AddWithValue("@name", name);
+            command.Parameters.AddWithValue("@description", description);
+            command.Parameters.AddWithValue("@date_created", date_created);
+
+            return command;
+        }
+
+        public static MySqlCommand InsertNewSongToPlaylist(int songId, int playlistId)
+        {
+            var command = new MySqlCommand("INSERT INTO song_playlist(song, playlist) VALUES(@song, @playlist);");
+
+            command.Parameters.AddWithValue("@song", songId);
+            command.Parameters.AddWithValue("@playlist", playlistId);
+
+            return command;
+        }
+
         public static MySqlCommand GetLastInsertedId()
         {
             return new MySqlCommand("SELECT LAST_INSERT_ID();");

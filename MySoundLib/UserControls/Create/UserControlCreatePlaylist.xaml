@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="MySoundLib.UserControls.Create.UserControlCreatePlaylist"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MySoundLib.UserControls.Create"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="700">
+    <Grid Background="{StaticResource GeneralBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource CurrentHeader}">
+            <Label x:Name="LabelHeaderTitle" Grid.Row="0" Content="Create playlist" Style="{StaticResource StyleInfoHeader}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,-1">
+            <Label>Name:</Label>
+            <TextBox x:Name="TextBoxName" Width="120" Margin="15,3" />
+            <Label Margin="50,0,0,0">Description:</Label>
+            <TextBox x:Name="TextBoxDescription" Width="120" Margin="15,3" />
+        </StackPanel>
+
+        <Grid Grid.Row="2" Margin="0,5,0,0">
+            <DataGrid Grid.Row="1" x:Name="DataGridSongs" Style="{StaticResource DataGridListStyle}" SelectionMode="Extended" AutoGenerateColumns="False" VerticalGridLinesBrush="#FF010922">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding song_title}" Header="Title" ElementStyle="{StaticResource FirstColumnStyle}" Width="*" MinWidth="200" />
+                    <DataGridTextColumn Binding="{Binding artist_name}" Header="Artist" ElementStyle="{StaticResource AnyColumnStyle}" Width="Auto" />
+                    <DataGridTextColumn Binding="{Binding album_name}" Header="Album" ElementStyle="{StaticResource AnyColumnStyle}"  Width="Auto" />
+                    <DataGridTextColumn Binding="{Binding genre_name}" Header="Genre" ElementStyle="{StaticResource AnyColumnStyle}"  Width="Auto" />
+                </DataGrid.Columns>
+                <DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <EventSetter Event="PreviewMouseDown" Handler="DataGridRowPreviewMouseDownHandler"></EventSetter>
+                    </Style>
+                </DataGrid.RowStyle>
+            </DataGrid>
+        </Grid>
+        <Button x:Name="ButtonCancel" Grid.Row="3" Height="Auto" Width="120" HorizontalAlignment="Right" Content="Cancel" IsCancel="True" Margin="0,8,133,8" Click="ButtonCancel_Click"/>
+        <Button x:Name="ButtonAddSong" Grid.Row="3" Height="Auto" Width="120" HorizontalAlignment="Right" Content="Add" Margin="8" IsDefault="True" Click="ButtonAddSong_Click"/>
+    </Grid>
+</UserControl>

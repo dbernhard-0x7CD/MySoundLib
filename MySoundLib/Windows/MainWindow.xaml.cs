@@ -342,7 +342,9 @@ namespace MySoundLib.Windows
 
         private void ButtonCreatePlaylist_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("TODO");
+            GridContent.Children.Clear();
+            ListBoxCategory.UnselectAll();
+            GridContent.Children.Add(new UserControlCreatePlaylist(this));
         }
     }
 

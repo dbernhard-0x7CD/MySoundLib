@@ -99,9 +99,13 @@
     </ApplicationDefinition>
     <Compile Include="CommandFactory.cs" />
     <Compile Include="Exceptions\DatabaseAccessDeniedExcpetion.cs" />
+    <Compile Include="Playlist.cs" />
     <Compile Include="ServerConnectionManager.cs" />
     <Compile Include="Configuration\Property.cs" />
     <Compile Include="Configuration\Settings.cs" />
+    <Compile Include="UserControls\Create\UserControlCreatePlaylist.xaml.cs">
+      <DependentUpon>UserControlCreatePlaylist.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\List\UserControlAlbums.xaml.cs">
       <DependentUpon>UserControlAlbums.xaml</DependentUpon>
     </Compile>
@@ -135,6 +139,10 @@
     <Compile Include="Windows\TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="UserControls\Create\UserControlCreatePlaylist.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Create\UserControlUploadAlbum.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -75,6 +75,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -115,6 +116,9 @@
     <Compile Include="UserControls\List\UserControlGenres.xaml.cs">
       <DependentUpon>UserControlGenres.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\List\UserControlPlaylists.xaml.cs">
+      <DependentUpon>UserControlPlaylists.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\List\UserControlSongs.xaml.cs">
       <DependentUpon>UserControlSongs.xaml</DependentUpon>
     </Compile>
@@ -152,6 +156,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Create\UserControlUploadGenre.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\List\UserControlPlaylists.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

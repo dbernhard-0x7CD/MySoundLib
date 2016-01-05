@@ -73,6 +73,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="ListBoxItemStylePlaylists" BasedOn="{StaticResource ListBoxItemStyle1}" TargetType="{x:Type ListBoxItem}">
+            <EventSetter Event="Selected" Handler="ListBox_Selected"></EventSetter>
+        </Style>
         <BitmapImage x:Key="ImagePause" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="/MySoundLib;component/Resources/pause.png"/>
         <BitmapImage x:Key="ImagePlay" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="/MySoundLib;component/Resources/play.png"/>
         <DropShadowEffect x:Key="DropShadowEffectLabel" BlurRadius="4" Opacity="0.8"/>
@@ -163,7 +166,7 @@
                     </Button>
                 </Grid>
 
-                <ListBox x:Name="ListBoxPlaylists" ItemContainerStyle="{DynamicResource ListBoxItemStyle1}" BorderBrush="Black" BorderThickness="2" Background="Black">
+                <ListBox x:Name="ListBoxPlaylists" DisplayMemberPath="name" ItemContainerStyle="{DynamicResource ListBoxItemStylePlaylists}" BorderBrush="Black" BorderThickness="0,1" Background="Black">
                     <ListBox.Style>
                         <Style TargetType="{x:Type ListBox}">
                             <Setter Property="Visibility" Value="Visible" />

@@ -46,7 +46,8 @@ namespace MySoundLib.UserControls.Create
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            _mainWindow.GridContent.Children.Clear();
+            _mainWindow.GridContent.Children.Add(new List.UserControlSongs(_mainWindow));
         }
 
         private void ButtonAddSong_Click(object sender, RoutedEventArgs e)
@@ -77,6 +78,8 @@ namespace MySoundLib.UserControls.Create
             }
 
             _mainWindow.GridContent.Children.Clear();
+            _mainWindow.GridContent.Children.Add(new List.UserControlPlaylists(_mainWindow, playlistId));
+            _mainWindow.UpdatePlaylists();
         }
 
         private void DataGridRowPreviewMouseDownHandler(object sender, MouseButtonEventArgs e)

@@ -112,6 +112,21 @@ namespace MySoundLib
             return new MySqlCommand("select artist_id, artist_name from artists order by artist_name");
         }
 
+        public static MySqlCommand GetPlaylistNames()
+        {
+            return new MySqlCommand("select playlist_id, name from playlists");
+        }
+
+        public static MySqlCommand GetSongsForPlaylist(int playlistId)
+        {
+            return new MySqlCommand($"select song, playlist, song_title, artist_name, album_name, genre_name, length, release_date from song_playlist sp  inner join songs s on (s.song_id = sp.song) left join artists a on (s.artist = a.artist_id) left join genres g on (s.genre = g.genre_id) left join albums al on (s.album = al.album_id) where playlist='{ playlistId}';");
+        }
+
+        public static MySqlCommand GetPlaylistInformation(int playlistId)
+        {
+            return new MySqlCommand($"select * from playlists where playlist_id='{playlistId}'");
+        }
+
         public static MySqlCommand DeleteSong(int id)
         {
             return new MySqlCommand($"DELETE FROM songs WHERE `song_id`='{id}'");

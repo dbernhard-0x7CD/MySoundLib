@@ -12,6 +12,7 @@ using WMPLib;
 using MySoundLib.Configuration;
 using MySoundLib.UserControls.List;
 using MySoundLib.UserControls.Create;
+using System.Data;
 
 namespace MySoundLib.Windows
 {
@@ -72,6 +73,8 @@ namespace MySoundLib.Windows
                 ListBoxCategory.SelectedIndex = 0;
             }
 
+            UpdatePlaylists();
+
             // decide visibility of menu
             if (Settings.Contains(Property.CollapseMenu))
             {
@@ -79,6 +82,16 @@ namespace MySoundLib.Windows
             } // is shown by default
 
             HideCurrentSong();
+        }
+
+        public void UpdatePlaylists()
+        {
+            var playlists = ConnectionManager.GetDataTable(CommandFactory.GetPlaylistNames());
+            ListBoxPlaylists.Items.Clear();
+            foreach (DataRow x in playlists.Rows)
+            {
+                ListBoxPlaylists.Items.Add(new { name=x["name"], playlist_id=x["playlist_id"]});
+            }
         }
 
         private bool ShowLoginWindow()
@@ -345,6 +358,15 @@ namespace MySoundLib.Windows
             GridContent.Children.Clear();
             ListBoxCategory.UnselectAll();
             GridContent.Children.Add(new UserControlCreatePlaylist(this));
+        }
+
+        private void ListBox_Selected(object sender, RoutedEventArgs e)
+        {
+            GridContent.Children.Clear();
+
+            var item = (sender as ListBoxItem).Content;
+
+            GridContent.Children.Add(new UserControlPlaylists(this, int.Parse(item.GetType().GetProperty("playlist_id").GetValue(item).ToString())));
         }
     }
 

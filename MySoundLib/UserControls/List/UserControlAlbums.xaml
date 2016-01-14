@@ -15,9 +15,9 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource CurrentHeader}">
             <Label Content="Albums" Style="{StaticResource StyleInfoHeader}" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                <Button x:Name="ButtonAddNewAlbum" Content="add" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonAddNewAlbum_Click" Background="{x:Null}"/>
-                <Button x:Name="ButtonRenameAlbum" Visibility="Collapsed" Content="rename" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonRenameAlbum_Click" Background="{x:Null}"/>
-                <Button x:Name="ButtonDeleteAlbum" Visibility="Collapsed" Content="delete" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonDeleteAlbum_Click" Background="{x:Null}"/>
+                <Button x:Name="ButtonAddNewAlbum" Content="add" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonAddNewAlbum_Click" Style="{StaticResource ButtonStyle1}"/>
+                <Button x:Name="ButtonRenameAlbum" Visibility="Collapsed" Content="rename" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonRenameAlbum_Click" Style="{StaticResource ButtonStyle1}"/>
+                <Button x:Name="ButtonDeleteAlbum" Visibility="Collapsed" Content="delete" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonDeleteAlbum_Click" Style="{StaticResource ButtonStyle1}"/>
             </StackPanel>
         </StackPanel>
 

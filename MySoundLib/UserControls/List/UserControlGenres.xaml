@@ -15,9 +15,9 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource CurrentHeader}">
             <Label Content="Genres" Style="{StaticResource StyleInfoHeader}" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                <Button x:Name="ButtonAddGenre" Content="add" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonAddGenre_Click" Background="{x:Null}"/>
-                <Button x:Name="ButtonRenameGenre" Visibility="Collapsed" Content="rename" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonRenameGenre_Click" Background="{x:Null}"/>
-                <Button x:Name="ButtonDeleteGenre" Visibility="Collapsed" Content="delete" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonDeleteGenre_Click" Background="{x:Null}"/>
+                <Button x:Name="ButtonAddGenre" Content="add" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonAddGenre_Click" Style="{StaticResource ButtonStyle1}"/>
+                <Button x:Name="ButtonRenameGenre" Visibility="Collapsed" Content="rename" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonRenameGenre_Click" Style="{StaticResource ButtonStyle1}"/>
+                <Button x:Name="ButtonDeleteGenre" Visibility="Collapsed" Content="delete" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonDeleteGenre_Click" Style="{StaticResource ButtonStyle1}"/>
             </StackPanel>
         </StackPanel>
 

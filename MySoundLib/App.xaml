@@ -40,6 +40,10 @@
         <SolidColorBrush x:Key="RecentlyAddedItem">#B2B2FF</SolidColorBrush>
         <!-- Color for currently playing item -->
         <SolidColorBrush x:Key="CurrentlyPlaying">BurlyWood</SolidColorBrush>
+        <!-- Background color for some buttons -->
+        <SolidColorBrush x:Key="ButtonBackground">#A9ACAD</SolidColorBrush>
+        
+        <!-- Styles for controls -->
         <Style x:Key="DataGridListStyle" TargetType="{x:Type DataGrid}">
             <Setter Property="RowBackground" Value="{StaticResource RowBackground}" />
             <Setter Property="AlternatingRowBackground" Value="{StaticResource AlternatingRow}" />
@@ -63,6 +67,10 @@
         </Style>
         <Style TargetType="{x:Type TextBlock}" x:Key="AnyColumnStyle">
             <Setter Property="Margin" Value="7,2" />
+        </Style>
+        <Style TargetType="{x:Type Button}" x:Key="ButtonStyle1">
+            <Setter Property="Background" Value="{StaticResource ButtonBackground}" />
+            <Setter Property="Padding" Value="9,0" />
         </Style>
     </Application.Resources>
 </Application>

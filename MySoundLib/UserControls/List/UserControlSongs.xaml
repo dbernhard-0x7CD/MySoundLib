@@ -19,10 +19,10 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource CurrentHeader}">
             <Label Content="Songs" Style="{StaticResource StyleInfoHeader}" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                <Button x:Name="ButtonAddNewSong" Content="add" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonAddNewSong_Click" Background="{x:Null}"/>
-                <Button x:Name="ButtonPlaySong" Visibility="Collapsed" Content="play" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonPlaySong_Click" Background="{x:Null}"/>
-                <Button x:Name="ButtonEditSong" Visibility="Collapsed" Content="edit" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonEditSong_Click" Background="{x:Null}"/>
-                <Button x:Name="ButtonDeleteSong" Visibility="Collapsed" Content="delete" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonDeleteSong_Click" Background="{x:Null}"/>
+                <Button x:Name="ButtonAddNewSong" Content="add" Height="23" Width="Auto" Margin="20,13,0,7" Click="ButtonAddNewSong_Click" Style="{StaticResource ButtonStyle1}"/>
+                <Button x:Name="ButtonPlaySong" Visibility="Collapsed" Content="play" Height="23" Width="Auto" Margin="20,13,0,7" Click="ButtonPlaySong_Click" Style="{StaticResource ButtonStyle1}"/>
+                <Button x:Name="ButtonEditSong" Visibility="Collapsed" Content="edit" Height="23" Width="Auto" Margin="20,13,0,7" Click="ButtonEditSong_Click"  Style="{StaticResource ButtonStyle1}"/>
+                <Button x:Name="ButtonDeleteSong" Visibility="Collapsed" Content="delete" Height="23" Width="Auto" Margin="20,13,0,7" Click="ButtonDeleteSong_Click" Style="{StaticResource ButtonStyle1}"/>
             </StackPanel>
         </StackPanel>
 

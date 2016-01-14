@@ -34,7 +34,7 @@
         <SolidColorBrush x:Key="RowBackground">#e5e5ff</SolidColorBrush>
         <!-- Color for general background-->
         <SolidColorBrush x:Key="GeneralBackground">#F5F5FF</SolidColorBrush>
-        <!-- Color for selected item -->
+        <!-- Color for selected list-item -->
         <SolidColorBrush x:Key="SelectedItem">#30ACFF</SolidColorBrush>
         <!-- Color for recently added item-->
         <SolidColorBrush x:Key="RecentlyAddedItem">#B2B2FF</SolidColorBrush>

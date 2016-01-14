@@ -147,6 +147,11 @@ namespace MySoundLib
             return new MySqlCommand($"DELETE FROM genres WHERE `genre_id`='{id}'");
         }
 
+        public static MySqlCommand DeletePlaylist(int playlistId)
+        {
+            return new MySqlCommand($"DELETE FROM playlists WHERE `playlist_id`='{playlistId}'");
+        }
+
         public static MySqlCommand GetSongInformation(int id)
         {
             return new MySqlCommand("select song_title, artist_name, album_name, genre_name, length, release_date from songs s left join artists a on (s.artist = a.artist_id) left join genres g on (s.genre = g.genre_id) left join albums al on (s.album = al.album_id) where song_id = " + id);

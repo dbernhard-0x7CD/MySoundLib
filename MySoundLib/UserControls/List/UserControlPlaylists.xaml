@@ -14,9 +14,10 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource CurrentHeader}">
+            <DockPanel Grid.Row="0" Background="{StaticResource CurrentHeader}">
                 <Label x:Name="LabelHeaderTitle" Grid.Row="0" Content="Playlist " Style="{StaticResource StyleInfoHeader}" />
-            </StackPanel>
+                <Button x:Name="ButtonDelete" Click="ButtonDelete_Click" Height="28" Width="120" Content="Delete" HorizontalAlignment="Right" Margin="0,0,5,0"/>
+            </DockPanel>
 
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,-1">
                 <Label x:Name="LabelPlaylistDescription">Description:</Label>

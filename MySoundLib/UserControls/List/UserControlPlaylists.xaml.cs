@@ -1,4 +1,5 @@
 ﻿using MySoundLib.Windows;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -48,6 +49,19 @@ namespace MySoundLib.UserControls.List
                     e.Handled = true;
                 }
             }
+        }
+
+        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+        {
+            var result = _connectionManager.ExecuteCommand(CommandFactory.DeletePlaylist(_playlistId));
+
+            if (result != 1)
+            {
+                Debug.WriteLine("Did not delete playlist");
+            }
+
+            _mainWindow.GridContent.Children.Clear();
+            _mainWindow.UpdatePlaylists();
         }
     }
 }

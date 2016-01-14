@@ -17,26 +17,27 @@
         </Style>
         <!-- Background of selected item -->
         <Color x:Key="SelectedColor">#3232C1</Color>
-        <!-- Background of current header-->
-        <SolidColorBrush x:Key="CurrentHeader">#C1C1EC</SolidColorBrush>
         <!-- Hoover over selectable items -->
         <Color x:Key="HooverColor">#5900B2</Color>
+        <!-- Background of current header -->
+        <SolidColorBrush x:Key="CurrentHeader">#C1C1EC</SolidColorBrush>
+        <!-- Hoover over selectable items ( other DataType, used for adding a playlist )-->
         <SolidColorBrush x:Key="HooverBackground">#5900B2</SolidColorBrush>
         <!-- Most used background color -->
         <SolidColorBrush x:Key="PrimaryBackground">#0000B2</SolidColorBrush>
-        <!-- Text color which texts with the PrimaryBackground have-->
+        <!-- Text color which texts with the PrimaryBackground have -->
         <SolidColorBrush x:Key="PrimaryForeground">White</SolidColorBrush>
-        <!-- ProgressBar color for currently playing song-->
+        <!-- ProgressBar color for currently playing song -->
         <SolidColorBrush x:Key="ProgressBarSound">#dbb4a8</SolidColorBrush>
-        <!-- Alternating row background for lists-->
+        <!-- Alternating row background for lists -->
         <SolidColorBrush x:Key="AlternatingRow">#CCCCFF</SolidColorBrush>
         <!-- Other alternating row background -->
         <SolidColorBrush x:Key="RowBackground">#e5e5ff</SolidColorBrush>
-        <!-- Color for general background-->
+        <!-- Color for general background -->
         <SolidColorBrush x:Key="GeneralBackground">#F5F5FF</SolidColorBrush>
         <!-- Color for selected list-item -->
         <SolidColorBrush x:Key="SelectedItem">#30ACFF</SolidColorBrush>
-        <!-- Color for recently added item-->
+        <!-- Color for recently added item -->
         <SolidColorBrush x:Key="RecentlyAddedItem">#B2B2FF</SolidColorBrush>
         <!-- Color for currently playing item -->
         <SolidColorBrush x:Key="CurrentlyPlaying">BurlyWood</SolidColorBrush>

@@ -76,7 +76,7 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
-                            <Grid Name="HedearGrid" Background="#F0F8FF" >
+                            <Grid Name="HedearGrid" Background="{DynamicResource DataGridColumnHeaderBackground}" >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />

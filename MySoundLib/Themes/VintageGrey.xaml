@@ -27,4 +27,6 @@
     <SolidColorBrush x:Key="CurrentlyPlaying">#746c6f</SolidColorBrush>
     <!-- Background color for some buttons -->
     <SolidColorBrush x:Key="ButtonBackground">#9b9297</SolidColorBrush>
+    <!-- Background color column header for all datagrids -->
+    <SolidColorBrush x:Key="DataGridColumnHeaderBackground">#808080</SolidColorBrush>
 </ResourceDictionary>

@@ -14,18 +14,23 @@ namespace MySoundLib.Configuration
         /// Path which contains the config file
         /// </summary>
         public static readonly string PathProgramFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MySoundLib");
+
         /// <summary>
         /// Configuration file path
         /// </summary>
         static readonly string PathConfigFile = Path.Combine(PathProgramFolder, "config.txt");
 
         /// <summary>
+        /// Path to the themes file
+        /// </summary>
+        public static readonly string PathThemesFile = Path.Combine(PathProgramFolder, "Themes.xml");
+
+        /// <summary>
         /// Dictionary of values accessed by properties
         /// </summary>
         static readonly Dictionary<Property, string> Config = new Dictionary<Property, string>();
 
-        static readonly string[] SizeSuffixes =
-                  { "bytes", "KB", "MB", "GB", "TB" };
+        static readonly string[] SizeSuffixes = { "bytes", "KB", "MB", "GB", "TB" };
 
         /// <summary>
         /// Create paths if they don't exist and load the dictionary
@@ -45,6 +50,12 @@ namespace MySoundLib.Configuration
                 var value = line.Replace(property + "=", "");
 
                 Config.Add(ParseEnum<Property>(property), value);
+            }
+
+            // set defaults
+            if (!Contains(Property.Theme))
+            {
+                SetProperty(Property.Theme, "Green");
             }
         }
 
@@ -99,7 +110,10 @@ namespace MySoundLib.Configuration
         /// <param name="property">Property</param>
         public static string GetValue(Property property)
         {
-            return Config[property];
+            if (Contains(property))
+                return Config[property];
+            else
+                return null;
         }
 
         /// <summary>

@@ -11,7 +11,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource CurrentHeader}">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{DynamicResource CurrentHeader}">
             <Label Content="Artists" Style="{StaticResource StyleInfoHeader}" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                 <Button x:Name="ButtonAddArtist" Content="add" Height="23" Padding="7,0" Width="Auto" Margin="20,13,0,7" Click="ButtonAddArtist_Click" Style="{StaticResource ButtonStyle1}"/>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MySoundLib.Windows"
         mc:Ignorable="d"
-        Title="MySoundLib" Height="563" Width="1000" MinWidth="400" MinHeight="200" WindowStartupLocation="CenterScreen"  Closing="Window_Closing" Icon="/MySoundLib;component/Resources/Icon.ico" >
+        Title="MySoundLib" Height="650" Width="1100" MinWidth="400" MinHeight="200" WindowStartupLocation="CenterScreen"  Closing="Window_Closing" Icon="/MySoundLib;component/Resources/Icon.ico" >
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -16,15 +16,15 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Hoover" Color="{StaticResource HooverColor}"/>
-        <SolidColorBrush x:Key="Selected" Color="{StaticResource SelectedColor}"/>
+        <SolidColorBrush x:Key="Hoover" Color="{DynamicResource HooverColor}"/>
+        <SolidColorBrush x:Key="Selected" Color="{DynamicResource SelectedColor}"/>
         <Style x:Key="ListBoxItemStyle1" TargetType="{x:Type ListBoxItem}">
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="Padding" Value="6,4.5"/>
             <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
             <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-            <Setter Property="Background" Value="{StaticResource PrimaryBackground}"/>
-            <Setter Property="Foreground" Value="{StaticResource PrimaryForeground}"/>
+            <Setter Property="Background" Value="{DynamicResource PrimaryBackground}"/>
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>
             <Setter Property="FontSize" Value="22" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
@@ -39,8 +39,8 @@
                                 <MultiTrigger.Conditions>
                                     <Condition Property="IsMouseOver" Value="True"/>
                                 </MultiTrigger.Conditions>
-                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource Hoover}"/>
-                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Hoover}"/>
+                                <Setter Property="Background" TargetName="Bd" Value="{DynamicResource Hoover}"/>
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource Hoover}"/>
                             </MultiTrigger>
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
@@ -54,16 +54,16 @@
                                     <Condition Property="Selector.IsSelectionActive" Value="False"/>
                                     <Condition Property="IsSelected" Value="True"/>
                                 </MultiTrigger.Conditions>
-                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource Selected}"/>
-                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Selected}"/>
+                                <Setter Property="Background" TargetName="Bd" Value="{DynamicResource Selected}"/>
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource Selected}"/>
                             </MultiTrigger>
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
                                     <Condition Property="Selector.IsSelectionActive" Value="True"/>
                                     <Condition Property="IsSelected" Value="True"/>
                                 </MultiTrigger.Conditions>
-                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource Selected}"/>
-                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Selected}"/>
+                                <Setter Property="Background" TargetName="Bd" Value="{DynamicResource Selected}"/>
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource Selected}"/>
                             </MultiTrigger>
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
@@ -81,7 +81,7 @@
         <DropShadowEffect x:Key="DropShadowEffectLabel" BlurRadius="4" Opacity="0.8"/>
     </Window.Resources>
     <DockPanel>
-        <Menu x:Name="AppMenu" DockPanel.Dock="Top" Height="Auto" Style="{StaticResource BaseStyle}">
+        <Menu x:Name="AppMenu" DockPanel.Dock="Top" Height="Auto" Style="{DynamicResource BaseStyle}" Background="{DynamicResource GeneralBackground}">
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
                     <DockPanel HorizontalAlignment="Stretch"/>
@@ -101,7 +101,7 @@
         <Grid x:Name="GridMain">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" MaxWidth="250"></ColumnDefinition>
-                <ColumnDefinition Width="4"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -111,7 +111,7 @@
                 <RowDefinition Height="50" MaxHeight="120"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <StackPanel x:Name="StackPanelNavigation" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Orientation="Vertical" Background="{StaticResource PrimaryBackground}">
+            <StackPanel x:Name="StackPanelNavigation" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Orientation="Vertical" Background="{DynamicResource PrimaryBackground}">
                 <Grid>
                     <Button x:Name="ButtonShowMenuItem" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent" Visibility="Collapsed" Click="ButtonShowMenuItem_Click" Template="{DynamicResource ButtonBaseControlTemplate1}" Padding="2,0,0,0">
                         <Button.Resources>
@@ -134,10 +134,10 @@
                             <Image x:Name="ImageArrowDown" Width="20" Height="Auto" Source="/MySoundLib;component/Resources/arrow_down.png" />
                         </Button.Content>
                     </Button>
-                    <Label Content="My Music" HorizontalAlignment="Center" FontFamily="Segoe UI" FontSize="26.667" Foreground="{StaticResource PrimaryForeground}" FontWeight="SemiBold" Effect="{StaticResource DropShadowEffectLabel}" />
+                    <Label Content="My Music" HorizontalAlignment="Center" FontFamily="Segoe UI" FontSize="26.667" Foreground="{DynamicResource PrimaryForeground}" FontWeight="SemiBold" Effect="{StaticResource DropShadowEffectLabel}" />
                 </Grid>
 
-                <ListBox x:Name="ListBoxCategory" ItemContainerStyle="{DynamicResource ListBoxItemStyle1}" BorderBrush="Black" BorderThickness="0,1" Background="Black" >
+                <ListBox x:Name="ListBoxCategory" ItemContainerStyle="{DynamicResource ListBoxItemStyle1}" BorderBrush="Black" BorderThickness="0,1,1,1" Background="Black" >
                     <ListBoxItem x:Name="ListBoxItemSongs" Selected="ListBoxItemSongs_OnSelected">Songs</ListBoxItem>
                     <ListBoxItem x:Name="ListBoxItemAlbums" Selected="ListBoxItemAlbums_OnSelected">Albums</ListBoxItem>
                     <ListBoxItem x:Name="ListBoxItemArtists" Selected="ListBoxItemArtists_OnSelected">Artists</ListBoxItem>
@@ -145,7 +145,7 @@
                 </ListBox>
 
                 <Grid>
-                    <Label Content="Playlists" FontFamily="Segoe UI" FontSize="26.667" Foreground="{StaticResource PrimaryForeground}" FontWeight="SemiBold" HorizontalAlignment="Center" Effect="{StaticResource DropShadowEffectLabel}">
+                    <Label Content="Playlists" FontFamily="Segoe UI" FontSize="26.667" Foreground="{DynamicResource PrimaryForeground}" FontWeight="SemiBold" HorizontalAlignment="Center" Effect="{StaticResource DropShadowEffectLabel}">
                     </Label>
                     <Button x:Name="ButtonCreatePlaylist" Height="44" Width="44" HorizontalAlignment="Left" Click="ButtonCreatePlaylist_Click" Template="{DynamicResource ButtonBaseControlTemplate1}">
                         <Button.Resources>
@@ -155,7 +155,8 @@
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" TargetName="border" Value="{StaticResource HooverBackground}" />
+                                        <Setter Property="Background" TargetName="border" Value="{DynamicResource HooverBackground}" />
+                                        <Setter Property="Cursor" Value="Hand" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -166,7 +167,7 @@
                     </Button>
                 </Grid>
 
-                <ListBox x:Name="ListBoxPlaylists" DisplayMemberPath="name" ItemContainerStyle="{DynamicResource ListBoxItemStylePlaylists}" BorderBrush="Black" BorderThickness="0,1" Background="Black">
+                <ListBox x:Name="ListBoxPlaylists" DisplayMemberPath="name" ItemContainerStyle="{DynamicResource ListBoxItemStylePlaylists}" BorderBrush="Black" BorderThickness="0,2,1,2" Background="Black">
                     <ListBox.Style>
                         <Style TargetType="{x:Type ListBox}">
                             <Setter Property="Visibility" Value="Visible" />
@@ -180,15 +181,15 @@
                 </ListBox>
             </StackPanel>
 
-            <GridSplitter Grid.Column="1" Grid.Row="0" Grid.RowSpan="4" Width="3" VerticalAlignment="Stretch" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext"/>
+            <GridSplitter Grid.Column="1" Grid.Row="0" Grid.RowSpan="4" Width="4" VerticalAlignment="Stretch" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext" Background="{DynamicResource GeneralBackground}"/>
 
             <Grid x:Name="GridContent" Grid.Row="1" Grid.Column="2">
                 <Label>You should never see this</Label>
             </Grid>
 
-            <GridSplitter x:Name="GridSplitterHor" Grid.Column="2" Grid.Row="2" Height="4" HorizontalAlignment="Stretch" ResizeDirection="Rows" ResizeBehavior="PreviousAndNext"/>
+            <GridSplitter x:Name="GridSplitterHor" Grid.Column="2" Grid.Row="2" Height="4" HorizontalAlignment="Stretch" ResizeDirection="Rows" ResizeBehavior="PreviousAndNext" Background="{DynamicResource GeneralBackground}"/>
 
-            <StackPanel x:Name="StackPanelCurrentSongInformation" Grid.Row="3" Grid.Column="2" Orientation="Horizontal" Background="{StaticResource PrimaryBackground}">
+            <StackPanel x:Name="StackPanelCurrentSongInformation" Grid.Row="3" Grid.Column="2" Orientation="Horizontal" Background="{DynamicResource PrimaryBackground}">
                 <Button x:Name="ButtonPlay" Width="80" Click="ButtonPlay_OnClick" Background="{x:Null}" Template="{DynamicResource ButtonBaseControlTemplate1}">
                     <Button.Resources>
                         <ControlTemplate x:Key="ButtonBaseControlTemplate1" TargetType="{x:Type ButtonBase}">
@@ -218,8 +219,8 @@
                     <Button Grid.Row="1" Content="Restart" x:Name="ButtonRestart" Click="ButtonRestart_OnClick"></Button>
                 </Grid>
                 <StackPanel Orientation="Vertical" Margin="10,0">
-                    <Label x:Name="LabelSongTitle" VerticalAlignment="Center" Content="Current Song Information" Foreground="{StaticResource PrimaryForeground}"/>
-                    <ProgressBar x:Name="ProgressBarTrack" Width="400" Height="15" MouseDown="ProgressBarTrack_MouseDown" Foreground="{StaticResource ProgressBarSound}"/>
+                    <Label x:Name="LabelSongTitle" VerticalAlignment="Center" Content="Current Song Information" Foreground="{DynamicResource PrimaryForeground}"/>
+                    <ProgressBar x:Name="ProgressBarTrack" Width="400" Height="15" MouseDown="ProgressBarTrack_MouseDown" Foreground="{DynamicResource ProgressBarSound}"/>
                 </StackPanel>
             </StackPanel>
         </Grid>

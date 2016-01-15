@@ -1,10 +1,11 @@
-﻿<UserControl x:Class="MySoundLib.UserControls.List.UserControlSongs"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MySoundLib.UserControls.List"
              xmlns:main="clr-namespace:MySoundLib.Windows"
+             x:Class="MySoundLib.UserControls.List.UserControlSongs"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -16,39 +17,39 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource CurrentHeader}">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{DynamicResource CurrentHeader}">
             <Label Content="Songs" Style="{StaticResource StyleInfoHeader}" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                <Button x:Name="ButtonAddNewSong" Content="add" Height="23" Width="Auto" Margin="20,13,0,7" Click="ButtonAddNewSong_Click" Style="{StaticResource ButtonStyle1}"/>
-                <Button x:Name="ButtonPlaySong" Visibility="Collapsed" Content="play" Height="23" Width="Auto" Margin="20,13,0,7" Click="ButtonPlaySong_Click" Style="{StaticResource ButtonStyle1}"/>
-                <Button x:Name="ButtonEditSong" Visibility="Collapsed" Content="edit" Height="23" Width="Auto" Margin="20,13,0,7" Click="ButtonEditSong_Click"  Style="{StaticResource ButtonStyle1}"/>
-                <Button x:Name="ButtonDeleteSong" Visibility="Collapsed" Content="delete" Height="23" Width="Auto" Margin="20,13,0,7" Click="ButtonDeleteSong_Click" Style="{StaticResource ButtonStyle1}"/>
+                <Button x:Name="ButtonAddNewSong" Content="add" Height="23" Width="Auto" Margin="20,13,0,7" Click="ButtonAddNewSong_Click" Style="{DynamicResource ButtonStyle1}"/>
+                <Button x:Name="ButtonPlaySong" Visibility="Collapsed" Content="play" Height="23" Width="Auto" Margin="20,13,0,7" Click="ButtonPlaySong_Click" Style="{DynamicResource ButtonStyle1}"/>
+                <Button x:Name="ButtonEditSong" Visibility="Collapsed" Content="edit" Height="23" Width="Auto" Margin="20,13,0,7" Click="ButtonEditSong_Click"  Style="{DynamicResource ButtonStyle1}"/>
+                <Button x:Name="ButtonDeleteSong" Visibility="Collapsed" Content="delete" Height="23" Width="Auto" Margin="20,13,0,7" Click="ButtonDeleteSong_Click" Style="{DynamicResource ButtonStyle1}"/>
             </StackPanel>
         </StackPanel>
 
-        <DataGrid Grid.Row="1" x:Name="DataGridSongs" Style="{StaticResource DataGridListStyle}" AutoGenerateColumns="False" SelectionChanged="DataGridSongs_SelectionChanged" LoadingRow="DataGridSongs_LoadingRow" VerticalGridLinesBrush="#FF010922">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding song_title}" Header="Title" ElementStyle="{StaticResource FirstColumnStyle}" Width="*" MinWidth="200" />
-                <DataGridTextColumn Binding="{Binding artist_name}" Header="Artist" ElementStyle="{StaticResource AnyColumnStyle}" Width="Auto" />
-                <DataGridTextColumn Binding="{Binding album_name}" Header="Album" ElementStyle="{StaticResource AnyColumnStyle}"  Width="Auto" />
-                <DataGridTextColumn Binding="{Binding genre_name}" Header="Genre" ElementStyle="{StaticResource AnyColumnStyle}"  Width="Auto" />
-                <DataGridTextColumn Binding="{Binding Path=length, Converter={StaticResource TimeConverter}}" Header="Length" ElementStyle="{StaticResource AnyColumnStyle}" Width="Auto" MinWidth="60" MaxWidth="120"/>
-            </DataGrid.Columns>
+        <DataGrid Grid.Row="1" x:Name="DataGridSongs" Style="{DynamicResource DataGridListStyle}" AutoGenerateColumns="False" SelectionChanged="DataGridSongs_SelectionChanged" LoadingRow="DataGridSongs_LoadingRow" VerticalGridLinesBrush="#FF010922">
             <DataGrid.Resources>
-                <Style TargetType="DataGridRow">
-                    <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_DoubleClick"></EventSetter>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <EventSetter Event="Control.MouseDoubleClick" Handler="DataGridRow_DoubleClick"/>
                 </Style>
                 <Style TargetType="{x:Type DataGridCell}">
                     <Setter Property="Foreground" Value="Black" />
-                    <EventSetter Event="MouseEnter" Handler="DataGridCell_MouseEnter" />
+                    <EventSetter Event="UIElement.MouseEnter" Handler="DataGridCell_MouseEnter" />
                     <Style.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="{StaticResource SelectedItem}" />
-                            <Setter Property="BorderBrush" Value="{StaticResource SelectedItem}" />
+                            <Setter Property="Background" Value="{DynamicResource SelectedItem}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource SelectedItem}" />
                         </Trigger>
                     </Style.Triggers>
                 </Style>
             </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding song_title}" Header="Title" ElementStyle="{DynamicResource FirstColumnStyle}" Width="*" MinWidth="200" />
+                <DataGridTextColumn Binding="{Binding artist_name}" Header="Artist" ElementStyle="{DynamicResource AnyColumnStyle}" Width="Auto" />
+                <DataGridTextColumn Binding="{Binding album_name}" Header="Album" ElementStyle="{DynamicResource AnyColumnStyle}"  Width="Auto" />
+                <DataGridTextColumn Binding="{Binding genre_name}" Header="Genre" ElementStyle="{StaticResource AnyColumnStyle}"  Width="Auto" />
+                <DataGridTextColumn Binding="{Binding length, Converter={StaticResource TimeConverter}}" Header="Length" ElementStyle="{DynamicResource AnyColumnStyle}" Width="Auto" MinWidth="60" MaxWidth="120"/>
+            </DataGrid.Columns>
         </DataGrid>
     </Grid>
 </UserControl>

@@ -2,76 +2,122 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:MySoundLib"
-             StartupUri="Windows/MainWindow.xaml">
+             StartupUri="Windows/MainWindow.xaml"
+             Startup="Application_Startup"
+             xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
     <Application.Resources>
-        <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
-            <Setter Property="FontSize" Value="15" />
-            <Setter Property="FontFamily" Value="Segoe UI" />
-        </Style>
-        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}" />
-        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}" />
-        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource BaseStyle}" />
-        <Style x:Key="StyleInfoHeader" TargetType="{x:Type Label}">
-            <Setter Property="FontSize" Value="24" />
-            <Setter Property="FontWeight" Value="DemiBold" />
-        </Style>
-        <!-- Background of selected item -->
-        <Color x:Key="SelectedColor">#3232C1</Color>
-        <!-- Hoover over selectable items -->
-        <Color x:Key="HooverColor">#5900B2</Color>
-        <!-- Background of current header -->
-        <SolidColorBrush x:Key="CurrentHeader">#C1C1EC</SolidColorBrush>
-        <!-- Hoover over selectable items ( other DataType, used for adding a playlist )-->
-        <SolidColorBrush x:Key="HooverBackground">#5900B2</SolidColorBrush>
-        <!-- Most used background color -->
-        <SolidColorBrush x:Key="PrimaryBackground">#0000B2</SolidColorBrush>
-        <!-- Text color which texts with the PrimaryBackground have -->
-        <SolidColorBrush x:Key="PrimaryForeground">White</SolidColorBrush>
-        <!-- ProgressBar color for currently playing song -->
-        <SolidColorBrush x:Key="ProgressBarSound">#dbb4a8</SolidColorBrush>
-        <!-- Alternating row background for lists -->
-        <SolidColorBrush x:Key="AlternatingRow">#CCCCFF</SolidColorBrush>
-        <!-- Other alternating row background -->
-        <SolidColorBrush x:Key="RowBackground">#e5e5ff</SolidColorBrush>
-        <!-- Color for general background -->
-        <SolidColorBrush x:Key="GeneralBackground">#F5F5FF</SolidColorBrush>
-        <!-- Color for selected list-item -->
-        <SolidColorBrush x:Key="SelectedItem">#30ACFF</SolidColorBrush>
-        <!-- Color for recently added item -->
-        <SolidColorBrush x:Key="RecentlyAddedItem">#B2B2FF</SolidColorBrush>
-        <!-- Color for currently playing item -->
-        <SolidColorBrush x:Key="CurrentlyPlaying">BurlyWood</SolidColorBrush>
-        <!-- Background color for some buttons -->
-        <SolidColorBrush x:Key="ButtonBackground">#A9ACAD</SolidColorBrush>
-        
-        <!-- Styles for controls -->
-        <Style x:Key="DataGridListStyle" TargetType="{x:Type DataGrid}">
-            <Setter Property="RowBackground" Value="{StaticResource RowBackground}" />
-            <Setter Property="AlternatingRowBackground" Value="{StaticResource AlternatingRow}" />
-            <Setter Property="Background" Value="{StaticResource GeneralBackground}" />
-            <Setter Property="FontSize" Value="15" />
-            <Setter Property="HeadersVisibility" Value="Column" />
-            <Setter Property="IsReadOnly" Value="True" />
-            <Setter Property="GridLinesVisibility" Value="Vertical" />
-        </Style>
-        <Style TargetType="{x:Type DataGridCell}">
-            <Setter Property="Foreground" Value="Black" />
-            <Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="{StaticResource SelectedItem}" />
-                    <Setter Property="BorderBrush" Value="{StaticResource SelectedItem}" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="{x:Type TextBlock}" x:Key="FirstColumnStyle">
-            <Setter Property="Margin" Value="5,2,17,2" />
-        </Style>
-        <Style TargetType="{x:Type TextBlock}" x:Key="AnyColumnStyle">
-            <Setter Property="Margin" Value="7,2" />
-        </Style>
-        <Style TargetType="{x:Type Button}" x:Key="ButtonStyle1">
-            <Setter Property="Background" Value="{StaticResource ButtonBackground}" />
-            <Setter Property="Padding" Value="9,0" />
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MySoundLib;component/Themes/Blue.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <!-- Styles for all controls -->
+            <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="FontFamily" Value="Segoe UI" />
+            </Style>
+            <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}" />
+            <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource BaseStyle}" />
+            <Style x:Key="StyleInfoHeader" TargetType="{x:Type Label}">
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="FontWeight" Value="DemiBold" />
+            </Style>
+            <Style x:Key="DataGridListStyle" TargetType="{x:Type DataGrid}">
+                <Setter Property="RowBackground" Value="{DynamicResource RowBackground}" />
+                <Setter Property="AlternatingRowBackground" Value="{DynamicResource AlternatingRow}" />
+                <Setter Property="Background" Value="{DynamicResource GeneralBackground}" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="HeadersVisibility" Value="Column" />
+                <Setter Property="IsReadOnly" Value="True" />
+                <Setter Property="GridLinesVisibility" Value="Vertical" />
+                <Setter Property="ColumnHeaderStyle" Value="{DynamicResource DataGridColumnHeaderStyle1}" />
+            </Style>
+            <Style TargetType="{x:Type DataGridCell}">
+                <Setter Property="Foreground" Value="Black" />
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource SelectedItem}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource SelectedItem}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type TextBlock}" x:Key="FirstColumnStyle">
+                <Setter Property="Margin" Value="5,2,17,2" />
+            </Style>
+            <Style TargetType="{x:Type TextBlock}" x:Key="AnyColumnStyle">
+                <Setter Property="Margin" Value="7,2" />
+            </Style>
+            <!-- Style for play, edit, rename, play ... -->
+            <Style TargetType="{x:Type Button}" x:Key="ButtonStyle1">
+                <Setter Property="Background" Value="{DynamicResource ButtonBackground}" />
+                <Setter Property="Padding" Value="9,0" />
+                <Setter Property="FontSize" Value="15" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource PrimaryBackground}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="ColumnHeaderGripperStyle" TargetType="{x:Type Thumb}">
+                <Setter Property="Width" Value="8"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Cursor" Value="SizeWE"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Thumb}">
+                            <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="DataGridColumnHeaderStyle1" TargetType="{x:Type DataGridColumnHeader}">
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Background" Value="Azure" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                            <Grid Name="HedearGrid" Background="#F0F8FF" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Border x:Name="BackgroundBorder" BorderThickness="0,0,1,1" BorderBrush="Black" Grid.ColumnSpan="2" />
+                                <ContentPresenter  Margin="6,3,6,3" VerticalAlignment="Center" Grid.Column="0" />
+                                <Path x:Name="SortArrow" Visibility="Collapsed" Data="M0,0 L1,0 0.5,1 z" Stretch="Fill" 
+                                      Grid.Column="1" Width="8" Height="6" Fill="{DynamicResource PrimaryBackground}" Margin="0,0,8,0" 
+                                      VerticalAlignment="Center" RenderTransformOrigin="0.5,0.4" />
+                                <Thumb x:Name="PART_RightHeaderGripper" HorizontalAlignment="Right" Cursor="SizeWE" Grid.Column="1" >
+                                    <Thumb.Style>
+                                        <Style TargetType="{x:Type Thumb}">
+                                            <Setter Property="Width" Value="2" />
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Thumb}">
+                                                        <Border Background="Transparent"/>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Thumb.Style>
+                                </Thumb>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="SortDirection" Value="Ascending">
+                                    <Setter TargetName="SortArrow" Property="Visibility" Value="Visible" />
+                                    <Setter TargetName="SortArrow" Property="RenderTransform">
+                                        <Setter.Value>
+                                            <RotateTransform Angle="180" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                                <Trigger Property="SortDirection" Value="Descending">
+                                    <Setter TargetName="SortArrow" Property="Visibility" Value="Visible" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

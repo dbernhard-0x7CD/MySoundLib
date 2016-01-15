@@ -30,7 +30,6 @@ namespace MySoundLib.Windows
         public MainWindow()
         {
             // connect  to database if autoconnect is active
-            Settings.LoadSettings();
             if (Settings.Contains(Property.AutoConnect) && Settings.Contains(Property.LastServer) &&
                 Settings.Contains(Property.LastUser))
             {
@@ -127,7 +126,8 @@ namespace MySoundLib.Windows
 
         private void MenuItemSettings_OnClick(object sender, RoutedEventArgs e)
         {
-
+            var settingsWindow = new WindowSettings();
+            settingsWindow.ShowDialog();
         }
 
         private void MenuItemAbout_OnClick(object sender, RoutedEventArgs e)

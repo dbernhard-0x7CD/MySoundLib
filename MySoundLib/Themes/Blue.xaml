@@ -1,0 +1,30 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<!-- Background of selected item -->
+	<Color x:Key="SelectedColor">#3232C1</Color>
+	<!-- Background of current header-->
+	<SolidColorBrush x:Key="CurrentHeader">#C1C1EC</SolidColorBrush>
+	<!-- Hoover over selectable items -->
+	<Color x:Key="HooverColor">#5900B2</Color>
+	<SolidColorBrush x:Key="HooverBackground">#5900B2</SolidColorBrush>
+	<!-- Most used background color -->
+	<SolidColorBrush x:Key="PrimaryBackground">#0000B2</SolidColorBrush>
+	<!-- Text color which texts with the PrimaryBackground have-->
+	<SolidColorBrush x:Key="PrimaryForeground">White</SolidColorBrush>
+	<!-- ProgressBar color for currently playing song-->
+	<SolidColorBrush x:Key="ProgressBarSound">#43a5c0</SolidColorBrush>
+	<!-- Alternating row background for lists-->
+	<SolidColorBrush x:Key="AlternatingRow">#CCCCFF</SolidColorBrush>
+	<!-- Other alternating row background -->
+	<SolidColorBrush x:Key="RowBackground">#e5e5ff</SolidColorBrush>
+	<!-- Color for general background-->
+	<SolidColorBrush x:Key="GeneralBackground">#e5e5ff</SolidColorBrush>
+	<!-- Color for selected item -->
+	<SolidColorBrush x:Key="SelectedItem">#30ACFF</SolidColorBrush>
+	<!-- Color for recently added item-->
+	<SolidColorBrush x:Key="RecentlyAddedItem">#B2B2FF</SolidColorBrush>
+	<!-- Color for currently playing item -->
+	<SolidColorBrush x:Key="CurrentlyPlaying">#43a5c0</SolidColorBrush>
+	<!-- Background color for some buttons -->
+	<SolidColorBrush x:Key="ButtonBackground">#97cddc</SolidColorBrush>
+</ResourceDictionary>

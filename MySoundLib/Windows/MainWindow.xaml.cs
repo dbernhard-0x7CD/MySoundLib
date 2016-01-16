@@ -153,26 +153,32 @@ namespace MySoundLib.Windows
 
         private void ListBoxItemSongs_OnSelected(object sender, RoutedEventArgs e)
         {
-            GridContent.Children.Clear();
+            ResetPlaylistList();
             GridContent.Children.Add(new UserControlSongs(this));
         }
 
         private void ListBoxItemAlbums_OnSelected(object sender, RoutedEventArgs e)
         {
-            GridContent.Children.Clear();
+            ResetPlaylistList();
             GridContent.Children.Add(new UserControlAlbums(this));
         }
 
         private void ListBoxItemArtists_OnSelected(object sender, RoutedEventArgs e)
         {
-            GridContent.Children.Clear();
+            ResetPlaylistList();
             GridContent.Children.Add(new UserControlArtists(this));
         }
 
         private void ListBoxItemGenres_OnSelected(object sender, RoutedEventArgs e)
         {
-            GridContent.Children.Clear();
+            ResetPlaylistList();
             GridContent.Children.Add(new UserControlGenres(this));
+        }
+
+        private void ResetPlaylistList()
+        {
+            ListBoxPlaylists.SelectedIndex = -1;
+            GridContent.Children.Clear();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -363,6 +369,7 @@ namespace MySoundLib.Windows
         private void ListBox_Selected(object sender, RoutedEventArgs e)
         {
             GridContent.Children.Clear();
+            ListBoxCategory.SelectedIndex = -1;
 
             var item = (sender as ListBoxItem).Content;
 

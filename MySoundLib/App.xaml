@@ -30,6 +30,7 @@
                 <Setter Property="IsReadOnly" Value="True" />
                 <Setter Property="GridLinesVisibility" Value="Vertical" />
                 <Setter Property="ColumnHeaderStyle" Value="{DynamicResource DataGridColumnHeaderStyle1}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBackground}" />
             </Style>
             <Style TargetType="{x:Type DataGridCell}">
                 <Setter Property="Foreground" Value="Black" />

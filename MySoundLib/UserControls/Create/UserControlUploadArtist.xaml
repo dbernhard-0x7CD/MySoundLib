@@ -5,15 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MySoundLib.UserControls.Create"
              mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="300" Loaded="UserControl_Loaded">
-    <Grid Background="{StaticResource GeneralBackground}">
+    <Grid Background="{DynamicResource GeneralBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource CurrentHeader}">
-            <Label x:Name="LabelHeaderTitle" Grid.Row="0" Content="Add new artist" Style="{StaticResource StyleInfoHeader}" />
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{DynamicResource CurrentHeader}">
+            <Label x:Name="LabelHeaderTitle" Grid.Row="0" Content="Add new artist" Style="{DynamicResource StyleInfoHeader}" />
         </StackPanel>
 
         <Grid Grid.Row="1" Margin="0,5,0,0">

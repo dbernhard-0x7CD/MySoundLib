@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MySoundLib.UserControls.Create"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="700">
-    <Grid Background="{StaticResource GeneralBackground}">
+    <Grid Background="{DynamicResource GeneralBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -14,8 +14,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource CurrentHeader}">
-            <Label x:Name="LabelHeaderTitle" Grid.Row="0" Content="Create playlist" Style="{StaticResource StyleInfoHeader}" />
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{DynamicResource CurrentHeader}">
+            <Label x:Name="LabelHeaderTitle" Grid.Row="0" Content="Create playlist" Style="{DynamicResource StyleInfoHeader}" />
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,-1">
@@ -26,12 +26,12 @@
         </StackPanel>
 
         <Grid Grid.Row="2" Margin="0,5,0,0">
-            <DataGrid Grid.Row="1" x:Name="DataGridSongs" Style="{StaticResource DataGridListStyle}" SelectionMode="Extended" AutoGenerateColumns="False" VerticalGridLinesBrush="#FF010922">
+            <DataGrid Grid.Row="1" x:Name="DataGridSongs" Style="{DynamicResource DataGridListStyle}" SelectionMode="Extended" AutoGenerateColumns="False" VerticalGridLinesBrush="#FF010922">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding song_title}" Header="Title" ElementStyle="{StaticResource FirstColumnStyle}" Width="*" MinWidth="200" />
-                    <DataGridTextColumn Binding="{Binding artist_name}" Header="Artist" ElementStyle="{StaticResource AnyColumnStyle}" Width="Auto" />
-                    <DataGridTextColumn Binding="{Binding album_name}" Header="Album" ElementStyle="{StaticResource AnyColumnStyle}"  Width="Auto" />
-                    <DataGridTextColumn Binding="{Binding genre_name}" Header="Genre" ElementStyle="{StaticResource AnyColumnStyle}"  Width="Auto" />
+                    <DataGridTextColumn Binding="{Binding song_title}" Header="Title" ElementStyle="{DynamicResource FirstColumnStyle}" Width="*" MinWidth="200" />
+                    <DataGridTextColumn Binding="{Binding artist_name}" Header="Artist" ElementStyle="{DynamicResource AnyColumnStyle}" Width="Auto" />
+                    <DataGridTextColumn Binding="{Binding album_name}" Header="Album" ElementStyle="{DynamicResource AnyColumnStyle}"  Width="Auto" />
+                    <DataGridTextColumn Binding="{Binding genre_name}" Header="Genre" ElementStyle="{DynamicResource AnyColumnStyle}"  Width="Auto" />
                 </DataGrid.Columns>
                 <DataGrid.RowStyle>
                     <Style TargetType="{x:Type DataGridRow}">

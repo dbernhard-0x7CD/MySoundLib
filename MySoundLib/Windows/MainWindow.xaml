@@ -215,8 +215,8 @@
                         <RowDefinition Height="*" MaxHeight="40"></RowDefinition>
                         <RowDefinition Height="*" MaxHeight="40"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Button Grid.Row="0" Content="Mute" x:Name="ButtonMute" Click="ButtonMute_OnClick"></Button>
-                    <Button Grid.Row="1" Content="Restart" x:Name="ButtonRestart" Click="ButtonRestart_OnClick"></Button>
+                    <Button Grid.Row="0" Content="Mute" x:Name="ButtonMute" Click="ButtonMute_OnClick" Style="{DynamicResource ButtonControlStyle}"></Button>
+                    <Button Grid.Row="1" Content="Restart" x:Name="ButtonRestart" Click="ButtonRestart_OnClick" Style="{DynamicResource ButtonControlStyle}"></Button>
                 </Grid>
                 <StackPanel Orientation="Vertical" Margin="10,0">
                     <Label x:Name="LabelSongTitle" VerticalAlignment="Center" Content="Current Song Information" Foreground="{DynamicResource PrimaryForeground}"/>

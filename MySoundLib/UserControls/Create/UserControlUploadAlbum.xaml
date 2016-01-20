@@ -6,15 +6,15 @@
              xmlns:local="clr-namespace:MySoundLib.UserControls.Create"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" Loaded="UserControl_Loaded">
-    <Grid Background="{StaticResource GeneralBackground}">
+    <Grid Background="{DynamicResource GeneralBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource CurrentHeader}">
-            <Label x:Name="LabelHeaderTitle" Grid.Row="0" Content="Add new album" Style="{StaticResource StyleInfoHeader}" />
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{DynamicResource CurrentHeader}">
+            <Label x:Name="LabelHeaderTitle" Grid.Row="0" Content="Add new album" Style="{DynamicResource StyleInfoHeader}" />
         </StackPanel>
 
         <Grid Grid.Row="1" Margin="0,5,0,0">

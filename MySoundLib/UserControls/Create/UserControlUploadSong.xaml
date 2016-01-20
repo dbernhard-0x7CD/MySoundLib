@@ -5,15 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MySoundLib.UserControls.Create"
              mc:Ignorable="d" Loaded="UserControl_Loaded" d:DesignWidth="600" d:DesignHeight="400">
-    <Grid Background="{StaticResource GeneralBackground}">
+    <Grid Background="{DynamicResource GeneralBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource CurrentHeader}">
-            <Label x:Name="LabelHeaderTitle" Grid.Row="0" Content="Add new song" Style="{StaticResource StyleInfoHeader}" />
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{DynamicResource CurrentHeader}">
+            <Label x:Name="LabelHeaderTitle" Grid.Row="0" Content="Add new song" Style="{DynamicResource StyleInfoHeader}" />
         </StackPanel>
 
         <Grid Grid.Row="1" Margin="0,5,0,0">
@@ -48,20 +48,20 @@
 
             <Label Grid.Row="2" Grid.Column="0" Content="Artist" />
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
-                <ComboBox x:Name="ComboBoxArtist" Style="{StaticResource ComboBoxStyle}" DisplayMemberPath="artist_name" SelectedValuePath="artist_id" TabIndex="3" />
+                <ComboBox x:Name="ComboBoxArtist" Style="{DynamicResource ComboBoxStyle}" DisplayMemberPath="artist_name" SelectedValuePath="artist_id" TabIndex="3" />
                 <Button x:Name="ButtonAddArtist" Content="+" Background="{x:Null}" BorderBrush="{x:Null}" Margin="7,0,0,0" Click="ButtonAddArtist_OnClick" />
             </StackPanel>
 
             <Label Grid.Row="3" Grid.Column="0" Content="Album" />
 
             <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
-                <ComboBox x:Name="ComboBoxAlbum" Style="{StaticResource ComboBoxStyle}" DisplayMemberPath="album_name" SelectedValuePath="album_id" TabIndex="4"/>
+                <ComboBox x:Name="ComboBoxAlbum" Style="{DynamicResource ComboBoxStyle}" DisplayMemberPath="album_name" SelectedValuePath="album_id" TabIndex="4"/>
                 <Button x:Name="ButtonAddAlbum" Content="+" Background="{x:Null}" BorderBrush="{x:Null}" Margin="7,0,0,0" Click="ButtonAddAlbum_OnClick" />
             </StackPanel>
 
             <Label Grid.Row="4" Grid.Column="0" Content="Genre" />
             <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
-                <ComboBox x:Name="ComboBoxGenre" Style="{StaticResource ComboBoxStyle}" DisplayMemberPath="genre_name" SelectedValuePath="genre_id" TabIndex="5"/>
+                <ComboBox x:Name="ComboBoxGenre" Style="{DynamicResource ComboBoxStyle}" DisplayMemberPath="genre_name" SelectedValuePath="genre_id" TabIndex="5"/>
                 <Button x:Name="ButtonAddGenre" Content="+" Background="{x:Null}" BorderBrush="{x:Null}" Margin="7,0,0,0" Click="ButtonAddGenre_OnClick" />
             </StackPanel>
 

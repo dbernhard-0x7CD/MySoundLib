@@ -195,5 +195,17 @@ namespace MySoundLib.UserControls.List
                 cell.Cursor = Cursors.Arrow;
             }
         }
+
+        private void TextBoxSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var searchTerm = TextBoxSearch.Text.ToLower();
+
+            var dataView = DataGridSongs.ItemsSource as DataView;
+
+            if (dataView != null)
+            {
+                dataView.RowFilter = $"song_title like '%{searchTerm}%' OR artist_name like '%{searchTerm}%' OR genre_name like '%{searchTerm}%' OR album_name like '%{searchTerm}%'";
+            }
+        }
     }
 }

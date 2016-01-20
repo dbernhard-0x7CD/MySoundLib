@@ -17,7 +17,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{DynamicResource CurrentHeader}">
+        <DockPanel Grid.Row="0" Background="{DynamicResource CurrentHeader}">
             <Label Content="Songs" Style="{StaticResource StyleInfoHeader}" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                 <Button x:Name="ButtonAddNewSong" Content="add" Height="23" Width="Auto" Margin="20,13,0,7" Click="ButtonAddNewSong_Click" Style="{DynamicResource ButtonStyle1}"/>
@@ -25,7 +25,12 @@
                 <Button x:Name="ButtonEditSong" Visibility="Collapsed" Content="edit" Height="23" Width="Auto" Margin="20,13,0,7" Click="ButtonEditSong_Click"  Style="{DynamicResource ButtonStyle1}"/>
                 <Button x:Name="ButtonDeleteSong" Visibility="Collapsed" Content="delete" Height="23" Width="Auto" Margin="20,13,0,7" Click="ButtonDeleteSong_Click" Style="{DynamicResource ButtonStyle1}"/>
             </StackPanel>
-        </StackPanel>
+
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Label Content="Search:" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <TextBox x:Name="TextBoxSearch" MinWidth="180" Width="Auto" Height="28" Background="{DynamicResource GeneralBackground}" Margin="5,0" TextChanged="TextBoxSearch_TextChanged" FontSize="16"/>
+            </StackPanel>
+        </DockPanel>
 
         <DataGrid Grid.Row="1" x:Name="DataGridSongs" Style="{DynamicResource DataGridListStyle}" AutoGenerateColumns="False" SelectionChanged="DataGridSongs_SelectionChanged" LoadingRow="DataGridSongs_LoadingRow" VerticalGridLinesBrush="#FF010922">
             <DataGrid.Resources>

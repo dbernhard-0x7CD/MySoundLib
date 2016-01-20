@@ -100,6 +100,7 @@
     </ApplicationDefinition>
     <Compile Include="CommandFactory.cs" />
     <Compile Include="Exceptions\DatabaseAccessDeniedExcpetion.cs" />
+    <Compile Include="Playlist.cs" />
     <Compile Include="ServerConnectionManager.cs" />
     <Compile Include="Configuration\Property.cs" />
     <Compile Include="Configuration\Settings.cs" />

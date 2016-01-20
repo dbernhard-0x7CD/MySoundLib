@@ -8,7 +8,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MySoundLib;component/Themes/Blue.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MySoundLib;component/Themes/Red.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <!-- Styles for all controls -->
             <Style TargetType="{x:Type Control}" x:Key="BaseStyle">

@@ -29,4 +29,8 @@
     <SolidColorBrush x:Key="ButtonBackground">#ff5353</SolidColorBrush>
     <!-- Background color column header for all datagrids -->
     <SolidColorBrush x:Key="DataGridColumnHeaderBackground">Red</SolidColorBrush>
+    <!-- Background color for all other important controls -->
+    <SolidColorBrush x:Key="BackgroundControls">#F67E6E</SolidColorBrush>
+    <!-- Border color for all other important controls -->
+    <SolidColorBrush x:Key="BorderControls">Red</SolidColorBrush>
 </ResourceDictionary>

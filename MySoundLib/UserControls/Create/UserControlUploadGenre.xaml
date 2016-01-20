@@ -29,7 +29,7 @@
             <Label Grid.Row="1" Grid.Column="0" Content="Name" />
             <TextBox x:Name="TextBoxName" Grid.Row="1" Grid.Column="1" Height="20" MinWidth="180" Width="Auto" HorizontalAlignment="Left" TabIndex="1" />
         </Grid>
-        <Button x:Name="ButtonCancel" Grid.Row="2" Height="Auto" Width="120" HorizontalAlignment="Right" Content="Cancel" IsCancel="True" Margin="0,8,133,8" Click="ButtonCancel_Click"/>
-        <Button x:Name="ButtonAddGenre" Grid.Row="2" Height="Auto" Width="120" HorizontalAlignment="Right" Content="Add" Margin="8" Click="ButtonAddGenre_Click" IsDefault="True" />
+        <Button x:Name="ButtonCancel" Grid.Row="2" Height="Auto" Width="120" HorizontalAlignment="Right" Content="Cancel" IsCancel="True" Margin="0,8,133,8" Click="ButtonCancel_Click" Style="{DynamicResource ButtonControlStyle}"/>
+        <Button x:Name="ButtonAddGenre" Grid.Row="2" Height="Auto" Width="120" HorizontalAlignment="Right" Content="Add" Margin="8" Click="ButtonAddGenre_Click" IsDefault="True" Style="{DynamicResource ButtonControlStyle}"/>
     </Grid>
 </UserControl>

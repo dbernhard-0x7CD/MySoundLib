@@ -40,7 +40,7 @@
                 </DataGrid.RowStyle>
             </DataGrid>
         </Grid>
-        <Button x:Name="ButtonCancel" Grid.Row="3" Height="Auto" Width="120" HorizontalAlignment="Right" Content="Cancel" IsCancel="True" Margin="0,8,133,8" Click="ButtonCancel_Click"/>
-        <Button x:Name="ButtonAddSong" Grid.Row="3" Height="Auto" Width="120" HorizontalAlignment="Right" Content="Add" Margin="8" IsDefault="True" Click="ButtonAddSong_Click"/>
+        <Button x:Name="ButtonCancel" Grid.Row="3" Height="Auto" Width="120" HorizontalAlignment="Right" Content="Cancel" IsCancel="True" Margin="0,8,133,8" Click="ButtonCancel_Click" Style="{DynamicResource ButtonControlStyle}"/>
+        <Button x:Name="ButtonAddSong" Grid.Row="3" Height="Auto" Width="120" HorizontalAlignment="Right" Content="Add" Margin="8" IsDefault="True" Click="ButtonAddSong_Click" Style="{DynamicResource ButtonControlStyle}"/>
     </Grid>
 </UserControl>

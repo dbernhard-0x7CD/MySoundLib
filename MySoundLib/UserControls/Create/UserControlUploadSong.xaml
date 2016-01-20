@@ -36,18 +36,19 @@
                     <Setter Property="MinWidth" Value="140" />
                     <Setter Property="HorizontalAlignment" Value="Left" />
                     <Setter Property="IsReadOnly" Value="True" />
+                    <Setter Property="Template" Value="{DynamicResource ComboBoxControlTemplate1}" />
                 </Style>
             </Grid.Resources>
 
             <Label Grid.Row="0" Grid.Column="0" Content="File" />
-            <Button x:Name="ButtonSelectFile" Grid.Row="0" Grid.Column="1" Margin="0,2" Width="Auto" Height="Auto" MinWidth="180" Content="Select File" HorizontalAlignment="Left" Click="ButtonSelectFile_Click" TabIndex="1" />
+            <Button x:Name="ButtonSelectFile" Grid.Row="0" Grid.Column="1" Margin="0,2" Width="Auto" Height="Auto" MinWidth="180" Content="Select File" HorizontalAlignment="Left" Click="ButtonSelectFile_Click" TabIndex="1" Style="{DynamicResource ButtonControlStyle}" />
 
             <Label Grid.Row="1" Grid.Column="0" Content="Title" />
             <TextBox x:Name="TextBoxSongTitle" Grid.Row="1" Grid.Column="1" Margin="0,2" Padding="0,1,0,0" MinWidth="180" Width="Auto" HorizontalAlignment="Left" TabIndex="2" FontSize="15"/>
 
             <Label Grid.Row="2" Grid.Column="0" Content="Artist" />
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
-                <ComboBox x:Name="ComboBoxArtist" Style="{StaticResource ComboBoxStyle}" DisplayMemberPath="artist_name" SelectedValuePath="artist_id" TabIndex="3"/>
+                <ComboBox x:Name="ComboBoxArtist" Style="{StaticResource ComboBoxStyle}" DisplayMemberPath="artist_name" SelectedValuePath="artist_id" TabIndex="3" />
                 <Button x:Name="ButtonAddArtist" Content="+" Background="{x:Null}" BorderBrush="{x:Null}" Margin="7,0,0,0" Click="ButtonAddArtist_OnClick" />
             </StackPanel>
 
@@ -67,7 +68,7 @@
             <Label Grid.Row="5" Grid.Column="0" Content="Release Date" />
             <DatePicker x:Name="DatePickerReleased" Grid.Row="5" Grid.Column="1" Margin="0,3,0,0" Width="140" HorizontalAlignment="Left" TabIndex="6" FontSize="14"></DatePicker>
         </Grid>
-        <Button x:Name="ButtonCancel" Grid.Row="2" Height="Auto" Width="120" HorizontalAlignment="Right" Content="Cancel" IsCancel="True" Margin="0,8,133,8" Click="ButtonCancel_Click"/>
-        <Button x:Name="ButtonAddSong" Grid.Row="2" Height="Auto" Width="120" HorizontalAlignment="Right" Content="Add" Margin="8" Click="ButtonAddSong_Click" IsDefault="True" />
+        <Button x:Name="ButtonCancel" Grid.Row="2" Height="Auto" Width="120" HorizontalAlignment="Right" Content="Cancel" IsCancel="True" Margin="0,8,133,8" Click="ButtonCancel_Click"  Style="{DynamicResource ButtonControlStyle}"/>
+        <Button x:Name="ButtonAddSong" Grid.Row="2" Height="Auto" Width="120" HorizontalAlignment="Right" Content="Add" Margin="8" Click="ButtonAddSong_Click" IsDefault="True" Style="{DynamicResource ButtonControlStyle}"/>
     </Grid>
 </UserControl>

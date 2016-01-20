@@ -1,9 +1,10 @@
-﻿<Window x:Class="MySoundLib.WindowSettings"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MySoundLib"
+        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="MySoundLib.WindowSettings"
         mc:Ignorable="d"
         Title="WindowSettings" MinHeight="200" MinWidth="400" Height="245.451" Width="469.575" Icon="/Resources/Icon.ico">
     <Grid Background="{DynamicResource GeneralBackground}">
@@ -58,7 +59,7 @@
                 </Style>
             </GroupBox.Resources>
             <Grid>
-                <ComboBox x:Name="ComboBoxTheme" Height="24" Width="154" HorizontalAlignment="Left" VerticalAlignment="Top" SelectedIndex="0" FontSize="12" SelectionChanged="ComboBoxTheme_SelectionChanged">
+                <ComboBox x:Name="ComboBoxTheme" Height="24" Width="154" HorizontalAlignment="Left" VerticalAlignment="Top" SelectedIndex="0" FontSize="12" SelectionChanged="ComboBoxTheme_SelectionChanged" Template="{DynamicResource ComboBoxControlTemplate1}">
                     <ComboBoxItem Content="Blue"/>
                     <ComboBoxItem Content="Green"/>
                     <ComboBoxItem Content="Red"/>

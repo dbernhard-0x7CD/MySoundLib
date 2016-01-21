@@ -36,7 +36,6 @@
                     <Setter Property="MinWidth" Value="140" />
                     <Setter Property="HorizontalAlignment" Value="Left" />
                     <Setter Property="IsReadOnly" Value="True" />
-                    <Setter Property="Template" Value="{DynamicResource ComboBoxControlTemplate1}" />
                 </Style>
             </Grid.Resources>
 
